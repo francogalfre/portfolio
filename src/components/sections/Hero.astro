@@ -1,0 +1,83 @@
+---
+import Avatar from "../../assets/Avatar.jpg";
+
+import Mail from "../icons/Mail.astro";
+import Github from "../icons/Github.astro";
+import LinkedIn from "../icons/LinkedIn.astro";
+---
+
+<div class="space-y-6">
+  <header class="space-y-6 mb-10">
+    <div class="flex items-center gap-4">
+      <img
+        alt="Avatar of Franco Galfré - Full Stack Web Developer"
+        fetchpriority="high"
+        src={Avatar.src}
+        class="size-14 rounded-full"
+        loading="eager"
+      />
+      <div class="space-y-1">
+        <h1 class="text-xl font-medium tracking-tight">Franco Galfré</h1>
+        <h2 class="text-md text-black/50 dark:text-white/60 tracking-tight">
+          Full Stack Web Developer
+        </h2>
+      </div>
+    </div>
+
+    <div class="flex items-center gap-4">
+      <span
+        aria-label="Estado de disponibilidad laboral"
+        class="px-3 py-1 rounded-full border-1 border-white/20 text-sm text-white/80 flex items-center gap-2"
+      >
+        <div class="size-2 bg-blue-500 rounded-full"></div>
+        Available for job</span
+      >
+      <nav
+        aria-label="Enlaces de contacto y redes sociales"
+        class="flex gap-4 text-white/60"
+      >
+        <a
+          class="hover:scale-105 transition-transform"
+          href="mailto:francogalfre.work@gmail.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Contactar por email a Franco Galfré"><Mail /></a
+        >
+        <a
+          class="hover:scale-105 transition-transform"
+          href="https://www.linkedin.com/in/francogalfre/"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Ver perfil de LinkedIn de Franco Galfré"><LinkedIn /></a
+        >
+        <a
+          class="hover:scale-105 transition-transform"
+          href="https://github.com/francogalfre"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Ver repositorios de GitHub de Franco Galfré"><Github /></a
+        >
+      </nav>
+    </div>
+  </header>
+
+  <p
+    class="text-pretty text-black/50 dark:text-white/50 text-md leading-6 prose"
+  >
+    I'm a <span class="highlight">Software Engineering Student</span> and <span
+      class="highlight">Full Stack Developer</span
+    >. Focused on creating intuitive and performant web experiences with <span
+      class="highlight">Next.js</span
+    >
+    and <span class="highlight">Node.js</span>. I use <span class="highlight"
+      >TypeScript</span
+    > to ensure robust and scalable code.
+  </p>
+</div>
+
+<style>
+  .highlight {
+    color: white;
+    opacity: 0.6;
+  }
+</style>

@@ -9,6 +9,12 @@
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^5.12.8"
+    "@fontsource/geist-sans": "^5.2.5",
+    "@tailwindcss/vite": "^4.1.11",
+    "astro": "^5.12.8",
+    "tailwindcss": "^4.1.11"
+  },
+  "devDependencies": {
+    "@tailwindcss/typography": "^0.5.16"
   }
 }
