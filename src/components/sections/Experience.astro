@@ -1,0 +1,34 @@
+---
+import Briefcase from "../icons/Briefcase.astro";
+
+import { experiences } from "../../data/experience";
+---
+
+<div class="space-y-6">
+  <header class="flex items-center justify-start gap-2 opacity-90">
+    <Briefcase />
+    <h2 class="text-lg">Work experience</h2>
+  </header>
+  <main>
+    <ul>
+      {
+        experiences.map((experience) => (
+          <li class="space-y-6">
+            <div>
+              <div class="space-y-1">
+                <p class="text-md">{experience.company}</p>
+                <h2 class="text-xl font-medium">{experience.role}</h2>
+              </div>
+              <p class="pt-2 text-white/50">
+                {experience.startDate} - {experience.endDAte}
+              </p>
+            </div>
+            <p class="prose text-pretty leading-6 text-white/50">
+              {experience.summary}
+            </p>
+          </li>
+        ))
+      }
+    </ul>
+  </main>
+</div>

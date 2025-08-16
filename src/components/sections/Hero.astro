@@ -1,5 +1,7 @@
 ---
-import Avatar from "../../assets/Avatar.jpg";
+import Avatar from "../../assets/avatar.webp";
+
+import { Image } from "astro:assets";
 
 import Mail from "../icons/Mail.astro";
 import Github from "../icons/Github.astro";
@@ -9,11 +11,11 @@ import LinkedIn from "../icons/LinkedIn.astro";
 <div class="space-y-6">
   <header class="space-y-6 mb-10">
     <div class="flex items-center gap-4">
-      <img
+      <Image
         alt="Avatar of Franco Galfré - Full Stack Web Developer"
         fetchpriority="high"
-        src={Avatar.src}
-        class="size-14 rounded-full"
+        src={Avatar}
+        class="size-15 rounded-full"
         loading="eager"
       />
       <div class="space-y-1">

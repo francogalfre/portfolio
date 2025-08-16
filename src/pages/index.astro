@@ -1,6 +1,8 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 
+import SectionContainer from "../components/ui/SectionContainer.astro";
+
 import Hero from "../components/sections/Hero.astro";
 import Experience from "../components/sections/Experience.astro";
 import Projects from "../components/sections/Projects.astro";
@@ -10,9 +12,19 @@ import Projects from "../components/sections/Projects.astro";
   title="Franco Galfré Portfolio - Developer & Programmer Web"
   description=""
 >
-  <section
+  <SectionContainer id="hero">
+    <Hero />
+  </SectionContainer>
+  <SectionContainer
+    id="experience"
     class="scroll-m-20 w-full mx-auto container lg:max-w-3xl md:max-w-2xl"
   >
-    <Hero />
-  </section>
+    <Experience />
+  </SectionContainer>
+  <SectionContainer
+    id="projects"
+    class="scroll-m-20 w-full mx-auto container lg:max-w-3xl md:max-w-2xl"
+  >
+    <Projects />
+  </SectionContainer>
 </BaseLayout>

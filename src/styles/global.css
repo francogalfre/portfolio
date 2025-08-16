@@ -21,10 +21,18 @@ body {
   flex-direction: column;
   gap: 6rem;
   min-height: 100vh;
+  background-color: #09090b;
+
+  scrollbar-width: none;
 }
 
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
   }
+}
+
+::-webkit-scrollbar {
+  width: 0;
+  background: transparent;
 }

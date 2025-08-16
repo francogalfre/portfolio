@@ -1,0 +1,13 @@
+---
+import Code from "../icons/Code.astro";
+import ProjectCard from "../ui/ProjectCard";
+---
+
+<div>
+  <header class="flex items-center justify-start gap-2 opacity-90">
+    <Code />
+    <h2 class="text-lg">Projects</h2>
+  </header>
+
+  <ProjectCard client:load />
+</div>
