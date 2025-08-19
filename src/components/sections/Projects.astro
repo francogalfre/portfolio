@@ -1,11 +1,12 @@
 ---
-import { primaryProjects, projects } from "../../data/projects";
+import { primaryProjects } from "../../data/projects";
 
 import CodeIcon from "../icons/Code.astro";
 import GithubIcon from "../icons/Github.astro";
 
 import ProjectCard from "../ui/ProjectCard.tsx";
-import TagsList from "../ui/TagsList.tsx";
+
+import MoreProjectsSection from "./MoreProjects.astro";
 ---
 
 <div class="space-y-6">
@@ -32,42 +33,7 @@ import TagsList from "../ui/TagsList.tsx";
         ))
       }
     </div>
-    <div class="flex flex-col gap-8">
-      {
-        projects.map((project) => (
-          <article class="flex gap-4 w-full">
-            <div class="aspect-video overflow-hidden rounded-xl h-48 max-w-lg w-full flex-4">
-              <a
-                href={
-                  project.href.length > 0 ? project.href : project.repository
-                }
-              >
-                <img
-                  src={project.image}
-                  alt={`Mockup, Captura de Pantalla del Proyecto ${project.title}`}
-                  class="w-full h-full cursor-pointer object-cover object-top scale-105 hover:scale-100 duration-700 transition-transform shadow-none"
-                />
-              </a>
-            </div>
-
-            <div class="flex flex-col justify-between flex-5">
-              <div class="space-y-3">
-                <h2 class="text-xl">{project.title}</h2>
-                <TagsList tags={project.tags} client:visible />
-              </div>
-              <p class="text-white/50  text-sm leading-relaxed prose">
-                {project.description}
-              </p>
-
-              <div class="flex items-center space-x-6">
-                <a href={project.href}>Preview</a>
-                <a href={project.repository}>Code</a>
-              </div>
-            </div>
-          </article>
-        ))
-      }
-    </div>
+    <MoreProjectsSection />
   </main>
 
   <footer class="flex items-center justify-center pt-16">
