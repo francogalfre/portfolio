@@ -259,14 +259,14 @@ export type MorphingDialogContainerProps = {
 function MorphingDialogContainer({ children }: MorphingDialogContainerProps) {
   const [mounted, setMounted] = useState(false);
 
+  const { isOpen, uniqueId } = useMorphingDialog();
+
   useEffect(() => {
     setMounted(true);
     return () => setMounted(false);
   }, []);
 
   if (!mounted) return null;
-
-  const { isOpen, uniqueId } = useMorphingDialog();
 
   return createPortal(
     <AnimatePresence initial={false} mode="sync">

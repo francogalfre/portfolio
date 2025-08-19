@@ -1,32 +1,82 @@
 ---
-import { primaryProjects } from "../../data/projects";
+import { primaryProjects, projects } from "../../data/projects";
 
-import Code from "../icons/Code.astro";
-import ProjectCard from "../ui/ProjectCard";
+import CodeIcon from "../icons/Code.astro";
+import GithubIcon from "../icons/Github.astro";
+
+import ProjectCard from "../ui/ProjectCard.tsx";
+import TagsList from "../ui/TagsList.tsx";
 ---
 
 <div class="space-y-6">
   <header class="flex items-center justify-start gap-2 opacity-90">
-    <Code />
-    <h2 class="text-lg">Projects</h2>
+    <CodeIcon />
+    <h2 class="text-lg">Selected Projects</h2>
   </header>
 
-  <main class="w-full flex justify-between">
-    {
-      primaryProjects.map((project) => (
-        <ProjectCard
-          client:load
-          title={project.title}
-          description={project.description}
-          longDescription={project.longDescription}
-          image={project.image}
-          image2={project.image2}
-          alt={project.alt}
-          href={project.href}
-          repository={project.repository}
-          tags={project.tags}
-        />
-      ))
-    }
+  <main class="w-full flex flex-col gap-32">
+    <div class="w-full flex justify-between">
+      {
+        primaryProjects.map((project) => (
+          <ProjectCard
+            client:load
+            title={project.title}
+            description={project.description}
+            longDescription={project.longDescription}
+            image={project.image}
+            image2={project.image2}
+            href={project.href}
+            repository={project.repository}
+            tags={project.tags}
+          />
+        ))
+      }
+    </div>
+    <div class="flex flex-col gap-8">
+      {
+        projects.map((project) => (
+          <article class="flex gap-4 w-full">
+            <div class="aspect-video overflow-hidden rounded-xl h-48 max-w-lg w-full flex-4">
+              <a
+                href={
+                  project.href.length > 0 ? project.href : project.repository
+                }
+              >
+                <img
+                  src={project.image}
+                  alt={`Mockup, Captura de Pantalla del Proyecto ${project.title}`}
+                  class="w-full h-full cursor-pointer object-cover object-top scale-105 hover:scale-100 duration-700 transition-transform shadow-none"
+                />
+              </a>
+            </div>
+
+            <div class="flex flex-col justify-between flex-5">
+              <div class="space-y-3">
+                <h2 class="text-xl">{project.title}</h2>
+                <TagsList tags={project.tags} client:visible />
+              </div>
+              <p class="text-white/50  text-sm leading-relaxed prose">
+                {project.description}
+              </p>
+
+              <div class="flex items-center space-x-6">
+                <a href={project.href}>Preview</a>
+                <a href={project.repository}>Code</a>
+              </div>
+            </div>
+          </article>
+        ))
+      }
+    </div>
   </main>
+
+  <footer class="flex items-center justify-center pt-16">
+    <a
+      href="https://github.com/francogalfre"
+      class="cursor-pointer flex gap-2 opacity-50 hover:opacity-80 hover:underline transition-opacity"
+    >
+      <GithubIcon class="size-5" />
+      <h2 class="text-md">More Projects</h2>
+    </a>
+  </footer>
 </div>

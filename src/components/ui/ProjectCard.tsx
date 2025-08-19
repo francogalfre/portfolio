@@ -9,11 +9,7 @@ import {
   MorphingDialogContainer,
 } from "./MorphingCard";
 
-interface TechnologiesTags {
-  name: string;
-  class: string;
-  icon?: (_props: Record<string, any>) => any;
-}
+import TagsList from "./TagsList";
 
 interface ProjectCardProps {
   title: string;
@@ -21,10 +17,9 @@ interface ProjectCardProps {
   longDescription: string;
   image: string;
   image2: string;
-  alt: string;
   href: string;
   repository: string;
-  tags: Array<TechnologiesTags>;
+  tags: string[];
 }
 
 export default function ProjectCard({
@@ -33,7 +28,6 @@ export default function ProjectCard({
   longDescription,
   image,
   image2,
-  alt,
   href,
   repository,
   tags,
@@ -49,7 +43,7 @@ export default function ProjectCard({
         <div className="aspect-video w-full overflow-hidden rounded-xl">
           <MorphingDialogImage
             src={image}
-            alt={alt}
+            alt={`Mockup, Captura de Pantalla del Proyecto ${title}`}
             className="w-full h-full cursor-zoom-in object-cover object-top scale-105 hover:scale-100 duration-700 transition-transform"
           />
         </div>
@@ -71,31 +65,18 @@ export default function ProjectCard({
             <div className="w-full aspect-video">
               <MorphingDialogImage
                 src={image2}
-                alt={alt}
+                alt={`Mockup, Captura de Pantalla del Proyecto ${title}`}
                 className="w-full h-full object-cover"
               />
             </div>
 
-            {/* Contenido */}
             <div className="p-6 space-y-4">
               <div className="flex flex-col gap-4">
                 <header>
-                  <h2 className="text-xl font-semibold text-zinc-900 dark:text-zinc-300 mb-2">
+                  <h2 className="text-xl font-semibold text-zinc-900 dark:text-zinc-300 mb-3">
                     {title}
                   </h2>
-
-                  <ul className="flex flex-row mb-2 gap-x-2">
-                    {tags.map((tag) => (
-                      <li key={tag.name}>
-                        <span
-                          className={`flex gap-x-2 rounded-full text-xs ${tag.class} py-1 px-2 `}
-                        >
-                          {tag.icon && <tag.icon class="size-4" />}
-                          {tag.name}
-                        </span>
-                      </li>
-                    ))}
-                  </ul>
+                  <TagsList tags={tags} />
                 </header>
 
                 <p className="text-black/50 dark:text-zinc-400 text-sm leading-relaxed prose">
@@ -110,7 +91,7 @@ export default function ProjectCard({
                   target="_blank"
                   className="flex-1 px-4 py-2 bg-zinc-900 dark:bg-zinc-100 text-zinc-100 dark:text-zinc-900 text-sm font-medium rounded-lg text-center hover:bg-zinc-800 dark:hover:bg-zinc-200 transition-colors"
                 >
-                  Ver proyecto
+                  Preview
                 </a>
 
                 <a
@@ -118,7 +99,7 @@ export default function ProjectCard({
                   target="_blank"
                   className="px-4 py-2 border border-zinc-300 dark:border-zinc-600 text-zinc-700 dark:text-zinc-300 text-sm font-medium rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors"
                 >
-                  Código
+                  Code
                 </a>
               </div>
             </div>

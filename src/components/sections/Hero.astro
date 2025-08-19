@@ -4,25 +4,25 @@ import Avatar from "../../assets/avatar.webp";
 import { Image } from "astro:assets";
 import { Pill, PillIndicator } from "../ui/Pill";
 
-import Mail from "../icons/Mail.astro";
-import Github from "../icons/Github.astro";
-import LinkedIn from "../icons/LinkedIn.astro";
+import MailIcon from "../icons/Mail.astro";
+import GithubIcon from "../icons/Github.astro";
+import LinkedInIcon from "../icons/LinkedIn.astro";
 
 const links = [
   {
     href: "mailto:francogalfre.work@gmail.com",
     label: "Contactar por email a Franco Galfré",
-    icon: Mail,
+    icon: MailIcon,
   },
   {
     href: "https://www.linkedin.com/in/francogalfre/",
     label: "Ver perfil de LinkedIn de Franco Galfré",
-    icon: LinkedIn,
+    icon: LinkedInIcon,
   },
   {
     href: "https://github.com/francogalfre",
     label: "Ver repositorios de GitHub de Franco Galfré",
-    icon: Github,
+    icon: GithubIcon,
   },
 ];
 ---
@@ -34,7 +34,7 @@ const links = [
         alt="Avatar of Franco Galfré - Full Stack Web Developer"
         fetchpriority="high"
         src={Avatar}
-        class="size-15 rounded-full"
+        class="size-15 rounded-full brightness-95 hover:rotate-5 hover:brightness-100 hover:scale-105 transition-all duration-300"
         loading="eager"
       />
       <div class="space-y-1">
@@ -48,7 +48,7 @@ const links = [
     <div class="flex items-center gap-4">
       <Pill className="border-white/20 text-white/80">
         <PillIndicator variant="success" pulse />
-        <span>Available for work</span>
+        <span>Open for work</span>
       </Pill>
       <nav
         aria-label="Enlaces de contacto y redes sociales"
