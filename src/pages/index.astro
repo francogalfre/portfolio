@@ -1,7 +1,7 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 
-import SectionContainer from "../components/ui/SectionContainer.astro";
+import SectionContainer from "../components/ui/SectionContainer";
 
 import Hero from "../components/sections/Hero.astro";
 import Experience from "../components/sections/Experience.astro";
@@ -14,19 +14,19 @@ import Contact from "../components/sections/Contact.astro";
   title="Franco Galfré Portfolio - Developer & Programmer Web"
   description=""
 >
-  <SectionContainer id="hero">
+  <SectionContainer id="hero" client:visible>
     <Hero />
   </SectionContainer>
-  <SectionContainer id="experience">
+  <SectionContainer id="experience" client:visible>
     <Experience />
   </SectionContainer>
-  <SectionContainer id="projects">
+  <SectionContainer id="projects" client:visible>
     <Projects />
   </SectionContainer>
-  <SectionContainer id="about">
+  <SectionContainer id="about" client:visible>
     <AboutMe />
   </SectionContainer>
-  <SectionContainer id="contact">
+  <SectionContainer id="contact" client:visible>
     <Contact />
   </SectionContainer>
 </BaseLayout>
