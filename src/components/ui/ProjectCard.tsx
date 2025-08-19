@@ -39,7 +39,7 @@ export default function ProjectCard({
         ease: "easeOut",
       }}
     >
-      <MorphingDialogTrigger className="max-w-[364px] w-full text-start space-y-4 rounded-xl">
+      <MorphingDialogTrigger className="max-w-full sm:max-w-[364px] w-full text-start space-y-4 rounded-xl">
         <div className="aspect-video w-full overflow-hidden rounded-xl">
           <MorphingDialogImage
             src={image}

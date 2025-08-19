@@ -7,7 +7,7 @@ interface TagsListProps {
 
 const TagsList: React.FC<TagsListProps> = ({ tags }) => {
   return (
-    <ul className="flex space-x-2">
+    <ul className="flex space-x-2 space-y-2 sm:gap-0 flex-wrap md:flex-nowrap">
       {tags.map((tag) => (
         <li key={tag}>
           <span

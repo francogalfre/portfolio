@@ -23,7 +23,7 @@ export default function MotionSection({
         opacity: { type: "tween", duration: 1 },
       }}
       id={id}
-      className={`scroll-m-20 w-full mx-auto container lg:max-w-3xl md:max-w-2xl ${style}`}
+      className={`scroll-m-20 w-full mx-auto container max-w-full lg:max-w-3xl md:max-w-2xl ${style}`}
     >
       {children}
     </motion.section>
