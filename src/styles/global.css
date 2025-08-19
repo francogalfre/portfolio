@@ -7,7 +7,7 @@
 @import '@fontsource/geist-sans/600.css';
 @import '@fontsource/geist-sans/700.css';
 
-:root  {
+:root {
   color-scheme: light dark;
 }
 
@@ -35,4 +35,9 @@ body {
 ::-webkit-scrollbar {
   width: 0;
   background: transparent;
+}
+
+.highlight {
+  color: white;
+  opacity: 0.6;
 }

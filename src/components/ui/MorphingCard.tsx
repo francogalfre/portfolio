@@ -135,7 +135,6 @@ function MorphingDialogTrigger({
   return (
     <motion.button
       ref={triggerRef}
-      layoutId={`dialog-${uniqueId}`}
       className={cn("relative cursor-pointer", className)}
       onClick={handleClick}
       onKeyDown={handleKeyDown}
@@ -239,7 +238,6 @@ function MorphingDialogContent({
   return (
     <motion.div
       ref={containerRef}
-      layoutId={`dialog-${uniqueId}`}
       className={cn("overflow-hidden", className)}
       style={style}
       role="dialog"
@@ -276,18 +274,27 @@ function MorphingDialogContainer({ children }: MorphingDialogContainerProps) {
         <>
           <motion.div
             key={`backdrop-${uniqueId}`}
-            className="fixed inset-0 h-full w-full bg-white/60 backdrop-blur-sm dark:bg-black/60"
+            className="fixed inset-0 h-full w-full z-[9998] bg-white/60 backdrop-blur-sm dark:bg-black/60"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{
-              duration: 0.3,
+              duration: 0.2,
               ease: "easeOut",
             }}
           />
-          <div className="fixed inset-0 z-50 flex items-center justify-center">
+          <motion.div
+            className="fixed inset-0 z-[9999] flex items-center justify-center"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{
+              duration: 0.2,
+              ease: "easeOut",
+            }}
+          >
             {children}
-          </div>
+          </motion.div>
         </>
       )}
     </AnimatePresence>,
@@ -323,12 +330,7 @@ function MorphingDialogTitle({
   }
 
   return (
-    <motion.div
-      layoutId={`dialog-title-container-${uniqueId}`}
-      className={className}
-      style={style}
-      layout
-    >
+    <motion.div className={className} style={style}>
       {children}
     </motion.div>
   );
@@ -362,11 +364,7 @@ function MorphingDialogSubtitle({
   }
 
   return (
-    <motion.div
-      layoutId={`dialog-subtitle-container-${uniqueId}`}
-      className={className}
-      style={style}
-    >
+    <motion.div className={className} style={style}>
       {children}
     </motion.div>
   );
@@ -406,11 +404,6 @@ function MorphingDialogDescription({
   return (
     <motion.div
       key={`dialog-description-${uniqueId}`}
-      layoutId={
-        disableLayoutAnimation
-          ? undefined
-          : `dialog-description-content-${uniqueId}`
-      }
       variants={variants}
       transition={transition}
       className={className}
@@ -450,13 +443,7 @@ function MorphingDialogImage({
   }
 
   return (
-    <motion.img
-      src={src}
-      alt={alt}
-      className={cn(className)}
-      layoutId={`dialog-img-${uniqueId}`}
-      style={style}
-    />
+    <motion.img src={src} alt={alt} className={cn(className)} style={style} />
   );
 }
 

@@ -1,13 +1,32 @@
 ---
+import { primaryProjects } from "../../data/projects";
+
 import Code from "../icons/Code.astro";
 import ProjectCard from "../ui/ProjectCard";
 ---
 
-<div>
+<div class="space-y-6">
   <header class="flex items-center justify-start gap-2 opacity-90">
     <Code />
     <h2 class="text-lg">Projects</h2>
   </header>
 
-  <ProjectCard client:load />
+  <main class="w-full flex justify-between">
+    {
+      primaryProjects.map((project) => (
+        <ProjectCard
+          client:load
+          title={project.title}
+          description={project.description}
+          longDescription={project.longDescription}
+          image={project.image}
+          image2={project.image2}
+          alt={project.alt}
+          href={project.href}
+          repository={project.repository}
+          tags={project.tags}
+        />
+      ))
+    }
+  </main>
 </div>
