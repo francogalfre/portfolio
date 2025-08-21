@@ -17,9 +17,9 @@ export default function MotionSection({
       initial={{ opacity: 0, y: 50, scale: 0.975 }}
       animate={{ opacity: 1, y: 0, scale: 1 }}
       transition={{
-        duration: 0.8,
+        duration: 1.6,
         ease: [0.43, 0.13, 0.23, 0.96],
-        default: { type: "spring" },
+        default: { type: "tween" },
         opacity: { type: "tween", duration: 1 },
       }}
       id={id}
