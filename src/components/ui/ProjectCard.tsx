@@ -50,7 +50,9 @@ export default function ProjectCard({
 
         <div className="w-full">
           <h2 className="text-lg">{title}</h2>
-          <p className="text-white/50 w-full text-pretty">{description}</p>
+          <p className="text-black/50 dark:text-white/50 w-full text-pretty">
+            {description}
+          </p>
         </div>
       </MorphingDialogTrigger>
 

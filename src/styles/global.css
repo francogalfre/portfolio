@@ -7,9 +7,7 @@
 @import '@fontsource/geist-sans/600.css';
 @import '@fontsource/geist-sans/700.css';
 
-:root {
-  color-scheme: light dark;
-}
+@custom-variant dark (&:where(.dark, .dark *));
 
 html {
   font-family: "Geist Sans", system-ui;
@@ -21,8 +19,6 @@ body {
   flex-direction: column;
   gap: 6rem;
   min-height: 100vh;
-  background-color: #09090b;
-
   scrollbar-width: none;
 }
 
@@ -38,6 +34,11 @@ body {
 }
 
 .highlight {
+  color: black;
+  opacity: 0.6;
+}
+
+html.dark .highlight {
   color: white;
   opacity: 0.6;
 }

@@ -27,7 +27,7 @@ const links = [
 ];
 ---
 
-<div class="space-y-6">
+<div class="space-y-8">
   <header class="space-y-6 mb-10">
     <div class="flex items-center gap-4">
       <Image
@@ -46,7 +46,9 @@ const links = [
     </div>
 
     <div class="flex items-center gap-4">
-      <Pill className="border-white/20 text-white/80">
+      <Pill
+        className="border-black/20 dark:border-white/20 text-black/80 dark:text-white/80"
+      >
         <PillIndicator variant="success" pulse />
         <span>Open to work</span>
       </Pill>
@@ -61,7 +63,7 @@ const links = [
               aria-label={label}
               target="_blank"
               rel="noopener noreferrer"
-              class="hover:scale-105 transition-transform"
+              class="hover:scale-105 transition-transform text-black/60"
             >
               <Icon />
             </a>
@@ -88,7 +90,7 @@ const links = [
     <a
       href="/CV.pdf"
       download="CV_Galfre Franco"
-      class="bg-black/20 border-1 border-white/20 px-6 py-3 rounded-xl hover:bg-white/5 transition-colors duration-300"
+      class="bg-white/20 border-black/20 hover:bg-gray-200 text-black/80 dark:bg-black/20 border-1 dark:border-white/20 dark:text-white/80 px-6 py-3 rounded-xl dark:hover:bg-white/5 transition-colors duration-300"
       >Download CV</a
     >
   </div>

@@ -11,7 +11,7 @@ const TagsList: React.FC<TagsListProps> = ({ tags }) => {
       {tags.map((tag) => (
         <li key={tag}>
           <span
-            className={`flex w-fit px-2.5 py-1 rounded-lg text-xs gap-1.5 items-center bg-white/10 text-white/60`}
+            className={`flex w-fit px-2.5 py-1 rounded-lg text-xs gap-1.5 items-center text-black/60 bg-black/10 dark:bg-white/10 dark:text-white/60`}
           >
             {tag}
           </span>

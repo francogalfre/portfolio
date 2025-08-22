@@ -38,20 +38,20 @@ import TagsList from "../ui/TagsList";
               <h2 class="text-xl">{project.title}</h2>
               <TagsList tags={project.tags} client:visible />
             </div>
-            <p class="text-white/50  text-sm leading-relaxed prose">
+            <p class="text-black/50 dark:text-white/50 text-sm leading-relaxed prose">
               {project.description}
             </p>
 
             <div class="flex items-center space-x-2 text-white/80 text-sm">
               <a
                 href={project.href}
-                class="flex items-center gap-1 bg-white text-black/80 px-2 py-1 rounded-lg hover:bg-white/90 hover:text-black/80 transition-colors"
+                class="flex items-center gap-1 bg-black text-white/80 hover:bg-black/80 hover:text-white/80 dark:bg-white dark:text-black/80 px-3 py-1.5 rounded-lg dark:hover:bg-white/90 transition-colors"
               >
                 <LinkIcon class="size-6" /> Preview
               </a>
               <a
                 href={project.repository}
-                class="flex items-center gap-1 px-2 py-1 rounded-lg hover:text-white/90 transition-colors"
+                class="flex items-center gap-1 px-2 py-1 rounded-lg text-black/80 hover:text-black/70 dark:text-white/80 dark:hover:text-white/90 transition-colors"
               >
                 <GithubIcon class="size-6 opacity-80" />
                 Code
