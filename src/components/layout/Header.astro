@@ -1,7 +1,27 @@
 ---
 import ThemeToggle from "./ThemeToggle.astro";
+
+const sections = ["experience", "projects", "about", "contact"];
 ---
 
-<header class="flex justify-between p-4 transition-colors duration-300">
+<header
+  class="flex justify-between items-center w-full mx-auto container max-w-full lg:max-w-3xl md:max-w-2xl"
+>
+  <nav>
+    <ul class="flex gap-4">
+      {
+        sections.map((section) => (
+          <li>
+            <a
+              href={`#${section}`}
+              class="text-black/60 hover:text-black/50 dark:text-white/80 dark:hover:text-white/70 text-base transition-colors duration-300"
+            >
+              {section}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
   <ThemeToggle />
 </header>

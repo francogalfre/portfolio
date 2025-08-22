@@ -1,7 +1,6 @@
 ---
 import Avatar from "../../assets/avatar.webp";
 
-import { Image } from "astro:assets";
 import { Pill, PillIndicator } from "../ui/Pill";
 
 import MailIcon from "../icons/Mail.astro";
@@ -30,11 +29,11 @@ const links = [
 <div class="space-y-8">
   <header class="space-y-6 mb-10">
     <div class="flex items-center gap-4">
-      <Image
+      <img
         alt="Avatar of Franco Galfré - Full Stack Web Developer"
         fetchpriority="high"
-        src={Avatar}
-        class="size-15 rounded-full brightness-95 hover:rotate-5 hover:brightness-100 hover:scale-105 transition-all duration-300"
+        src={Avatar.src}
+        class="size-15 rounded-full brightness-95 hover:rotate-5 hover:brightness-105 hover:scale-105 transition-all duration-300"
         loading="eager"
       />
       <div class="space-y-1">
@@ -52,10 +51,7 @@ const links = [
         <PillIndicator variant="success" pulse />
         <span>Open to work</span>
       </Pill>
-      <nav
-        aria-label="Enlaces de contacto y redes sociales"
-        class="flex gap-4 text-white/60"
-      >
+      <nav aria-label="Enlaces de contacto y redes sociales" class="flex gap-4">
         {
           links.map(({ href, label, icon: Icon }) => (
             <a
@@ -63,7 +59,7 @@ const links = [
               aria-label={label}
               target="_blank"
               rel="noopener noreferrer"
-              class="hover:scale-105 transition-transform text-black/60"
+              class="hover:scale-105 transition-transform text-black/60 dark:text-white/60"
             >
               <Icon />
             </a>
@@ -90,7 +86,7 @@ const links = [
     <a
       href="/CV.pdf"
       download="CV_Galfre Franco"
-      class="bg-white/20 border-black/20 hover:bg-gray-200 text-black/80 dark:bg-black/20 border-1 dark:border-white/20 dark:text-white/80 px-6 py-3 rounded-xl dark:hover:bg-white/5 transition-colors duration-300"
+      class="bg-white/20 border-black/20 hover:bg-gray-200 text-black/80 dark:bg-black/20 border-1 dark:border-white/20 dark:text-white/80 px-6 py-3 rounded-xl dark:hover:bg-white/5 transition-colors"
       >Download CV</a
     >
   </div>

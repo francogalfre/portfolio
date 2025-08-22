@@ -1,6 +1,7 @@
 ---
 import "../styles/global.css";
 
+import Header from "../components/layout/Header.astro";
 import Footer from "../components/layout/Footer.astro";
 import Background from "../components/layout/Background.astro";
 
@@ -13,7 +14,7 @@ const { title, description } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" class="dark">
   <head>
     <meta charset=" UTF-8" />
     <meta name="viewport" content="width=device-width" />
@@ -24,8 +25,9 @@ const { title, description } = Astro.props;
 
     <title>{title}</title>
   </head><body
-    class="min-h-screen relative text-black dark:text-white justify-center selection:bg-black/20 dark:selection:bg-white/20 bg-gray-100 dark:bg-zinc-950 pt-24 sm:pt-48 px-4 md:px-0 overflow-x-hidden"
+    class="min-h-screen relative text-black dark:text-white justify-center selection:bg-black/20 dark:selection:bg-white/20 bg-gray-100 dark:bg-zinc-950 pt-24 sm:pt-24 px-4 md:px-0 overflow-x-hidden"
   >
+    <Header />
     <Background />
     <slot />
     <Footer />
