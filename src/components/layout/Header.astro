@@ -1,10 +1,12 @@
 ---
 import ThemeToggle from "./ThemeToggle.astro";
+import LocalToggle from "./LocalToggle.astro";
+
 import { t } from "../../i18n";
 ---
 
 <header
-  class="flex justify-between items-center w-full mx-auto container max-w-full lg:max-w-3xl md:max-w-2xl"
+  class="flex flex-col-reverse gap-6 sm:gap-0 sm:flex-row justify-between items-center w-full mx-auto container max-w-full lg:max-w-3xl md:max-w-2xl"
 >
   <nav>
     <ul class="flex gap-4">
@@ -42,5 +44,8 @@ import { t } from "../../i18n";
       </li>
     </ul>
   </nav>
-  <ThemeToggle />
+  <div class="flex items-center space-x-4">
+    <LocalToggle />
+    <ThemeToggle />
+  </div>
 </header>
