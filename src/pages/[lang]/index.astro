@@ -1,0 +1,42 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+import SectionContainer from "../../components/ui/SectionContainer";
+
+import Hero from "../../components/sections/Hero.astro";
+import Experience from "../../components/sections/Experience.astro";
+import Projects from "../../components/sections/Projects.astro";
+import AboutMe from "../../components/sections/About.astro";
+import Contact from "../../components/sections/Contact.astro";
+
+import { setLang, getLangFromURL } from "../../i18n";
+
+export async function getStaticPaths() {
+  return [{ params: { lang: "en" } }];
+}
+
+const lang = getLangFromURL(Astro.url);
+
+setLang(lang);
+---
+
+<BaseLayout
+  title="Franco Galfré Portfolio - Developer & Programmer Web"
+  description="Discover Franco Galfré's web development portfolio. Full Stack Developer passionate about creating clean, performant, and modern websites using Next.js, Node.js, and TypeScript."
+>
+  <SectionContainer id="hero" client:visible>
+    <Hero />
+  </SectionContainer>
+  <SectionContainer id="experience" client:visible>
+    <Experience />
+  </SectionContainer>
+  <SectionContainer id="projects" client:visible>
+    <Projects />
+  </SectionContainer>
+  <SectionContainer id="about" client:visible>
+    <AboutMe />
+  </SectionContainer>
+  <SectionContainer id="contact" client:visible>
+    <Contact />
+  </SectionContainer>
+</BaseLayout>

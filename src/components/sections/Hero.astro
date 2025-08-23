@@ -7,6 +7,8 @@ import MailIcon from "../icons/Mail.astro";
 import GithubIcon from "../icons/Github.astro";
 import LinkedInIcon from "../icons/LinkedIn.astro";
 
+import { t } from "../../i18n";
+
 const links = [
   {
     href: "mailto:francogalfre.work@gmail.com",
@@ -49,7 +51,7 @@ const links = [
         className="border-black/20 dark:border-white/20 text-black/80 dark:text-white/80"
       >
         <PillIndicator variant="success" pulse />
-        <span>Open to work</span>
+        <span>{t("hero.pill")}</span>
       </Pill>
       <nav aria-label="Enlaces de contacto y redes sociales" class="flex gap-4">
         {

@@ -8,11 +8,15 @@ import Experience from "../components/sections/Experience.astro";
 import Projects from "../components/sections/Projects.astro";
 import AboutMe from "../components/sections/About.astro";
 import Contact from "../components/sections/Contact.astro";
+
+import { setLang } from "../i18n";
+
+setLang("es");
 ---
 
 <BaseLayout
-  title="Franco Galfré Portfolio - Developer & Programmer Web"
-  description="Discover Franco Galfré's web development portfolio. Full Stack Developer passionate about creating clean, performant, and modern websites using Next.js, Node.js, and TypeScript."
+  title="Franco Galfré Portafolio - Desarrollador & Programador Web"
+  description="Descubre el portafolio de desarrollo web de Franco Galfré. Desarrollador Full Stack apasionado por crear sitios web modernos, limpios y de alto rendimiento utilizando Next.js, Node.js y TypeScript."
 >
   <SectionContainer id="hero" client:visible>
     <Hero />
