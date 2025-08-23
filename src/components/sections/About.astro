@@ -1,33 +1,24 @@
 ---
 import SparklesIcon from "../icons/Sparkles.astro";
+
+import { t } from "../../i18n";
 ---
 
 <div class="space-y-6">
   <header class="flex items-center justify-start gap-2 opacity-90">
     <SparklesIcon />
-    <h2 class="text-lg">About Me</h2>
+    <h2 class="text-lg">{t("about.title")}</h2>
   </header>
 
   <p
     class="text-pretty text-black/50 dark:text-white/50 text-md leading-6 prose"
   >
-    I'm <span class="highlight">Franco</span>! 🍷 A <span class="highlight"
-      >passionate developer</span
-    > who loves
-    <span class="highlight">computing</span>, <span class="highlight"
-      >coding</span
-    >, and <span class="highlight">coffee</span>. I approach every challenge
-    with <span class="highlight">enthusiasm</span> and <span class="highlight"
-      >curiosity</span
-    >, always excited to learn new technologies.
+    {t("about.paragraph1")}
   </p>
 
   <p
     class="text-pretty text-black/50 dark:text-white/50 text-md leading-6 prose"
   >
-    I thrive in <span class="highlight">collaborative environments</span> and enjoy
-    tackling <span class="highlight">complex problems</span>. Je parle trois
-    langues and play <span class="highlight">chess</span> in my free time, which
-    helps with <span class="highlight">strategic thinking</span> and problem-solving.
+    {t("about.paragraph2")}
   </p>
 </div>

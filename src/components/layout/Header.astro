@@ -1,7 +1,6 @@
 ---
 import ThemeToggle from "./ThemeToggle.astro";
-
-const sections = ["experience", "projects", "about", "contact"];
+import { t } from "../../i18n";
 ---
 
 <header
@@ -9,18 +8,38 @@ const sections = ["experience", "projects", "about", "contact"];
 >
   <nav>
     <ul class="flex gap-4">
-      {
-        sections.map((section) => (
-          <li>
-            <a
-              href={`#${section}`}
-              class="text-black/60 hover:text-black/50 dark:text-white/80 dark:hover:text-white/70 text-base transition-colors duration-300"
-            >
-              {section}
-            </a>
-          </li>
-        ))
-      }
+      <li>
+        <a
+          href={`#${t("nav.experience")}`}
+          class="text-black/60 hover:text-black/50 dark:text-white/80 dark:hover:text-white/70 text-base transition-colors duration-300"
+        >
+          {t("nav.experience")}
+        </a>
+      </li>
+      <li>
+        <a
+          href={`#${t("nav.projects")}`}
+          class="text-black/60 hover:text-black/50 dark:text-white/80 dark:hover:text-white/70 text-base transition-colors duration-300"
+        >
+          {t("nav.projects")}
+        </a>
+      </li>
+      <li>
+        <a
+          href={`#${t("nav.about")}`}
+          class="text-black/60 hover:text-black/50 dark:text-white/80 dark:hover:text-white/70 text-base transition-colors duration-300"
+        >
+          {t("nav.about")}
+        </a>
+      </li>
+      <li>
+        <a
+          href={`#${t("nav.contact")}`}
+          class="text-black/60 hover:text-black/50 dark:text-white/80 dark:hover:text-white/70 text-base transition-colors duration-300"
+        >
+          {t("nav.contact")}
+        </a>
+      </li>
     </ul>
   </nav>
   <ThemeToggle />

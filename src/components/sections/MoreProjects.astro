@@ -7,6 +7,11 @@ import LinkIcon from "../icons/Link.astro";
 import GithubIcon from "../icons/Github.astro";
 
 import TagsList from "../ui/TagsList";
+
+import { getLangFromURL } from "../../i18n";
+import { t } from "../../i18n";
+
+const lang = getLangFromURL(Astro.url);
 ---
 
 <div class="space-y-6 md:space-y-0">
@@ -14,7 +19,7 @@ import TagsList from "../ui/TagsList";
     class="flex items-center justify-start gap-2 opacity-90 relative md:hidden"
   >
     <ProjectsIcon />
-    <h2 class="text-lg">More Projects</h2>
+    <h2 class="text-lg">{t("moreProjects.title")}</h2>
   </header>
 
   <div class="flex flex-col gap-18 sm:gap-12">
@@ -39,13 +44,13 @@ import TagsList from "../ui/TagsList";
               <TagsList tags={project.tags} client:visible />
             </div>
             <p class="text-black/50 dark:text-white/50 text-sm leading-relaxed prose">
-              {project.description}
+              {lang == "es" ? project.descriptionEs : project.descriptionEn}
             </p>
 
             <div class="flex items-center space-x-2 text-white/80 text-sm">
               <a
                 href={project.href}
-                class="flex items-center gap-1 bg-black text-white/80 hover:bg-black/80 hover:text-white/80 dark:bg-white dark:text-black/80 px-3 py-1.5 rounded-lg dark:hover:bg-white/90 transition-colors"
+                class="flex items-center gap-1 bg-black text-white/80 hover:bg-black/80 hover:text-white/80 dark:bg-white dark:text-black/80 px-3 py-1.5 rounded-lg dark:hover:bg-white/80  dark:hover:text-black/70 transition-colors"
               >
                 <LinkIcon class="size-6" /> Preview
               </a>

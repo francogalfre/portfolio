@@ -1,18 +1,23 @@
 ---
 import { primaryProjects } from "../../data/projects";
 
+import { getLangFromURL } from "../../i18n";
+import { t } from "../../i18n";
+
 import CodeIcon from "../icons/Code.astro";
 import GithubIcon from "../icons/Github.astro";
 
 import ProjectCard from "../ui/ProjectCard.tsx";
 
 import MoreProjectsSection from "./MoreProjects.astro";
+
+const lang = getLangFromURL(Astro.url);
 ---
 
 <div class="space-y-6">
   <header class="flex items-center justify-start gap-2 opacity-90">
     <CodeIcon />
-    <h2 class="text-lg">Selected Projects</h2>
+    <h2 class="text-lg">{t("projects.title")}</h2>
   </header>
 
   <main class="w-full flex flex-col gap-32">
@@ -22,8 +27,14 @@ import MoreProjectsSection from "./MoreProjects.astro";
           <ProjectCard
             client:load
             title={project.title}
-            description={project.description}
-            longDescription={project.longDescription}
+            description={
+              lang == "en" ? project.descriptionEn : project.descriptionEs
+            }
+            longDescription={
+              lang == "en"
+                ? project.longDescriptionEn
+                : project.longDescriptionEs
+            }
             image={project.image}
             image2={project.image2}
             href={project.href}
@@ -42,7 +53,7 @@ import MoreProjectsSection from "./MoreProjects.astro";
       class="cursor-pointer flex gap-2 opacity-50 hover:opacity-80 hover:underline transition-opacity"
     >
       <GithubIcon class="size-5" />
-      <h2 class="text-md">More Projects</h2>
+      <h2 class="text-md">{t("projects.github_button")}</h2>
     </a>
   </footer>
 </div>

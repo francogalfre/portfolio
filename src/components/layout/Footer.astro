@@ -1,11 +1,11 @@
 ---
-const currentYear = new Date().getFullYear();
+import { t } from "../../i18n";
 ---
 
 <footer
   class="opacity-80 m-4 min-[375px]:pl-4 md:pl-0 mt-16 w-full mx-auto container lg:max-w-4xl md:max-w-2xl mb-10 flex justify-center"
 >
   <span class="text-sm sm:text-center text-zinc-800/90 dark:text-zinc-200/90"
-    >Made with 🩶 by Franco Galfré
+    >{t("footer.text")}
   </span>
 </footer>

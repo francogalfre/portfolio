@@ -3,6 +3,8 @@ import Globe from "../icons/Globe.astro";
 
 import SocialButton from "../ui/SocialButton.astro";
 
+import { t } from "../../i18n";
+
 const socialButtons = [
   {
     text: "Github",
@@ -22,12 +24,12 @@ const socialButtons = [
 <div class="space-y-6">
   <header class="flex items-center justify-start gap-2 opacity-90">
     <Globe />
-    <h2 class="text-lg">Let's connect</h2>
+    <h2 class="text-lg">{t("contact.title")}</h2>
   </header>
   <p
     class="text-pretty text-black/50 dark:text-white/50 text-md leading-6 prose font-normal"
   >
-    Feel free to contact me at
+    {t("contact.text")}
     <a href="mailto:francogalfre.work@gmail.com" class="highlight font-normal"
       >francogalfre.work@gmail.com</a
     >

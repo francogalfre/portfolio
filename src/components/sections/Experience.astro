@@ -2,12 +2,17 @@
 import Briefcase from "../icons/Briefcase.astro";
 
 import { experiences } from "../../data/experience";
+
+import { getLangFromURL } from "../../i18n";
+import { t } from "../../i18n";
+
+const lang = getLangFromURL(Astro.url);
 ---
 
 <div class="space-y-6">
   <header class="flex items-center justify-start gap-2 opacity-90">
     <Briefcase />
-    <h2 class="text-lg">Work experience</h2>
+    <h2 class="text-lg">{t("experience.title")}</h2>
   </header>
   <main>
     <ul>
@@ -20,11 +25,11 @@ import { experiences } from "../../data/experience";
                 <h2 class="text-xl font-medium">{experience.role}</h2>
               </div>
               <p class="pt-2 text-black/50 dark:text-white/50">
-                {experience.startDate} - {experience.endDAte}
+                {experience.startDate} - {experience.endDate}
               </p>
             </div>
             <p class="prose text-pretty leading-6 text-black/50 dark:text-white/50">
-              {experience.summary}
+              {lang == "es" ? experience.summaryEs : experience.summaryEn}
             </p>
           </li>
         ))
