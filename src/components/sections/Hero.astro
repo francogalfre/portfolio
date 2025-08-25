@@ -7,7 +7,7 @@ import MailIcon from "../icons/Mail.astro";
 import GithubIcon from "../icons/Github.astro";
 import LinkedInIcon from "../icons/LinkedIn.astro";
 
-import { t } from "../../i18n";
+import { getLangFromURL, t } from "../../i18n";
 
 const links = [
   {
@@ -26,6 +26,8 @@ const links = [
     icon: GithubIcon,
   },
 ];
+
+const lang = getLangFromURL(Astro.url);
 ---
 
 <div class="space-y-8">
@@ -79,8 +81,8 @@ const links = [
 
   <div>
     <a
-      href="/CV.pdf"
-      download="CV_Galfre Franco"
+      href={lang == "es" ? "./CV_ES.pdf" : "./CV_EN.pdf"}
+      download={lang == "es" ? "CV_Galfre Franco" : "Resume_Galfre Franco"}
       class="bg-white/20 border-black/20 hover:bg-gray-200 text-black/80 dark:bg-black/20 border-1 dark:border-white/20 dark:text-white/80 px-6 py-3 rounded-xl dark:hover:bg-white/5 transition-colors"
       >{t("hero.CVbutton")}</a
     >

@@ -1,0 +1,10 @@
+---
+import { getLangFromURL } from "../../i18n";
+
+const lang = getLangFromURL(Astro.url);
+---
+
+<a
+  class="text-black/80 dark:text-white/80 text-lg"
+  href={lang == "es" ? "/en" : "/"}>{lang == "es" ? "🇪🇸" : "🇺🇲"}</a
+>
