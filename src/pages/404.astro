@@ -1,0 +1,36 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+import SocialButton from "../components/ui/SocialButton.astro";
+
+import { getLangFromURL, t } from "../i18n";
+
+const lang = getLangFromURL(Astro.url);
+---
+
+<BaseLayout title="404: This page could not be found.">
+  <div class="max-w-2xl w-full text-center mx-auto space-y-6">
+    <h1 class="text-2xl font-medium dark:text-white/60 text-black/60">
+      404 Error
+    </h1>
+    <img
+      src="/404.gif"
+      alt="Pulp Fiction Vincent looking around"
+      class="w-full h-auto rounded-lg"
+    />
+    <footer
+      class="space-y-3 justify-center text-center items-center flex flex-col"
+    >
+      <h3 class="pt-4 text-xl dark:text-white/60 text-black/60">
+        {t("error404.title")}
+      </h3>
+      <p class="text-md text-center dark:text-white/50 pb-4">
+        {t("error404.text")}
+      </p>
+
+      <SocialButton href={lang == "es" ? "/" : "/en"}>
+        {t("error404.button")}</SocialButton
+      >
+    </footer>
+  </div>
+</BaseLayout>

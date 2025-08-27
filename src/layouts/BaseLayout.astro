@@ -6,11 +6,12 @@ import Footer from "../components/layout/Footer.astro";
 import Background from "../components/layout/Background.astro";
 
 interface Props {
-  title: string;
-  description: string;
+  title?: string;
+  description?: string;
+  header?: boolean;
 }
 
-const { title, description } = Astro.props;
+const { title, description, header } = Astro.props;
 ---
 
 <!doctype html>
@@ -23,11 +24,13 @@ const { title, description } = Astro.props;
 
     <link rel="icon" type="image/svg+xml" href="/favicon.webp" />
 
-    <title>{title}</title>
+    <title>
+      {title || "Franco Galfré | Portafolio - Desarrollador & Programador Web"}
+    </title>
   </head><body
     class="min-h-screen relative text-black dark:text-white justify-center selection:bg-black/20 dark:selection:bg-white/20 bg-gray-100 dark:bg-zinc-950 pt-24 sm:pt-24 px-4 md:px-0 overflow-x-hidden"
   >
-    <Header />
+    {header && <Header />}
     <Background />
     <slot />
     <Footer />

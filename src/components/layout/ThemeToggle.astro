@@ -33,12 +33,10 @@
 </button>
 
 <script>
-  // Script que se ejecuta en el cliente para manejar la lógica
   document.addEventListener("DOMContentLoaded", () => {
     const root = document.documentElement;
     const themeToggle = document.getElementById("theme-toggle");
 
-    // Determina el tema inicial al cargar la página
     const currentTheme = localStorage.getItem("theme");
     const prefersDark = window.matchMedia(
       "(prefers-color-scheme: dark)"
@@ -49,7 +47,6 @@
       root.classList.add("dark");
     }
 
-    // Escucha el clic para alternar el tema
     themeToggle?.addEventListener("click", () => {
       const isDark = root.classList.toggle("dark");
       localStorage.setItem("theme", isDark ? "dark" : "light");

@@ -28,6 +28,11 @@ export const translations = {
     footer: {
       text: "Hecho con el 🩶 por Franco Galfré",
     },
+    error404: {
+      title: "No pudimos encontrar esta página",
+      text: "No es tu culpa, es la nuestra. La página que buscas puede haber sido eliminada, nunca existió o quizá el enlace que seguiste tiene un error.",
+      button: "Volver al inicio",
+    },
   },
 
   en: {
@@ -50,6 +55,11 @@ export const translations = {
     },
     footer: {
       text: "Made with 🩶 by Franco Galfré",
+    },
+    error404: {
+      title: "This page could not be found",
+      text: "It's not you, it's us. The page you're looking for may be retired, or never existed, or there could be a typo in the link that you followed.",
+      button: "Back to home",
     },
   },
 };
