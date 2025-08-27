@@ -1,10 +1,14 @@
 ---
 import { getLangFromURL } from "../../i18n";
 
+import Spanish from "../icons/flags/Spain.astro";
+import English from "../icons/flags/USA.astro";
+
 const lang = getLangFromURL(Astro.url);
 ---
 
 <a
   class="text-black/80 dark:text-white/80 text-lg"
-  href={lang == "es" ? "/en" : "/"}>{lang == "es" ? "🇪🇸" : "🇺🇲"}</a
+  href={lang == "es" ? "/en" : "/"}
+  >{lang == "es" ? <Spanish /> : <English />}</a
 >
