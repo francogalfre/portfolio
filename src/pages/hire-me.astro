@@ -1,0 +1,56 @@
+---
+import "../styles/global.css";
+
+import { motion } from "motion/react";
+
+import Meme from "../components/ui/Meme";
+---
+
+<body
+  class="w-screen min-h-scren flex justify-center items-center relative overflow-hidden"
+>
+  <motion.img
+    client:idle
+    initial={{ opacity: 0 }}
+    animate={{ opacity: 0.3 }}
+    transition={{
+      duration: 20,
+    }}
+    src="/background.webp"
+    alt="Cat explosion meme"
+    className="-z-10 w-full h-full absolute inset-0 object-cover opacity-10"
+  />
+  <motion.main
+    client:idle
+    drag
+    id="secret"
+    className="space-y-12 text-center"
+    initial={{ x: 0, y: -100 }}
+    animate={{ x: 100, y: 100 }}
+    transition={{
+      duration: 2.5,
+      repeat: Infinity,
+      repeatType: "reverse",
+      ease: "easeInOut",
+    }}
+  >
+    <motion.h2 client:idle>Please hire me</motion.h2>
+    <p>
+      I've run out of ideas. <a
+        class="underline"
+        href="https://www.linkedin.com/in/francogalfre/">Just hire me.</a
+      >
+    </p>
+  </motion.main>
+
+  <Meme
+    client:idle
+    src="/memes/meme1.webp"
+    alt="Meme 'When you opened the code you wrote two weeks ago'"
+    style={{
+      top: `${Math.random() * 80 + 10}vh`,
+      left: `${Math.random() * 80 + 10}vw`,
+      width: "20rem",
+    }}
+  />
+</body>

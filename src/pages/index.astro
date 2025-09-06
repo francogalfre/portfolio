@@ -35,3 +35,23 @@ setLang("es");
     <Contact />
   </SectionContainer>
 </BaseLayout>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const sequence = ["h", "i", "r", "e", "m", "e"];
+    let current = 0;
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key.toLocaleLowerCase() == sequence[current]) {
+        current++;
+      } else {
+        current = 0;
+      }
+
+      if (current == sequence.length) {
+        window.location.href = "/hire-me";
+        current = 0;
+      }
+    });
+  });
+</script>
