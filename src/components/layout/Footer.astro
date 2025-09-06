@@ -1,9 +1,5 @@
 ---
-export const prerender = false;
 import { t } from "../../i18n";
-
-const userAgent = Astro.request.headers.get("user-agent")?.toLowerCase() || "";
-const isMobile = /android|iphone|ipad|ipod|mobile/.test(userAgent);
 ---
 
 <footer
@@ -12,5 +8,7 @@ const isMobile = /android|iphone|ipad|ipod|mobile/.test(userAgent);
   <span class="text-sm sm:text-center text-zinc-800/90 dark:text-zinc-200/90">
     {t("footer.text")}
   </span>
-  {!isMobile && <p class="text-sm opacity-20">{t("footer.secret")}</p>}
+  <p class="text-sm opacity-20 hidden lg:block">
+    {t("footer.secret")}
+  </p>
 </footer>
