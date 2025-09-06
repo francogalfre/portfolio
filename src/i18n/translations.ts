@@ -27,6 +27,8 @@ export const translations = {
     },
     footer: {
       text: "Hecho con el 🩶 por Franco Galfré",
+      secret:
+        '"No deberías escribir "secret" en el teclado, no vaya a ser que descubras algo. 🤫',
     },
     error404: {
       title: "No pudimos encontrar esta página",
@@ -55,6 +57,7 @@ export const translations = {
     },
     footer: {
       text: "Made with 🩶 by Franco Galfré",
+      secret: "Wanna find a secret? Try typing the word. 🤫",
     },
     error404: {
       title: "This page could not be found",
