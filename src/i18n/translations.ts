@@ -28,7 +28,7 @@ export const translations = {
     footer: {
       text: "Hecho con el 🩶 por Franco Galfré",
       secret:
-        '"No deberías escribir "secret" en el teclado, no vaya a ser que descubras algo. 🤫',
+        'No deberías escribir "secret" en el teclado, no vaya a ser que descubras algo. 🤫',
     },
     error404: {
       title: "No pudimos encontrar esta página",

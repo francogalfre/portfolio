@@ -25,10 +25,10 @@ import Meme from "../components/ui/Meme";
     drag
     id="secret"
     className="space-y-12 text-center"
-    initial={{ x: 0, y: -100 }}
-    animate={{ x: 100, y: 100 }}
+    initial={{ x: 0, y: -200 }}
+    animate={{ x: 100, y: 200, rotate: 360 }}
     transition={{
-      duration: 2.5,
+      duration: 5,
       repeat: Infinity,
       repeatType: "reverse",
       ease: "easeInOut",
@@ -48,8 +48,8 @@ import Meme from "../components/ui/Meme";
     src="/memes/meme1.webp"
     alt="Meme 'When you opened the code you wrote two weeks ago'"
     style={{
-      top: `${Math.random() * 80 + 10}vh`,
-      left: `${Math.random() * 80 + 10}vw`,
+      top: `${Math.random() * 80}vh`,
+      left: `${Math.random() * 80}vw`,
       width: "20rem",
     }}
   />
