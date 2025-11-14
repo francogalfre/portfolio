@@ -38,15 +38,15 @@ export const primaryProjects = [
 export const projects = [
   {
     id: 3,
-    title: "Github Profile Explorer",
+    title: "Promptsmith | Landing Page",
     descriptionEn:
-      "A simple and fast tool to explore GitHub profiles, showing user details, repositories, and activity with a clean interface and dark/light themes.",
+      "The promotional landing page for Promptsmith, a type-safe prompt builder for the Vercel AI SDK, communicating its features and developer experience.",
     descriptionEs:
-      "Una herramienta simple y rápida para explorar perfiles de GitHub, mostrando detalles del usuario, repositorios y actividad con una interfaz limpia y modos oscuro/claro.",
-    image: "/projects/github-profile.webp",
-    href: "https://github-profiles-explorer.vercel.app/",
-    repository: "https://github.com/francogalfre/github-profile-explorer",
-    tags: ["React", "Javascript", "CSS", "Github API"],
+      "Landing page para Promptsmith, un constructor de prompts type-safe para el Vercel AI SDK, enfocada en comunicar sus características clave.",
+    image: "/projects/promptsmith.webp",
+    href: "https://promptsmith.galfrevn.com/",
+    repository: "https://github.com/galfrevn/promptsmith",
+    tags: ["Next.js", "Tailwind", "Typescript", "Motion"],
   },
   {
     id: 4,
@@ -59,5 +59,17 @@ export const projects = [
     href: "",
     repository: "https://github.com/francogalfre/patitas",
     tags: ["Next.js", "Node.js", "Tailwind", "Typescript", "PostgreSQL"],
+  },
+  {
+    id: 5,
+    title: "Github Profile Explorer",
+    descriptionEn:
+      "A simple and fast tool to explore GitHub profiles, showing user details, repositories, and activity with a clean interface and dark/light themes.",
+    descriptionEs:
+      "Una herramienta simple y rápida para explorar perfiles de GitHub, mostrando detalles del usuario, repositorios y actividad con una interfaz limpia y modos oscuro/claro.",
+    image: "/projects/github-profile.webp",
+    href: "https://github-profiles-explorer.vercel.app/",
+    repository: "https://github.com/francogalfre/github-profile-explorer",
+    tags: ["React", "Javascript", "CSS", "Github API"],
   },
 ];
