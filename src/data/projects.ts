@@ -56,7 +56,7 @@ export const projects = [
     descriptionEs:
       "Una plataforma que conecta mascotas con familias adoptivas, permitiendo a los usuarios publicar o buscar mascotas disponibles para adopción.",
     image: "/projects/patitas.webp",
-    href: "",
+    href: "https://www.patitas.site/",
     repository: "https://github.com/francogalfre/patitas",
     tags: ["Next.js", "Node.js", "Tailwind", "Typescript", "PostgreSQL"],
   },
