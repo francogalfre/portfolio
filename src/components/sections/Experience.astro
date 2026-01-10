@@ -21,7 +21,14 @@ const lang = getLangFromURL(Astro.url);
           <li class="space-y-6">
             <div>
               <div class="space-y-1">
-                <p class="text-md">{experience.company}</p>
+                <a
+                  href={experience.companyUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="inline-block text-md cursor-pointer text-black/80 dark:text-white/80 hover:text-black dark:hover:text-white transition-colors duration-300 relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[1px] after:bg-black/30 dark:after:bg-white/30 hover:after:w-full after:transition-all after:duration-300"
+                >
+                  {experience.company}
+                </a>
                 <h2 class="text-xl font-medium">{experience.role}</h2>
               </div>
               <p class="pt-2 text-black/50 dark:text-white/50">
