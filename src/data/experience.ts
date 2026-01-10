@@ -1,9 +1,19 @@
 export const experiences = [
   {
+    company: "Crombie",
+    role: "Full Stack Developer",
+    startDate: "January 2026",
+    endDate: "Present",
+    summaryEn:
+      "Working collaboratively with a talented team to build AI-powered applications and scalable cloud solutions. I develop dynamic frontend interfaces, create interactive AI agents, and contribute to backend architecture using AWS services.",
+    summaryEs:
+      "Trabajando en colaboración con un equipo talentoso para construir aplicaciones impulsadas por IA y soluciones escalables en la nube. Desarrollo interfaces de frontend, creo agentes de IA interactivos y contribuyo a la arquitectura backend usando servicios de AWS",
+  },
+  {
     company: "Fiverr · Freelancer",
     role: "Full Stack Web Developer & UX/UI Designer",
-    startDate: "Jun 2023",
-    endDate: "Present",
+    startDate: "June 2023",
+    endDate: "January 2026",
     summaryEn:
       "Collaborated with 20+ international clients to enhance their digital presence. Specialized in designing intuitive interfaces in Figma and developing them into modern, scalable websites using React, Next.js, and Tailwind CSS.",
     summaryEs:

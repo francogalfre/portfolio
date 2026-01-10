@@ -15,7 +15,7 @@ const lang = getLangFromURL(Astro.url);
     <h2 class="text-lg">{t("experience.title")}</h2>
   </header>
   <main>
-    <ul>
+    <ul class="space-y-12">
       {
         experiences.map((experience) => (
           <li class="space-y-6">
