@@ -1,71 +1,11 @@
 @import "tailwindcss";
-@plugin "@tailwindcss/typography";
 
-/* Custom font */
-@import '@fontsource/geist-sans/400.css';
-@import '@fontsource/geist-sans/500.css';
-@import '@fontsource/geist-sans/600.css';
-@import '@fontsource/geist-sans/700.css';
-
-@custom-variant dark (&:where(.dark, .dark *));
-
-@keyframes fadeInUpScale {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
+@theme {
+  --font-geist: "Geist", sans-serif;
 }
 
-.fade-in-up-scale {
-  animation: fadeInUpScale 0.6s cubic-bezier(0.43, 0.13, 0.23, 0.96) normal;
-}
-
-html {
-  font-family: "Geist Sans", system-ui;
-  scroll-behavior: smooth;
-}
-
-body {
-  display: flex;
-  flex-direction: column;
-  gap: 6rem;
-  min-height: 100vh;
-  scrollbar-width: none;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-}
-
-::-webkit-scrollbar {
-  width: 0;
-  background: transparent;
-}
-
-.highlight {
-  color: black;
-  opacity: 0.6;
-}
-
-html.dark .highlight {
-  color: white;
-  opacity: 0.6;
-}
-
-#secret {
-  h2 {
-    color: red;
-    font-family: Arial, sans-serif;
-    font-weight: 500;
-    font-size: 18px;
-  }
-
-  p {
-    font-family: Georgia, serif;
-    font-size: 16px;
+@layer base {
+  body {
+    font-family: var(--font-geist);
   }
 }
