@@ -1,0 +1,28 @@
+---
+import { experiences } from "@/data/experience-content";
+---
+
+<section class="space-y-6 animate-fade-in">
+  <div class="space-y-6 animate-fade-in" >
+    <div class="space-y-2">
+      <h2>my work</h2>
+      <p class="text-sm sm:text-[15px] font-normal text-gray-900 leading-[160%] prose">
+        Focused on crafting great digital experiences and growing as a developer. Here's my journey so far. Open to new opportunities.
+      </p>
+    </div>
+    
+    <hr class=" text-gray-200" />
+
+    <ul class="flex flex-col gap-6">
+      {experiences.map((exp) => (
+        <li class="space-y-2">
+          <header class="flex flex-col gap-1.5">
+            <h4 class="text-[15px] sm:text-[16px] font-[450] text-black leading-[90%]">{exp.company}</h4>
+            <p class="text-sm sm:text-[15px] text-secondary mt-0.5 leading-[120%]">{exp.role}, {exp.periods}</p>
+          </header>
+          <p class="text-sm sm:text-[15px] font-normal text-gray-900 leading-[160%] animate-fade-in prose">{exp.description}</p>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>

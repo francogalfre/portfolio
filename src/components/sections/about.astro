@@ -1,30 +1,31 @@
 ---
-import Gif from "@/assets/hero-gif.gif"
-import CompanyBadge from "@/components/company-badge.astro"
+import Gif from "@/assets/hero-gif.gif";
+import CompanyBadge from "@/components/company-badge.astro";
 
-const birthYear = 2007
-const birthMonth = 2
-const birthDay = 22
+const birthYear = 2007;
+const birthMonth = 2;
+const birthDay = 22;
 
-const today = new Date()
-const currentYear = today.getFullYear()
-const birthdayThisYear = new Date(currentYear, birthMonth - 1, birthDay)
+const today = new Date();
+const currentYear = today.getFullYear();
+const birthdayThisYear = new Date(currentYear, birthMonth - 1, birthDay);
 
-const age = today >= birthdayThisYear 
-  ? currentYear - birthYear 
-  : currentYear - birthYear - 1
+const age =
+	today >= birthdayThisYear
+		? currentYear - birthYear
+		: currentYear - birthYear - 1;
 ---
 
-<section class="opacity-0 animate-fade-in">
-  <img src={Gif.src} alt="Land with grass cube pixel art style" class="w-14 sm:w-16 mb-2 opacity-0 animate-fade-in">
+<section class="animate-fade-in">
+  <img src={Gif.src} alt="Land with grass cube pixel art style" class="w-14 sm:w-16 mb-2 animate-fade-in hover:scale-105 hover:rotate-3 transition-transform duration-300">
 
   <div class="flex flex-col gap-6">
-    <div class="space-y-1.5 opacity-0 animate-fade-in">
+    <div class="space-y-1.5 animate-fade-in">
       <h1 class="text-[15px] sm:text-[16px] font-[450] text-black leading-[90%]">Franco Galfré</h1>
       <p class="text-sm sm:text-[15px] text-secondary mt-0.5 leading-[120%]">Santa Fe, Argentina</p>
     </div>
   
-    <p class="text-sm sm:text-[15px] font-normal text-gray-900 leading-[160%] opacity-0 animate-fade-in" >
+    <p class="text-sm sm:text-[15px] font-normal text-gray-900 leading-[160%]animate-fade-in" >
       I'm Franco! I'm {age} years old and a passionate Full Stack Developer who loves computing, coding, and coffee. I approach every challenge with enthusiasm and curiosity, always excited to learn new technologies.
       <br /><br />
       Currently building amazing things at <CompanyBadge />.
