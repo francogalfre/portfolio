@@ -26,4 +26,21 @@
   *::selection {
     background-color: #c9e29079;
   }
+
+  * {
+    cursor: none;
+  }
+  
+  #cursor {
+    position: fixed;
+    width: 6px;
+    height: 6px;
+    background: rgb(98, 98, 98);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: transform 100ms ease;
+  }
 }
+
