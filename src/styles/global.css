@@ -10,7 +10,7 @@
   --color-primary-foreground: #1a2e0f;
   --color-secondary: #6b7280;
   --color-secondary-foreground: #1f2937;
-  --animate-fade-in: fade-in 0.4s ease-out forwards;
+  --animate-fade-in: fade-in 0.6s ease-out forwards;
 }
 
 @keyframes fade-in {

@@ -13,9 +13,9 @@ const { lastPage, actualPage } = Astro.props;
   <a href="/" class="text-secondary">home</a>
   <span class="text-secondary"><BreadcrumbChevron /></span>
   {lastPage &&  (
-    <a href={lastPage} class="text-secondary">{lastPage}</a>
+    <a href={"/" + lastPage} class="text-secondary">{lastPage}</a>
     <span class="text-secondary"><BreadcrumbChevron /></span>
   )}
 
-  <span>{actualPage}</span>
+  <span class="lowercase">{actualPage}</span>
 </div>
