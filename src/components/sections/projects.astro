@@ -1,0 +1,29 @@
+---
+import { projects } from "@/data/projects-content";
+---
+
+<section class="space-y-6 animate-fade-in">
+  <div class="space-y-6 animate-fade-in" >
+    <div class="space-y-2">
+      <h2>my projects</h2>
+      <p class="text-sm sm:text-[15px] font-normal text-gray-900 leading-[160%] prose">
+        Focused on crafting great digital experiences and growing as a developer. Here's my journey so far. Open to new opportunities.
+      </p>
+    </div>
+    
+    <hr class=" text-gray-200" />
+
+    <ul class="flex flex-col gap-1.5">
+      {projects.map((proj) => (
+        <li class="space-y-2 hover:bg-gray-100/70 transition-colors duration-300 rounded-lg cursor-pointer py-2 px-3 -mx-3">
+          <a href={`/projects/${proj.detailsUrl}`} class="">
+            <div class="flex flex-col gap-1.5 py-2">
+            <h4 class="text-[15px] sm:text-[16px] font-[450] text-black leading-[90%]">{proj.title}</h4>
+            <p class="text-sm sm:text-[15px] text-secondary mt-0.5 leading-[120%]">{proj.description}</p>
+          </div>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>

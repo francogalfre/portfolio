@@ -6,6 +6,8 @@
 
 @theme {
   --font-geist: "Geist", sans-serif;
+  --color-primary: #a7ca69;
+  --color-primary-foreground: #1a2e0f;
   --color-secondary: #6b7280;
   --color-secondary-foreground: #1f2937;
   --animate-fade-in: fade-in 0.4s ease-out forwards;
@@ -19,5 +21,9 @@
 @layer base {
   body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  }
+
+  *::selection {
+    background-color: #c9e29079;
   }
 }
