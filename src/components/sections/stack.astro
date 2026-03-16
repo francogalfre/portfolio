@@ -1,6 +1,8 @@
 ---
 import { technologies, ai, applications } from "@/data/stack-content";
 
+import ExternalLinkIcon from "../icons/external-link.astro";
+
 type StackItem = {
 	name: string;
 	href: string;
@@ -37,19 +39,20 @@ const categories: StackCategory[] = [
         </h3>
         <ul class="flex flex-col gap-2.5">
           {category.items.map((item: StackItem) => (
-            <li class="">
+            <li class="group">
               <a
                 href={item.href}
                 target="_blank"
                 rel="noopener noreferrer"
                 class="inline-flex items-center gap-2.5 text-sm text-gray-900 hover:text-black transition-colors"
               >
+                <span class="hidden group-hover:flex transition-all"><ExternalLinkIcon /></span>
                 <img
                   src={item.icon}
                   alt={item.name}
-                  class="size-4 shrink-0"
+                  class="size-4 shrink-0 group-hover:hidden"
                 />
-                <span class="text-secondary hover:text-gray-900 transition-colors duration-500">{item.name}</span>
+                <span class="text-secondary hover:text-gray-900 hover:underline transition-all duration-300">{item.name}</span>
               </a>
             </li>
           ))}

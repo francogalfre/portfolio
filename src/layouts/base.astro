@@ -1,5 +1,6 @@
 ---
 import "@/styles/global.css";
+import "lenis/dist/lenis.css";
 ---
 
 <html lang="es">
@@ -16,9 +17,17 @@ import "@/styles/global.css";
   </head>
   <body>
     <div id="cursor"></div>
-    <main class="max-w-xl w-full px-6 pt-[24vh] pb-12 min-h-screen flex flex-col gap-6 mx-auto">
+    <main class="max-w-xl w-full px-6 pt-[16vh] pb-12 min-h-screen flex flex-col gap-6 mx-auto">
       <slot />
     </main>
+
+    <script>
+      import Lenis from "lenis";
+
+      const lenis = new Lenis({
+        autoRaf: true,
+      });
+    </script>
 
     <script>
       const cursor = document.getElementById("cursor");
