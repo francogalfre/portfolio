@@ -10,7 +10,7 @@
   --color-primary-foreground: #1a2e0f;
   --color-secondary: #6b7280;
   --color-secondary-foreground: #1f2937;
-  --animate-fade-in: fade-in 0.6s ease-out forwards;
+  --animate-fade-in: fade-in 0.8s ease-out forwards;
 }
 
 @keyframes fade-in {
@@ -40,7 +40,17 @@
     pointer-events: none;
     z-index: 9999;
     transform: translate(-50%, -50%);
-    transition: transform 100ms ease;
+    transition: width 300ms cubic-bezier(0.34, 1.56, 0.64, 1), 
+                height 300ms cubic-bezier(0.34, 1.56, 0.64, 1),
+                background 200ms ease,
+                border-radius 300ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  
+  #cursor.expanded {
+    width: 14px;
+    height: 14px;
+    background: rgba(98, 98, 98, 0.01);
+    border: 1px solid rgba(98, 98, 98, 0.3);
   }
 }
 

@@ -1,6 +1,7 @@
 ---
 import "@/styles/global.css";
 import "lenis/dist/lenis.css";
+import Cursor from "@/components/ui/cursor.astro";
 ---
 
 <html lang="es">
@@ -10,33 +11,20 @@ import "lenis/dist/lenis.css";
     <link rel="icon" href="/favicon.webp" />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap" rel="stylesheet" />
     <title>Franco Galfré</title>
   </head>
   <body>
-    <div id="cursor"></div>
+    <Cursor />
     <main class="max-w-xl w-full px-6 pt-[16vh] pb-12 min-h-screen flex flex-col gap-6 mx-auto">
       <slot />
     </main>
 
     <script>
       import Lenis from "lenis";
-
-      const lenis = new Lenis({
-        autoRaf: true,
-      });
-    </script>
-
-    <script>
-      const cursor = document.getElementById("cursor");
-  
-      document.addEventListener("mousemove", (e) => {
-        if (!cursor) return;
-        cursor.style.left = e.clientX + "px";
-        cursor.style.top  = e.clientY + "px";
-      });
+      new Lenis({ autoRaf: true });
     </script>
   </body>
 </html>

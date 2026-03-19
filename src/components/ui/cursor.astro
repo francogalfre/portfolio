@@ -1,0 +1,25 @@
+---
+---
+
+<div id="cursor"></div>
+
+<script>
+  const cursor = document.getElementById("cursor");
+  const interactive = "a, button, [role='button'], input, textarea, select, label";
+
+  document.addEventListener("mousemove", (e) => {
+    if (!cursor) return;
+    cursor.style.left = e.clientX + "px";
+    cursor.style.top = e.clientY + "px";
+  });
+
+  document.addEventListener("mouseover", (e) => {
+    if (!cursor) return;
+    if (e.target.closest(interactive)) cursor.classList.add("expanded");
+  });
+
+  document.addEventListener("mouseout", (e) => {
+    if (!cursor) return;
+    if (e.target.closest(interactive)) cursor.classList.remove("expanded");
+  });
+</script>
