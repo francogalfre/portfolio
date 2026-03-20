@@ -1,10 +1,9 @@
 ---
 import BaseLayout from "@/layouts/base.astro";
 import Breadcrumb from "@/components/ui/breadcrumb.astro";
-
 import ArrowUpRightIcon from "@/components/icons/arrow-up-right.astro";
-
 import { projects } from "@/data/projects-content";
+import { seoData } from "@/data/seo-content";
 
 export function getStaticPaths() {
 	return projects.map((project) => ({
@@ -16,7 +15,7 @@ export function getStaticPaths() {
 const { project } = Astro.props;
 ---
 
-<BaseLayout>
+<BaseLayout seo={seoData}>
   <Breadcrumb lastPage="projects" actualPage={project.title} />
 
   <article class="space-y-6 animate-fade-in">

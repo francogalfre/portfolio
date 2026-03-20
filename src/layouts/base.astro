@@ -1,20 +1,23 @@
 ---
 import "@/styles/global.css";
 import "lenis/dist/lenis.css";
+
 import Cursor from "@/components/ui/cursor.astro";
+import SEO from "@/components/seo/seo.astro";
+
+import type { PageSEO } from "@/data/seo-content";
+
+interface Props {
+	seo: PageSEO;
+}
+
+const { seo } = Astro.props;
 ---
 
 <html lang="es">
   <head>
-    <meta charset="utf-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.webp" />
-    <link rel="icon" href="/favicon.webp" />
-    <meta name="viewport" content="width=device-width" />
-    <meta name="generator" content={Astro.generator} />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap" rel="stylesheet" />
-    <title>Franco Galfré</title>
+    <SEO page={seo} />
+    <meta charset="UTF-8">
   </head>
   <body>
     <Cursor />

@@ -41,7 +41,7 @@ async function load() {
 
   const btn = document.getElementById("play-btn")!;
   const audio = new Audio(song.previewUrl);
-  audio.volume = 0.5;
+  audio.volume = 0.2;
 
   audio.addEventListener("ended", () => {
     btn.innerHTML = PLAY;

@@ -1,8 +1,9 @@
 ---
 import CenteredLayout from "@/layouts/centered.astro";
 import AboutSection from "@/components/sections/about.astro";
+import { seoData } from "@/data/seo-content";
 ---
 
-<CenteredLayout>
+<CenteredLayout seo={seoData}>
   <AboutSection />
 </CenteredLayout>

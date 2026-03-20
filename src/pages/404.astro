@@ -1,10 +1,10 @@
 ---
 import CenteredLayout from "@/layouts/centered.astro";
-
 import Gif from "@/assets/hero-gif.gif";
+import { seoData } from "@/data/seo-content";
 ---
 
-<CenteredLayout>
+<CenteredLayout seo={seoData}>
   <section class="animate-fade-in flex flex-col text-center justify-center items-center">
     <img src={Gif.src} alt="Land with grass cube pixel art style" class="w-14 sm:w-16 mb-3 animate-fade-in">
    
