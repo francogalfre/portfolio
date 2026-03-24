@@ -13,6 +13,8 @@ const canonicalURL = new URL(Astro.url.pathname, SITE_URL);
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="title" content={page.title} />
 <meta name="description" content={page.description} />
+<meta name="keywords" content={page.keywords}>
+
 <link rel="canonical" href={canonicalURL} />
 
 <meta property="og:title" content={page.title} />
