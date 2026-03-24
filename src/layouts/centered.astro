@@ -22,7 +22,7 @@ const { seo } = Astro.props;
   </head>
   <body class="relative">
     <Cursor />
-    <main class="max-w-xl w-full px-6 h-screen flex flex-col gap-6 mx-auto items-center justify-center">
+    <main class="w-full max-w-2xl px-6 md:px-12 min-h-screen flex flex-col gap-6 mx-auto items-center justify-center">
       <slot />
     </main>
 
@@ -35,7 +35,6 @@ const { seo } = Astro.props;
       const isMobile = () => window.innerWidth < 768;
 
       function initDock() {
-        // Mobile: always visible
         if (isMobile()) {
           if (dock) {
             dock.style.opacity = "1";
@@ -44,7 +43,6 @@ const { seo } = Astro.props;
           return;
         }
 
-        // Desktop: starts HIDDEN
         if (dock) {
           dock.style.opacity = "0";
           dock.style.transform = "translateY(100%)";
@@ -72,7 +70,6 @@ const { seo } = Astro.props;
           }
         }
 
-        // Mouse hover detection (bottom area)
         document.addEventListener("mousemove", (e) => {
           const isInBottomZone = e.clientY > window.innerHeight - 100;
           
@@ -81,7 +78,6 @@ const { seo } = Astro.props;
           }
         });
 
-        // Scroll detection
         window.addEventListener("wheel", (e) => {
           if (e.deltaY > 0) {
             showDock();
