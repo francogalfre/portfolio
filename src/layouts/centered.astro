@@ -3,6 +3,7 @@ import "@/styles/global.css";
 import "lenis/dist/lenis.css";
 
 import Cursor from "@/components/ui/cursor.astro";
+import SocialsDock from "@/components/ui/socials-dock.astro";
 import SEO from "@/components/seo/seo.astro";
 
 import type { PageSEO } from "@/data/seo-content";
@@ -19,15 +20,86 @@ const { seo } = Astro.props;
     <SEO page={seo} />
     <meta charset="UTF-8">
   </head>
-  <body>
+  <body class="relative">
     <Cursor />
     <main class="max-w-xl w-full px-6 h-screen flex flex-col gap-6 mx-auto items-center justify-center">
       <slot />
     </main>
 
+    <SocialsDock />
+
     <script>
       import Lenis from "lenis";
-      new Lenis({ autoRaf: true });
+
+      const dock = document.getElementById("socials-dock");
+      const isMobile = () => window.innerWidth < 768;
+
+      function initDock() {
+        // Mobile: always visible
+        if (isMobile()) {
+          if (dock) {
+            dock.style.opacity = "1";
+            dock.style.transform = "translateY(0)";
+          }
+          return;
+        }
+
+        // Desktop: starts HIDDEN
+        if (dock) {
+          dock.style.opacity = "0";
+          dock.style.transform = "translateY(100%)";
+        }
+
+        const lenis = new Lenis({
+          autoRaf: true,
+        });
+
+        let dockVisible = false;
+
+        function showDock() {
+          if (!dockVisible && dock) {
+            dockVisible = true;
+            dock.style.opacity = "1";
+            dock.style.transform = "translateY(0)";
+          }
+        }
+
+        function hideDock() {
+          if (dockVisible && dock) {
+            dockVisible = false;
+            dock.style.opacity = "0";
+            dock.style.transform = "translateY(100%)";
+          }
+        }
+
+        // Mouse hover detection (bottom area)
+        document.addEventListener("mousemove", (e) => {
+          const isInBottomZone = e.clientY > window.innerHeight - 100;
+          
+          if (isInBottomZone) {
+            showDock();
+          }
+        });
+
+        // Scroll detection
+        window.addEventListener("wheel", (e) => {
+          if (e.deltaY > 0) {
+            showDock();
+          } else if (e.deltaY < 0) {
+            hideDock();
+          }
+        });
+
+        lenis.on("scroll", ({ scroll }) => {
+          if (scroll > 5) {
+            showDock();
+          } else if (scroll === 0) {
+            hideDock();
+          }
+        });
+      }
+
+      initDock();
     </script>
   </body>
 </html>
