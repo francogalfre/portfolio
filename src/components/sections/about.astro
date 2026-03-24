@@ -3,6 +3,7 @@ import Gif from "@/assets/hero-gif.gif";
 
 import CompanyBadge from "@/components/ui/company-badge.astro";
 import Spotify from "@/components/ui/spotify-player.astro";
+import { HoverLinkPreview } from "@/components/ui/hover-link-preview";
 
 import { getAgeData } from "@/utils/age-calculation";
 
@@ -14,7 +15,9 @@ const { years } = getAgeData();
  
   <div class="flex flex-col gap-6 mb-6">
     <div class="space-y-1.5 animate-fade-in">
-      <h1 class="text-[15px] sm:text-[16px] font-[450] text-black leading-[90%]">Franco Galfré</h1>
+      <HoverLinkPreview href="https://www.linkedin.com/in/francogalfre/" previewImage="https://avatars.githubusercontent.com/u/96532888?v=4" imageAlt="Francogalfre avatar" client:visible>
+        <h1 class="text-[15px] sm:text-[16px] font-[450] text-black leading-[90%]">Franco Galfré</h1>
+      </HoverLinkPreview>
       <p class="text-sm sm:text-[15px] text-secondary mt-0.5 leading-[120%]">Santa Fe, Argentina</p>
     </div>
  

@@ -27,6 +27,19 @@ export default defineConfig({
         "@": path.resolve("./src"),
       },
     },
+    ssr: {
+      noExternal: ["detect-libc"],
+    },
+    customLogger: {
+      warn: (msg, options) => {
+        if (
+          msg.includes("externalized for browser compatibility") ||
+          msg.includes("detect-libc") ||
+          msg.includes("graceful-fs")
+        ) return;
+        console.warn(msg);
+      },
+    },
   },
 
   integrations: [react()],
