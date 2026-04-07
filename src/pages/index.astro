@@ -7,3 +7,35 @@ import { seoData } from "@/data/seo-content";
 <CenteredLayout seo={seoData}>
   <AboutSection />
 </CenteredLayout>
+
+<script>
+  const konamiSequence = [
+    "ArrowUp",
+    "ArrowUp",
+    "ArrowDown",
+    "ArrowDown",
+    "ArrowLeft",
+    "ArrowRight",
+    "ArrowLeft",
+    "ArrowRight",
+    "b",
+    "a",
+  ];
+
+  let currentStep = 0;
+
+  window.addEventListener("keydown", (event) => {
+    const key = event.key.length === 1 ? event.key.toLowerCase() : event.key;
+
+    if (key === konamiSequence[currentStep]) {
+      currentStep += 1;
+
+      if (currentStep === konamiSequence.length) {
+        window.location.href = "/games";
+      }
+      return;
+    }
+
+    currentStep = key === konamiSequence[0] ? 1 : 0;
+  });
+</script>
