@@ -1,0 +1,26 @@
+---
+interface Props {
+	gameUrl: string;
+	coreName: string;
+	gameName: string;
+}
+
+const { gameUrl, coreName, gameName } = Astro.props;
+
+const emulatorUrl = `/emulator.html?game=${encodeURIComponent(gameUrl)}&core=${encodeURIComponent(coreName)}`;
+---
+
+<div class="w-full flex flex-col items-center justify-center gap-6">
+  <iframe
+    src={emulatorUrl}
+    title={gameName}
+    class="w-full rounded-lg border border-gray-700"
+    style={{
+      maxWidth: "900px",
+      aspectRatio: "4 / 3",
+      border: "none",
+    }}
+    allow="fullscreen"
+  >
+  </iframe>
+</div>

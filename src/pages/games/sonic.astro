@@ -1,0 +1,20 @@
+---
+import GamesLayout from "@/layouts/games.astro";
+
+import Breadcrumb from "@/components/ui/breadcrumb.astro";
+import EmulatorAstro from "@/components/ui/games/emulator.astro";
+import GameControls from "@/components/ui/games/game-controls.astro";
+
+import { seoData } from "@/data/seo-content";
+---
+
+<GamesLayout  seo={seoData} gameTitle="Sonic the Hedgehog">
+  <Breadcrumb actualPage="Sonich the Hedgehog" />
+  <div class="w-full max-w-2xl mx-auto">
+    <EmulatorAstro
+      gameUrl="/roms/sonic-the-hedgehod-4.sfc"
+      coreName="snes"
+      gameName="Sonic the Hedgehog 4"
+    />
+  </div>
+</GamesLayout>
