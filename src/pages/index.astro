@@ -1,57 +1,9 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
-
-import SectionContainer from "../components/ui/SectionContainer";
-
-import Hero from "../components/sections/Hero.astro";
-import Experience from "../components/sections/Experience.astro";
-import Projects from "../components/sections/Projects.astro";
-import AboutMe from "../components/sections/About.astro";
-import Contact from "../components/sections/Contact.astro";
-
-import { setLang } from "../i18n";
-
-setLang("es");
+import CenteredLayout from "@/layouts/centered.astro";
+import AboutSection from "@/components/sections/about.astro";
+import { seoData } from "@/data/seo-content";
 ---
 
-<BaseLayout
-  header
-  title="Franco Galfré | Portafolio - Desarrollador & Programador Web"
-  description="Descubre el portafolio de desarrollo web de Franco Galfré. Desarrollador Full Stack apasionado por crear sitios web modernos, limpios y de alto rendimiento utilizando Next.js, Node.js y TypeScript."
->
-  <SectionContainer id="hero" client:visible>
-    <Hero />
-  </SectionContainer>
-  <SectionContainer id="experiencia" client:visible>
-    <Experience />
-  </SectionContainer>
-  <SectionContainer id="proyectos" client:visible>
-    <Projects />
-  </SectionContainer>
-  <SectionContainer id="sobre mi" client:visible>
-    <AboutMe />
-  </SectionContainer>
-  <SectionContainer id="contacto" client:visible>
-    <Contact />
-  </SectionContainer>
-</BaseLayout>
-
-<script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const sequence = ["s", "e", "c", "r", "e", "t"];
-    let current = 0;
-
-    document.addEventListener("keydown", (e) => {
-      if (e.key.toLocaleLowerCase() == sequence[current]) {
-        current++;
-      } else {
-        current = 0;
-      }
-
-      if (current == sequence.length) {
-        window.location.href = "/hire-me";
-        current = 0;
-      }
-    });
-  });
-</script>
+<CenteredLayout seo={seoData}>
+  <AboutSection />
+</CenteredLayout>

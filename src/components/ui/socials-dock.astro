@@ -1,0 +1,48 @@
+---
+import GithubIcon from "../icons/github.astro";
+import LinkedinIcon from "../icons/linkedin.astro";
+import XIcon from "../icons/x.astro";
+import EmailIcon from "../icons/email.astro";
+
+const socials = [
+	{
+		name: "GitHub",
+		href: "https://github.com/francogalfre",
+		icon: GithubIcon,
+	},
+	{
+		name: "LinkedIn",
+		href: "https://linkedin.com/in/francogalfre",
+		icon: LinkedinIcon,
+	},
+	{
+		name: "Twitter",
+		href: "https://x.com/francogalfredev",
+		icon: XIcon,
+	},
+	{
+		name: "Email",
+		href: "mailto:francogalfre.work@gmail.com",
+		icon: EmailIcon,
+	},
+];
+---
+
+<div
+  id="socials-dock"
+  class="fixed bottom-0 left-1/2 -translate-x-1/2 flex items-center gap-3 px-6 py-2 bg-white/90 backdrop-blur-md rounded-t-xl border border-gray-200 border-b-0 transition-all duration-300 ease-out"
+>
+  {
+    socials.map((social) => (
+      <a
+        href={social.href}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="p-2 text-secondary hover:text-primary transition-all duration-300 hover:scale-110 rounded-full hover:bg-gray-100/50"
+        aria-label={social.name}
+      >
+        <social.icon />
+      </a>
+    ))
+  }
+</div>

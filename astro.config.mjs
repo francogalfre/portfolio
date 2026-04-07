@@ -1,18 +1,44 @@
+// @ts-check
 import { defineConfig } from "astro/config";
-import tailwindcss from "@tailwindcss/vite";
+
+import path from "path";
 
 import react from "@astrojs/react";
+import vercel from "@astrojs/vercel";
+import tailwindcss from "@tailwindcss/vite";
 
-// https://astro.build/config
 export default defineConfig({
+  output: "static",
+  adapter: vercel({
+    webAnalytics: {
+      enabled: true,
+    },
+  }),
   vite: {
-    plugins: [tailwindcss()],
-  },
-  i18n: {
-    locales: ["en", "es"],
-    defaultLocale: "en",
-    routing: {
-      prefixDefaultLocale: false,
+    plugins: [
+      tailwindcss({
+        css: {
+          tailwindDirectives: true,
+        },
+      }),
+    ],
+    resolve: {
+      alias: {
+        "@": path.resolve("./src"),
+      },
+    },
+    ssr: {
+      noExternal: ["detect-libc"],
+    },
+    customLogger: {
+      warn: (msg, options) => {
+        if (
+          msg.includes("externalized for browser compatibility") ||
+          msg.includes("detect-libc") ||
+          msg.includes("graceful-fs")
+        ) return;
+        console.warn(msg);
+      },
     },
   },
 

@@ -1,0 +1,32 @@
+---
+import { SITE_NAME, SITE_URL, type PageSEO } from "@/data/seo-content";
+
+interface Props {
+	page: PageSEO;
+}
+
+const { page } = Astro.props;
+const canonicalURL = new URL(Astro.url.pathname, SITE_URL);
+---
+
+<title>Franco Galfré</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="title" content={page.title} />
+<meta name="description" content={page.description} />
+<meta name="keywords" content={page.keywords}>
+
+<link rel="canonical" href={canonicalURL} />
+
+<meta property="og:title" content={page.title} />
+<meta property="og:description" content={page.description} />
+<meta property="og:url" content={canonicalURL} />
+<meta property="og:site_name" content={SITE_NAME} />
+<meta property="og:image" content="/og-image.webp" />
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content={page.title} />
+<meta name="twitter:description" content={page.description} />
+<meta name="twitter:image" content="/og-image.webp" />
+
+<link rel="icon" href="/favicon-light.ico" media="(prefers-color-scheme: dark)" />
+<link rel="icon" href="/favicon-dark.ico" media="(prefers-color-scheme: light)" />

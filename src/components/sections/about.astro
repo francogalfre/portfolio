@@ -1,0 +1,50 @@
+---
+import Gif from "@/assets/hero-gif.gif";
+
+import CompanyBadge from "@/components/ui/company-badge.astro";
+import Spotify from "@/components/ui/spotify-player.astro";
+import { HoverLinkPreview } from "@/components/ui/hover-link-preview";
+
+import { getAgeData } from "@/utils/age-calculation";
+
+const { years } = getAgeData();
+---
+ 
+<section class="animate-fade-in">
+  <img src={Gif.src} alt="Land with grass cube pixel art style" class="w-14 sm:w-16 mb-3 animate-fade-in hover:scale-105 hover:rotate-3 transition-transform duration-500">
+ 
+  <div class="flex flex-col gap-6 mb-6">
+    <div class="space-y-1.5 animate-fade-in">
+      <HoverLinkPreview href="https://www.linkedin.com/in/francogalfre/" previewImage="https://avatars.githubusercontent.com/u/96532888?v=4" imageAlt="Francogalfre avatar" client:visible>
+        <h1 class="text-[15px] sm:text-[16px] font-[450] text-black leading-[90%]">Franco Galfré</h1>
+      </HoverLinkPreview>
+      <p class="text-sm sm:text-[15px] text-secondary mt-0.5 leading-[120%]">Santa Fe, Argentina</p>
+    </div>
+ 
+    <p class="text-sm sm:text-[15px] font-normal text-gray-900 sm:leading-[160%] animate-fade-in">
+      I'm Franco! I'm <span id="age-counter" style="font-variant-numeric: tabular-nums;">{years}</span> years old and a passionate Full Stack Developer who loves computing, coding, and coffee. I approach every challenge with enthusiasm and curiosity, always excited to learn new technologies.
+      <br /><br />
+      Currently building amazing things at <CompanyBadge />, crafting <a href="/projects" class="text-secondary hover:text-primary transition-colors">projects</a> with the <a href="/stack" class="text-secondary hover:text-primary transition-colors">technologies</a> I enjoy most.
+    </p>
+  </div>
+
+  <Spotify />
+</section>
+ 
+<script>
+  import { getAgeData } from "../../utils/age-calculation";
+ 
+  const el = document.getElementById("age-counter");
+ 
+  function render() {
+    if (!el) return;
+    const { years, days, hours, minutes, seconds } = getAgeData();
+    const totalSeconds = days * 86400 + hours * 3600 + minutes * 60 + seconds;
+    const decimal = totalSeconds / (365.25 * 86400);
+    el.textContent = (years + decimal).toFixed(7);
+  }
+ 
+  render();
+  setInterval(render, 50);
+</script>
+ 

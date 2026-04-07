@@ -1,0 +1,63 @@
+---
+import { technologies, ai, applications } from "@/data/stack-content";
+
+import ExternalLinkIcon from "../icons/external-link.astro";
+
+type StackItem = {
+	name: string;
+	href: string;
+	icon: string;
+};
+
+type StackCategory = {
+	title: string;
+	items: StackItem[];
+};
+
+const categories: StackCategory[] = [
+	{ title: "technologies", items: technologies },
+	{ title: "ai", items: ai },
+	{ title: "applications", items: applications },
+];
+---
+
+<section class="space-y-6 animate-fade-in">
+  <div class="space-y-2">
+    <h2 class="text-[15px] sm:text-[16px] font-[450] text-black leading-[90%]">my stack</h2>
+    <p class="text-sm sm:text-[15px] font-normal text-gray-900 leading-[160%]">
+      An overview of the technologies, tools, and apps I use daily.
+    </p>
+  </div>
+
+  <hr class="border-gray-200" />
+
+  <div class="space-y-8">
+    {categories.map((category) => (
+      <div class="space-y-4">
+        <h3 class="text-[14px] text-black leading-[90%]">
+          {category.title}
+        </h3>
+        <ul class="flex flex-col gap-2.5">
+          {category.items.map((item: StackItem) => (
+            <li class="group">
+              <a
+                href={item.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center gap-2.5 text-sm text-gray-900 hover:text-black transition-colors"
+              >
+                <span class="hidden group-hover:flex transition-all"><ExternalLinkIcon /></span>
+                <img
+                  src={item.icon}
+                  alt={item.name}
+                  class="size-4 shrink-0 group-hover:hidden"
+                />
+                <span class="text-secondary hover:text-gray-900 hover:underline transition-all duration-300">{item.name}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    ))}
+  </div>
+</section>

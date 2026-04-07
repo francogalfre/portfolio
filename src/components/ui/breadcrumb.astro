@@ -1,0 +1,21 @@
+---
+import BreadcrumbChevron from "@/components/icons/breadcrumb-chevron.astro";
+
+interface Props {
+	lastPage?: string;
+	actualPage: string;
+}
+
+const { lastPage, actualPage } = Astro.props;
+---
+
+<div class="flex items-center gap-1 w-full text-[15px] animate-fade-in">
+  <a href="/" class="text-secondary">home</a>
+  <span class="text-secondary"><BreadcrumbChevron /></span>
+  {lastPage &&  (
+    <a href={"/" + lastPage} class="text-secondary">{lastPage}</a>
+    <span class="text-secondary"><BreadcrumbChevron /></span>
+  )}
+
+  <span class="lowercase">{actualPage}</span>
+</div>

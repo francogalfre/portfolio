@@ -1,36 +1,23 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
-
-import SocialButton from "../components/ui/SocialButton.astro";
-
-import { getLangFromURL, t } from "../i18n";
-
-const lang = getLangFromURL(Astro.url);
+import CenteredLayout from "@/layouts/centered.astro";
+import Gif from "@/assets/hero-gif.gif";
+import { seoData } from "@/data/seo-content";
 ---
 
-<BaseLayout title="404: This page could not be found.">
-  <div class="max-w-2xl w-full text-center mx-auto space-y-6 pl-5">
-    <h1 class="text-2xl font-medium dark:text-white/60 text-black/60">
-      404 Error
-    </h1>
-    <img
-      src="/404.gif"
-      alt="Pulp Fiction Vincent looking around"
-      class="w-full h-auto rounded-lg"
-    />
-    <footer
-      class="space-y-3 justify-center text-center items-center flex flex-col"
-    >
-      <h3 class="pt-4 text-xl dark:text-white/60 text-black/60">
-        {t("error404.title")}
-      </h3>
-      <p class="text-md text-center dark:text-white/50 pb-4">
-        {t("error404.text")}
-      </p>
+<CenteredLayout seo={seoData}>
+  <section class="animate-fade-in flex flex-col text-center justify-center items-center">
+    <img src={Gif.src} alt="Land with grass cube pixel art style" class="w-14 sm:w-16 mb-3 animate-fade-in">
+   
+    <div class="flex flex-col gap-3 text-center justify-center">
+      <h1 class="text-[15px] sm:text-[16px] font-[450] text-black leading-[90%]">This page could not be found</h1>
+      <p class="text-sm sm:text-[15px] text-secondary leading-[120%]">doesn't exist, was removed, or the link is incorrect.</p>
+    </div>
 
-      <SocialButton href={lang == "es" ? "/" : "/en"}>
-        {t("error404.button")}</SocialButton
-      >
-    </footer>
-  </div>
-</BaseLayout>
+    <a 
+      href="/" 
+      class="text-sm bg-gray-200 px-4 py-2 rounded-sm hover:bg-gray-300/80 transition-colors duration-500 mt-6"
+    >
+      back home
+    </a>
+  </section>
+</CenteredLayout>
