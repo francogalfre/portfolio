@@ -1,0 +1,19 @@
+---
+import GamesLayout from "@/layouts/games.astro";
+
+import Breadcrumb from "@/components/ui/breadcrumb.astro";
+import EmulatorAstro from "@/components/ui/games/emulator.astro";
+
+import { seoData } from "@/data/seo-content";
+---
+
+<GamesLayout  seo={seoData} gameTitle="Mortal Kombat">
+  <Breadcrumb lastPage="games" actualPage="Mortal Kombat" />
+  <div class="w-full max-w-2xl mx-auto">
+    <EmulatorAstro
+      gameUrl="/roms/mortal-kombat.sfc"
+      coreName="snes"
+      gameName="Mortal Kombat"
+    />
+  </div>
+</GamesLayout>

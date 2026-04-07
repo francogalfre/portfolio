@@ -1,0 +1,11 @@
+---
+import BaseLayout from "@/layouts/base.astro";
+import GamesSection from "@/components/sections/games.astro";
+import Breadcrumb from "@/components/ui/breadcrumb.astro";
+import { seoData } from "@/data/seo-content";
+---
+
+<BaseLayout seo={seoData}>
+  <Breadcrumb actualPage="games" />
+  <GamesSection />
+</BaseLayout>

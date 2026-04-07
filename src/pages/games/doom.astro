@@ -1,0 +1,19 @@
+---
+import GamesLayout from "@/layouts/games.astro";
+
+import Breadcrumb from "@/components/ui/breadcrumb.astro";
+import EmulatorAstro from "@/components/ui/games/emulator.astro";
+
+import { seoData } from "@/data/seo-content";
+---
+
+<GamesLayout  seo={seoData} gameTitle="Doom">
+  <Breadcrumb lastPage="games" actualPage="Doom" />
+  <div class="w-full max-w-2xl mx-auto">
+    <EmulatorAstro
+      gameUrl="/roms/doom.32x"
+      coreName="sega32x"
+      gameName="Doom"
+    />
+  </div>
+</GamesLayout>
