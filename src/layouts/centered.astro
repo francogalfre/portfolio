@@ -72,14 +72,6 @@ const { seo } = Astro.props;
           }
         }
 
-        document.addEventListener("mousemove", (e) => {
-          const isInBottomZone = e.clientY > window.innerHeight - 100;
-          
-          if (isInBottomZone) {
-            showDock();
-          }
-        });
-
         window.addEventListener("wheel", (e) => {
           if (e.deltaY > 0) {
             showDock();
