@@ -1,43 +1,11 @@
-# Astro Starter Kit: Minimal
+# Franco Galfré
 
-```sh
-pnpm create astro@latest -- --template minimal
-```
+Full Stack Developer based in Santa Fe, Argentina. 🇦🇷
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+I build things, learn constantly, and have fun coding. Always excited to work on new projects and explore new technologies. Currently working on interesting stuff, always open to collaborations and opportunities to grow. 🌳
 
-## 🚀 Project Structure
+Love working with React, TypeScript, and modern web technologies. Also a retro games enthusiast - there's a hidden games page in this portfolio if you can find it.
 
-Inside of your Astro project, you'll see the following folders and files:
+[LinkedIn](https://www.linkedin.com/in/francogalfre/) · [GitHub](https://github.com/francogalfre)
 
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
-
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
-
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
-
-Any static assets, like images, can be placed in the `public/` directory.
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `pnpm install`             | Installs dependencies                            |
-| `pnpm dev`             | Starts local dev server at `localhost:4321`      |
-| `pnpm build`           | Build your production site to `./dist/`          |
-| `pnpm preview`         | Preview your build locally, before deploying     |
-| `pnpm astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `pnpm astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+Built with Astro + Tailwind.
