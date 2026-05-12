@@ -125,6 +125,11 @@ export const ai: StackItem[] = [
     href: "https://ai-sdk.dev/",
     icon: "https://svgl.app/library/vercel.svg",
   },
+  {
+    name: "LangChain",
+    href: "https://www.langchain.com/",
+    icon: "https://raw.githubusercontent.com/lobehub/lobe-icons/refs/heads/master/packages/static-png/light/langchain-color.png",
+  },
 ];
 
 // ─── APPLICATIONS ────────────────────────────────────────────

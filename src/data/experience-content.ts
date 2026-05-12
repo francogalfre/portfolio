@@ -1,10 +1,10 @@
 export const experiences = [
   {
     company: "Crombie",
-    role: "Full stack developer",
+    role: "Software Engineer & AI",
     periods: "Jan 2026 - Present",
     description:
-      "Working collaboratively with a talented team to build AI-powered applications and scalable cloud solutions. I develop dynamic frontend interfaces, create interactive AI agents, and contribute to backend architecture using AWS services.",
+      "Building AI-powered applications with modern cloud architecture. Develop AI agents with LangChain, LangGraph, RAG and AI SDKs, architect multi-agent systems and serverless solutions with AWS, and build dynamic frontend interfaces with React and Next.js.",
   },
   {
     company: "Fiverr",
