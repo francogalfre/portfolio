@@ -47,11 +47,15 @@ const categories: StackCategory[] = [
                 class="inline-flex items-center gap-2.5 text-sm text-gray-900 hover:text-black transition-colors"
               >
                 <span class="hidden group-hover:flex transition-all"><ExternalLinkIcon /></span>
-                <img
-                  src={item.icon}
-                  alt={item.name}
-                  class="size-4 shrink-0 group-hover:hidden"
-                />
+                <span class="relative size-4 shrink-0 group-hover:hidden">
+                  <span class="absolute inset-0 rounded bg-gray-200 animate-pulse" data-skeleton></span>
+                  <img
+                    src={item.icon}
+                    alt={item.name}
+                    class="size-4 opacity-0 transition-opacity duration-300"
+                    onload="this.style.opacity='1'; this.previousElementSibling.remove();"
+                  />
+                </span>
                 <span class="text-secondary hover:text-gray-900 hover:underline transition-all duration-300">{item.name}</span>
               </a>
             </li>

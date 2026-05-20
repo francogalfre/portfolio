@@ -15,9 +15,9 @@ import BreadcrumbChevron from "../icons/breadcrumb-chevron.astro";
     
     <hr class=" text-gray-200" />
 
-    <ul class="flex flex-col gap-1.5">
+    <ul class="projects-list flex flex-col gap-1.5">
       {projects.map((proj) => (
-        <li class="space-y-2 hover:bg-gray-100/70 transition-colors duration-500 rounded-lg py-2 px-3 -mx-3">
+        <li class="project-item space-y-2 hover:bg-gray-100/70 transition-colors duration-500 rounded-lg py-2 px-3 -mx-3">
           <a href={`/projects/${proj.detailsUrl}`} class="flex items-center w-full justify-between gap-4">
             <div class="flex flex-col gap-1.5 py-2">
               <h4 class="text-[14px] sm:text-[15px] font-[450] text-black leading-[90%]">{proj.title}</h4>
@@ -28,5 +28,19 @@ import BreadcrumbChevron from "../icons/breadcrumb-chevron.astro";
         </li>
       ))}
     </ul>
+
+<style>
+  .project-item {
+    transition: opacity 0.4s ease, filter 0.4s ease;
+  }
+  .projects-list:hover .project-item {
+    opacity: 0.5;
+    filter: blur(0.4px);
+  }
+  .projects-list:hover .project-item:hover {
+    opacity: 1;
+    filter: blur(0);
+  }
+</style>
   </div>
 </section>

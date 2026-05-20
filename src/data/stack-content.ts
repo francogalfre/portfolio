@@ -77,6 +77,11 @@ export const technologies: StackItem[] = [
     icon: "https://svgl.app/library/aws_light.svg",
   },
   {
+    name: "LangChain",
+    href: "https://www.langchain.com/",
+    icon: "https://svgl.app/library/langchain-logo.svg",
+  },
+  {
     name: "Docker",
     href: "https://www.docker.com/",
     icon: "https://svgl.app/library/docker.svg",
@@ -124,11 +129,6 @@ export const ai: StackItem[] = [
     name: "AI SDK",
     href: "https://ai-sdk.dev/",
     icon: "https://svgl.app/library/vercel.svg",
-  },
-  {
-    name: "LangChain",
-    href: "https://www.langchain.com/",
-    icon: "https://raw.githubusercontent.com/lobehub/lobe-icons/refs/heads/master/packages/static-png/light/langchain-color.png",
   },
 ];
 
