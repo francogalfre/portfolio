@@ -10,7 +10,14 @@ export const projects = [
     image: "/projects/lens.webp",
     href: "https://lenss.site",
     repository: "https://github.com/francogalfre/lens",
-    tags: ["LangChain", "LangGraph", "Langfuse", "TypeScript", "OpenRouter", "Next.js"],
+    tags: [
+      "LangChain",
+      "LangGraph",
+      "Langfuse",
+      "TypeScript",
+      "OpenRouter",
+      "Next.js",
+    ],
   },
   {
     id: 2,
