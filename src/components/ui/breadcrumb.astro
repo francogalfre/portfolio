@@ -1,5 +1,6 @@
 ---
-import BreadcrumbChevron from "@/components/icons/breadcrumb-chevron.astro";
+import { ArrowRight01Icon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 
 interface Props {
 	lastPage?: string;
@@ -11,10 +12,10 @@ const { lastPage, actualPage } = Astro.props;
 
 <div class="flex items-center gap-1 w-full text-[15px] animate-fade-in">
   <a href="/" class="text-secondary">home</a>
-  <span class="text-secondary"><BreadcrumbChevron /></span>
+  <span class="text-secondary"><HugeiconsIcon icon={ArrowRight01Icon} size={16} /></span>
   {lastPage &&  (
     <a href={"/" + lastPage} class="text-secondary">{lastPage}</a>
-    <span class="text-secondary"><BreadcrumbChevron /></span>
+    <span class="text-secondary"><HugeiconsIcon icon={ArrowRight01Icon} size={16} /></span>
   )}
 
   <span class="lowercase">{actualPage}</span>

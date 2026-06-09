@@ -1,6 +1,18 @@
 import type { NowPlayingResponse } from "@/types/spotify";
-import { PLAY } from "@/components/icons/play.ts";
-import { STOP } from "@/components/icons/stop.ts";
+
+const PLAY = `
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+    <path d="M6 4v16a1 1 0 0 0 1.524 .852l13 -8a1 1 0 0 0 0 -1.704l-13 -8a1 1 0 0 0 -1.524 .852z" />
+  </svg>
+`;
+
+const STOP = `
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+    <path d="M17 4h-10a3 3 0 0 0 -3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3 -3v-10a3 3 0 0 0 -3 -3z" />
+  </svg>
+`;
 
 const container = document.getElementById("now-playing")!;
 

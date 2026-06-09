@@ -1,7 +1,8 @@
 ---
 import { games } from "@/data/games-content";
 
-import BreadcrumbChevron from "../icons/breadcrumb-chevron.astro";
+import { ArrowRight01Icon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 ---
 
 <section class="space-y-6 animate-fade-in">
@@ -22,7 +23,7 @@ import BreadcrumbChevron from "../icons/breadcrumb-chevron.astro";
             <img class="bg-cover w-full min-h-48 h-full rounded-sm" src={game.image} alt={`${game.name} Game Cover`}>
             <div class="flex items-center gap-1 py-3 w-full text-black">
               <h4 class="text-[14px] sm:text-[15px] font-[450 leading-[90%]">{game.name}</h4>
-              <span><BreadcrumbChevron /></span>
+              <span><HugeiconsIcon icon={ArrowRight01Icon} size={16} /></span>
             </div>
           </a>
         </li>

@@ -4,8 +4,9 @@ import "lenis/dist/lenis.css";
 
 import Cursor from "@/components/ui/cursor.astro";
 import SocialsDock from "@/components/ui/socials-dock.astro";
+import FloatingButtons from "@/components/ui/floating-buttons.astro";
+
 import SEO from "@/components/seo/seo.astro";
-import FloatingGameButton from "@/components/ui/games/floating-game-button.astro";
 
 import type { PageSEO } from "@/data/seo-content";
 
@@ -23,7 +24,7 @@ const { seo } = Astro.props;
   </head>
   <body class="relative">
     <Cursor />
-    <FloatingGameButton />
+    <FloatingButtons />
     <main class="w-full max-w-2xl px-6 md:px-12 min-h-screen flex flex-col gap-6 mx-auto items-center justify-center">
       <slot />
     </main>

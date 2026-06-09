@@ -1,7 +1,8 @@
 ---
 import BaseLayout from "@/layouts/base.astro";
 import Breadcrumb from "@/components/ui/breadcrumb.astro";
-import ArrowUpRightIcon from "@/components/icons/arrow-up-right.astro";
+import { ArrowUpRight01Icon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { projects } from "@/data/projects-content";
 import { seoData } from "@/data/seo-content";
 
@@ -58,7 +59,7 @@ const { project } = Astro.props;
             target="_blank"
             class="text-sm flex items-center gap-1.5 text-secondary hover:text-primary transition-colors duration-500"
           >
-            github <ArrowUpRightIcon />
+            github <HugeiconsIcon icon={ArrowUpRight01Icon} size={16} />
           </a>
         )}
       </div>

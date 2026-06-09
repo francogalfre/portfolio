@@ -1,7 +1,8 @@
 ---
 import { technologies, ai, applications } from "@/data/stack-content";
 
-import ExternalLinkIcon from "../icons/external-link.astro";
+import { ArrowUpRight01Icon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 
 type StackItem = {
 	name: string;
@@ -46,7 +47,7 @@ const categories: StackCategory[] = [
                 rel="noopener noreferrer"
                 class="inline-flex items-center gap-2.5 text-sm text-gray-900 hover:text-black transition-colors"
               >
-                <span class="hidden group-hover:flex transition-all"><ExternalLinkIcon /></span>
+                <span class="hidden group-hover:flex transition-all"><HugeiconsIcon icon={ArrowUpRight01Icon} size={16} /></span>
                 <span class="relative size-4 shrink-0 group-hover:hidden">
                   <span class="absolute inset-0 rounded bg-gray-200 animate-pulse" data-skeleton></span>
                   <img

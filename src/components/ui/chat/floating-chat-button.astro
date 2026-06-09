@@ -1,0 +1,6 @@
+---
+import { ChatWidget } from "@/components/ui/chat/chat-widget";
+import { AGENT_ENABLED } from "@/utils/chat/agent";
+---
+
+<ChatWidget enabled={AGENT_ENABLED} client:only="react" />

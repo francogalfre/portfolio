@@ -1,29 +1,32 @@
 ---
-import GithubIcon from "../icons/github.astro";
-import LinkedinIcon from "../icons/linkedin.astro";
-import XIcon from "../icons/x.astro";
-import EmailIcon from "../icons/email.astro";
+import { HugeiconsIcon } from "@hugeicons/react";
+import {
+	Github01Icon,
+	Linkedin01Icon,
+	Mail01Icon,
+	NewTwitterIcon,
+} from "@hugeicons/core-free-icons";
 
 const socials = [
 	{
 		name: "GitHub",
 		href: "https://github.com/francogalfre",
-		icon: GithubIcon,
+		icon: Github01Icon,
 	},
 	{
 		name: "LinkedIn",
 		href: "https://linkedin.com/in/francogalfre",
-		icon: LinkedinIcon,
+		icon: Linkedin01Icon,
 	},
 	{
 		name: "Twitter",
 		href: "https://x.com/francogalfredev",
-		icon: XIcon,
+		icon: NewTwitterIcon,
 	},
 	{
 		name: "Email",
 		href: "mailto:francogalfre.work@gmail.com",
-		icon: EmailIcon,
+		icon: Mail01Icon,
 	},
 ];
 ---
@@ -41,7 +44,7 @@ const socials = [
         class="p-2 text-secondary hover:text-primary transition-all duration-300 hover:scale-110 rounded-full hover:bg-gray-100/50"
         aria-label={social.name}
       >
-        <social.icon />
+        <HugeiconsIcon icon={social.icon} size={20} />
       </a>
     ))
   }

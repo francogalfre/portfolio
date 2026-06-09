@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap');
 
 @import "tailwindcss";
+@import "tw-animate-css";
 @plugin "@tailwindcss/typography";
 
 
@@ -12,6 +13,25 @@
     --color-secondary: #6b7280;
     --color-secondary-foreground: #1f2937;
     --animate-fade-in: fade-in 0.8s ease-out forwards;
+    --animate-word-in: word-in 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+
+    /* shadcn / AI Elements semantic tokens (light, neutral) */
+    --color-background: #ffffff;
+    --color-foreground: #1f2937;
+    --color-card: #ffffff;
+    --color-card-foreground: #1f2937;
+    --color-popover: #ffffff;
+    --color-popover-foreground: #1f2937;
+    --color-muted: #f3f4f6;
+    --color-muted-foreground: #6b7280;
+    --color-accent: #f3f4f6;
+    --color-accent-foreground: #1f2937;
+    --color-border: #e5e7eb;
+    --color-input: #e5e7eb;
+    --color-ring: #f6b23b;
+    --color-destructive: #ef4444;
+    --color-destructive-foreground: #ffffff;
+    --radius: 0.625rem;
 }
 
 @keyframes fade-in {
@@ -21,6 +41,20 @@
 
     to {
         opacity: 1;
+    }
+}
+
+@keyframes word-in {
+    from {
+        opacity: 0;
+        filter: blur(4px);
+        transform: translateY(2px);
+    }
+
+    to {
+        opacity: 1;
+        filter: blur(0);
+        transform: translateY(0);
     }
 }
 

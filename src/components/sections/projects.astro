@@ -1,7 +1,8 @@
 ---
 import { projects } from "@/data/projects-content";
 
-import BreadcrumbChevron from "../icons/breadcrumb-chevron.astro";
+import { ArrowRight01Icon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 ---
 
 <section class="space-y-6 animate-fade-in">
@@ -23,7 +24,7 @@ import BreadcrumbChevron from "../icons/breadcrumb-chevron.astro";
               <h4 class="text-[14px] sm:text-[15px] font-[450] text-black leading-[90%]">{proj.title}</h4>
               <p class="text-sm sm:text-[15px] text-secondary mt-0.5 leading-[120%]">{proj.description}</p>
             </div>
-            <span class="text-secondary hidden sm:flex"><BreadcrumbChevron /></span>
+            <span class="text-secondary hidden sm:flex"><HugeiconsIcon icon={ArrowRight01Icon} size={16} /></span>
           </a>
         </li>
       ))}
