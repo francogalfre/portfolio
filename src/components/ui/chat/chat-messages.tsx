@@ -1,3 +1,5 @@
+import { Time01Icon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { motion } from "framer-motion";
 import {
   Conversation,
@@ -56,9 +58,17 @@ export function ChatMessages({
         )}
 
         {error && (
-          <p className="px-2 text-center text-[12px] text-destructive">
-            {error}
-          </p>
+          <motion.div
+            initial={{ opacity: 0, y: 6 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={MESSAGE_TRANSITION}
+            className="flex justify-center px-4 py-1"
+          >
+            <div className="flex items-center gap-2 rounded-xl border border-amber-200 bg-amber-50 px-3.5 py-2 text-amber-700 dark:border-amber-800/50 dark:bg-amber-950/40 dark:text-amber-400">
+              <HugeiconsIcon icon={Time01Icon} size={13} className="shrink-0" />
+              <span className="text-[12px] leading-snug">{error}</span>
+            </div>
+          </motion.div>
         )}
       </ConversationContent>
       <ConversationScrollButton />

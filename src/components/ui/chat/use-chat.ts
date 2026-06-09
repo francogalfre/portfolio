@@ -89,7 +89,15 @@ export function useChat() {
           const retryAfterSeconds = Number(
             response.headers.get("Retry-After") ?? DEFAULT_RETRY_AFTER_SECONDS,
           );
-          setError(`Too many messages. Try again in ${retryAfterSeconds}s.`);
+          const minutes = Math.floor(retryAfterSeconds / 60);
+          const seconds = retryAfterSeconds % 60;
+          const timeStr =
+            minutes > 0
+              ? seconds > 0
+                ? `${minutes}m ${seconds}s`
+                : `${minutes}m`
+              : `${seconds}s`;
+          setError(`You've reached the message limit. Try again in ${timeStr}.`);
           setMessages((current) =>
             current.filter((message) => message.id !== assistantId),
           );
