@@ -11,8 +11,8 @@ import {
     ReasoningContent,
     ReasoningTrigger,
 } from "@/components/ai-elements/reasoning";
+import { useTypewriter } from "@/hooks/use-typewriter";
 import type { AssistantMessage as AssistantMessageData } from "@/types/chat";
-import { AnimatedText } from "./animated-text";
 import { MESSAGE_TRANSITION } from "./constants";
 import { ToolActivity } from "./tool-activity";
 
@@ -21,10 +21,11 @@ type AssistantMessageProps = {
 };
 
 export function AssistantMessage({ message }: AssistantMessageProps) {
-    const isThinking =
-        message.status === "pending" && !message.text && message.tools.length === 0;
-    const hasThinkingActivity =
-        Boolean(message.reasoning) || message.tools.length > 0;
+    const isDone = message.status === "done";
+    const isLoading = message.status === "pending" || message.status === "streaming";
+    const hasThinkingActivity = Boolean(message.reasoning) || message.tools.length > 0;
+
+    const { displayed, isAnimating } = useTypewriter(message.text, isDone);
 
     return (
         <motion.div
@@ -49,7 +50,7 @@ export function AssistantMessage({ message }: AssistantMessageProps) {
                 )}
 
                 <MessageContent className={hasThinkingActivity ? "mt-2.5" : undefined}>
-                    {isThinking ? (
+                    {isLoading ? (
                         <div className="flex w-fit items-center gap-1.5 text-secondary">
                             <HugeiconsIcon
                                 icon={AiBrain01Icon}
@@ -60,10 +61,12 @@ export function AssistantMessage({ message }: AssistantMessageProps) {
                                 Thinking…
                             </span>
                         </div>
-                    ) : message.status === "streaming" ? (
-                        <AnimatedText text={message.text} />
-                    ) : (
+                    ) : message.status === "error" ? (
                         <MessageResponse>{message.text}</MessageResponse>
+                    ) : (
+                        <MessageResponse isAnimating={isAnimating}>
+                            {displayed}
+                        </MessageResponse>
                     )}
                 </MessageContent>
             </Message>
