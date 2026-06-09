@@ -4,6 +4,7 @@ import "lenis/dist/lenis.css";
 
 import Cursor from "@/components/ui/cursor.astro";
 import FloatingButtons from "@/components/ui/floating-buttons.astro";
+import SoundEffects from "@/components/ui/sound-effects.astro";
 
 import SEO from "@/components/seo/seo.astro";
 import type { PageSEO } from "@/data/seo-content";
@@ -31,5 +32,6 @@ const { seo } = Astro.props;
       import Lenis from "lenis";
       new Lenis({ autoRaf: true });
     </script>
+    <SoundEffects />
   </body>
 </html>

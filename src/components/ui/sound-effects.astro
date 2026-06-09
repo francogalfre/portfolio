@@ -1,0 +1,22 @@
+---
+---
+<script>
+  import { playHover } from "@/utils/sound";
+
+  const INTERACTIVE = "a, button, [role='button']";
+  let lastHoverEl: Element | null = null;
+
+  document.addEventListener("mouseover", (e) => {
+    const el = (e.target as Element).closest(INTERACTIVE);
+    if (el && el !== lastHoverEl) {
+      lastHoverEl = el;
+      playHover();
+    }
+  }, { passive: true });
+
+  document.addEventListener("mouseout", (e) => {
+    if ((e.target as Element).closest(INTERACTIVE) === lastHoverEl) {
+      lastHoverEl = null;
+    }
+  }, { passive: true });
+</script>
