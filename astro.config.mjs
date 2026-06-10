@@ -49,6 +49,9 @@ export default defineConfig({
         "@": path.resolve("./src"),
       },
     },
+    optimizeDeps: {
+      exclude: ["streamdown", "@streamdown/code", "@streamdown/cjk"],
+    },
     ssr: {
       noExternal: ["detect-libc"],
     },

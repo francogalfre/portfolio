@@ -1,9 +1,10 @@
 ---
+import { Image } from "astro:assets";
 import Gif from "@/assets/gif-2.gif";
 
-import CompanyBadge from "@/components/ui/company-badge.astro";
+import CompanyBadge from "@/components/ui/widgets/company-badge.astro";
 import Spotify from "@/components/ui/spotify/spotify-player.astro";
-import { HoverLinkPreview } from "@/components/ui/hover-link-preview";
+import { HoverLinkPreview } from "@/components/ui/widgets/hover-link-preview";
 
 import Me from "@/assets/me.webp";
 
@@ -14,7 +15,7 @@ const { years } = getAgeData();
 
 <section class="animate-fade-in flex flex-col gap-4">
   <div class="animate-fade-in">
-    <img src={Gif.src} alt="Animated hamster with orange fur working on a laptop" class="w-18 sm:w-22 animate-fade-in hover:scale-105 hover:rotate-3 transition-transform duration-500">
+    <Image src={Gif} alt="Animated hamster with orange fur working on a laptop" class="w-18 sm:w-22 animate-fade-in hover:scale-105 hover:rotate-3 transition-transform duration-500" />
 
     <HoverLinkPreview href="https://www.linkedin.com/in/francogalfre/" previewImage={Me.src} imageAlt="Francogalfre avatar" client:visible>
       <h1 class="text-[15px] sm:text-[16px] font-[450] text-gray-900 leading-[90%]">Franco Galfré</h1>

@@ -79,10 +79,11 @@ export const MessageResponse = memo(
       className={cn(
         "size-full [&>*:first-child]:mt-0 [&>*:last-child]:mb-0",
         "[&_a]:font-medium [&_a]:text-primary [&_a]:underline [&_a]:underline-offset-2 [&_strong]:font-medium [&_p]:my-1.5 [&_ul]:my-1.5 [&_ol]:my-1.5",
-        className
+          className
       )}
       plugins={streamdownPlugins}
       components={markdownComponents}
+      lineNumbers={false}
       linkSafety={{ enabled: false }}
       {...props}
     />

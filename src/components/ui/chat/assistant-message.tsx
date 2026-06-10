@@ -11,7 +11,7 @@ import {
     ReasoningContent,
     ReasoningTrigger,
 } from "@/components/ai-elements/reasoning";
-import { useTypewriter } from "@/hooks/use-typewriter";
+import { useTypewriter } from "@/components/ui/chat/use-typewriter";
 import type { AssistantMessage as AssistantMessageData } from "@/types/chat";
 import { MESSAGE_TRANSITION } from "./constants";
 import { ToolActivity } from "./tool-activity";
