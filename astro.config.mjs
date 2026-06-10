@@ -45,9 +45,10 @@ export default defineConfig({
       },
     ],
     resolve: {
-      alias: {
-        "@": path.resolve("./src"),
-      },
+      alias: [
+        { find: "@/lib/utils", replacement: path.resolve("./src/utils/cn.ts") },
+        { find: "@", replacement: path.resolve("./src") },
+      ],
     },
     optimizeDeps: {
       exclude: ["streamdown", "@streamdown/code", "@streamdown/cjk"],
