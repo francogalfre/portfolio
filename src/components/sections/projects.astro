@@ -3,6 +3,23 @@ import { projects } from "@/data/projects-content";
 
 import { ArrowRight01Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
+import ContributionGraphWidget from "@/components/ui/contribution-graph-widget";
+import type { Activity } from "@/components/ui/contribution-graph";
+
+let contributions: Activity[] = [];
+
+try {
+  const res = await fetch(
+    "https://github-contributions-api.jogruber.de/v4/francogalfre",
+  );
+  const json = await res.json();
+  const all: Activity[] = json.contributions ?? [];
+  const cutoff = new Date();
+  cutoff.setDate(cutoff.getDate() - 364);
+  contributions = all.filter((c) => new Date(c.date) >= cutoff);
+} catch {
+  // fail silently
+}
 ---
 
 <section class="space-y-6 animate-fade-in">
@@ -13,7 +30,7 @@ import { HugeiconsIcon } from "@hugeicons/react";
         A collection of projects I've built — from CLI tools to full-stack web applications. Each one is a chance to learn and build something useful.
       </p>
     </div>
-    
+
     <hr class=" text-gray-200" />
 
     <ul class="projects-list flex flex-col gap-1.5">
@@ -29,6 +46,10 @@ import { HugeiconsIcon } from "@hugeicons/react";
         </li>
       ))}
     </ul>
+
+    <hr class="text-gray-200" />
+
+    <ContributionGraphWidget data={contributions} client:load />
 
 <style>
   .project-item {

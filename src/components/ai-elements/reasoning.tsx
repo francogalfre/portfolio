@@ -2,7 +2,7 @@
 
 import { AiBrain01Icon, ArrowDown01Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
-import { useControllableState } from "@radix-ui/react-use-controllable-state";
+import { useControllableState } from "radix-ui/internal";
 import {
   Collapsible,
   CollapsibleContent,
