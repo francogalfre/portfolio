@@ -14,8 +14,8 @@
         "format": "biome format --write src/pages src/layout"
     },
     "dependencies": {
-        "@astrojs/react": "^5.0.6",
-        "@astrojs/vercel": "^10.0.8",
+        "@astrojs/react": "6.0.2",
+        "@astrojs/vercel": "11.0.5",
         "@hugeicons/core-free-icons": "^4.0.0",
         "@hugeicons/react": "^1.1.6",
         "@streamdown/cjk": "^1.0.3",
@@ -24,7 +24,7 @@
         "@types/react": "^19.2.14",
         "@types/react-dom": "^19.2.3",
         "ai": "^6.0.197",
-        "astro": "^6.4.2",
+        "astro": "7.2.0",
         "class-variance-authority": "^0.7.1",
         "clsx": "^2.1.1",
         "date-fns": "^4.4.0",
