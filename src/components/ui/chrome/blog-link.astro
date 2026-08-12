@@ -1,0 +1,32 @@
+---
+import { ArrowUpRight01Icon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
+---
+
+<a
+  href="/blog"
+  class="blog-link fixed left-4 bottom-8 z-40 flex items-center text-[15px] text-secondary hover:text-black transition-colors duration-500 animate-fade-in sm:left-8"
+>
+  blog
+  <span class="blog-link-arrow flex items-center overflow-hidden">
+    <HugeiconsIcon icon={ArrowUpRight01Icon} size={16} />
+  </span>
+</a>
+
+<style>
+  .blog-link-arrow {
+    width: 0;
+    opacity: 0;
+    transform: translate(-2px, 2px);
+    transition:
+      width 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+      opacity 0.3s ease,
+      transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .blog-link:hover .blog-link-arrow {
+    width: 16px;
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+</style>

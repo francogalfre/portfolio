@@ -3,12 +3,19 @@ import { defineConfig } from "astro/config";
 
 import path from "path";
 
+import mdx from "@astrojs/mdx";
 import react from "@astrojs/react";
 import vercel from "@astrojs/vercel";
 import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig({
     output: "static",
+    markdown: {
+        shikiConfig: {
+            theme: "github-light",
+            wrap: false,
+        },
+    },
     adapter: vercel({
         webAnalytics: {
             enabled: true,
@@ -60,5 +67,5 @@ export default defineConfig({
         },
     },
 
-    integrations: [react()],
+    integrations: [react(), mdx()],
 });

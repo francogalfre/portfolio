@@ -16,6 +16,7 @@ function loadHoverBuffer(ac: AudioContext): Promise<AudioBuffer> {
                 return buffer;
             });
     }
+
     return hoverBufferPromise;
 }
 

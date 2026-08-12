@@ -3,6 +3,7 @@ import "@/global.css";
 import "lenis/dist/lenis.css";
 
 import Cursor from "@/components/ui/chrome/cursor.astro";
+import BlogLink from "@/components/ui/chrome/blog-link.astro";
 import SocialsDock from "@/components/ui/chrome/socials-dock.astro";
 import FloatingButtons from "@/components/ui/chrome/floating-buttons.astro";
 import SoundEffects from "@/components/ui/chrome/sound-effects.astro";
@@ -25,6 +26,7 @@ const { seo } = Astro.props;
   </head>
   <body class="relative">
     <Cursor />
+    <BlogLink />
     <FloatingButtons />
     <main class="w-full max-w-2xl px-6 md:px-12 min-h-screen flex flex-col gap-6 mx-auto items-center justify-center">
       <slot />

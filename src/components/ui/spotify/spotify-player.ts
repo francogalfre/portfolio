@@ -14,6 +14,12 @@ const STOP = `
   </svg>
 `;
 
+const ARROW_UP_RIGHT = `
+  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none">
+    <path d="M9 6.65032C9 6.65032 15.9383 6.10759 16.9154 7.08463C17.8924 8.06167 17.3496 15 17.3496 15M16.5 7.5L6.5 17.5" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+  </svg>
+`;
+
 const container = document.getElementById("now-playing")!;
 
 async function load() {
@@ -43,7 +49,7 @@ async function load() {
       </div>
       ${song.previewUrl
             ? `<button id="play-btn" class="shrink-0 text-secondary hover:text-black transition-colors">${PLAY}</button>`
-            : `<a href="${song.songUrl}" target="_blank" rel="noopener noreferrer" class="shrink-0 text-xs text-secondary hover:text-black transition-colors">↗</a>`
+            : `<a href="${song.songUrl}" target="_blank" rel="noopener noreferrer" aria-label="Open in Spotify" class="shrink-0 text-secondary hover:text-black transition-colors">${ARROW_UP_RIGHT}</a>`
         }
     </div>
   `;

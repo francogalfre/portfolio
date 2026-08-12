@@ -14,7 +14,9 @@
         "format": "biome format --write src/pages src/layout"
     },
     "dependencies": {
+        "@astrojs/mdx": "^7.0.5",
         "@astrojs/react": "6.0.2",
+        "@astrojs/rss": "^4.0.19",
         "@astrojs/vercel": "11.0.5",
         "@hugeicons/core-free-icons": "^4.0.0",
         "@hugeicons/react": "^1.1.6",

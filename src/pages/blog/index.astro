@@ -1,0 +1,11 @@
+---
+import BaseLayout from "@/layouts/base.astro";
+import BlogSection from "@/components/sections/blog.astro";
+import Breadcrumb from "@/components/ui/widgets/breadcrumb.astro";
+import { blogSeoData } from "@/data/seo-content";
+---
+
+<BaseLayout seo={blogSeoData}>
+  <Breadcrumb actualPage="blog" />
+  <BlogSection />
+</BaseLayout>

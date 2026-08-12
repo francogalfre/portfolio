@@ -7,6 +7,7 @@ interface Props {
 
 const { page } = Astro.props;
 const canonicalURL = new URL(Astro.url.pathname, SITE_URL);
+const ogImage = page.image ?? "/og-image.webp";
 ---
 
 <title>Franco Galfré</title>
@@ -16,17 +17,18 @@ const canonicalURL = new URL(Astro.url.pathname, SITE_URL);
 <meta name="keywords" content={page.keywords}>
 
 <link rel="canonical" href={canonicalURL} />
+<link rel="alternate" type="application/rss+xml" title={`${SITE_NAME} — Blog`} href="/rss.xml" />
 
 <meta property="og:title" content={page.title} />
 <meta property="og:description" content={page.description} />
 <meta property="og:url" content={canonicalURL} />
 <meta property="og:site_name" content={SITE_NAME} />
-<meta property="og:image" content="/og-image.webp" />
+<meta property="og:image" content={ogImage} />
 
-<meta name="twitter:card" content="summary" />
+<meta name="twitter:card" content={page.image ? "summary_large_image" : "summary"} />
 <meta name="twitter:title" content={page.title} />
 <meta name="twitter:description" content={page.description} />
-<meta name="twitter:image" content="/og-image.webp" />
+<meta name="twitter:image" content={ogImage} />
 
 <link rel="icon" href="/favicon-light.ico" media="(prefers-color-scheme: dark)" />
 <link rel="icon" href="/favicon-dark.ico" media="(prefers-color-scheme: light)" />
