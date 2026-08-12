@@ -1,31 +1,44 @@
-let ctx: AudioContext | null = null;
+const HOVER_SOUND_URL = "/sounds/hover.mp3";
+const HOVER_VOLUME = 0.05;
 
-function play(ac: AudioContext) {
-    const osc = ac.createOscillator();
+let ctx: AudioContext | null = null;
+let hoverBuffer: AudioBuffer | null = null;
+let hoverBufferPromise: Promise<AudioBuffer> | null = null;
+
+function loadHoverBuffer(ac: AudioContext): Promise<AudioBuffer> {
+    if (hoverBuffer) return Promise.resolve(hoverBuffer);
+    if (!hoverBufferPromise) {
+        hoverBufferPromise = fetch(HOVER_SOUND_URL)
+            .then((res) => res.arrayBuffer())
+            .then((data) => ac.decodeAudioData(data))
+            .then((buffer) => {
+                hoverBuffer = buffer;
+                return buffer;
+            });
+    }
+    return hoverBufferPromise;
+}
+
+function play(ac: AudioContext, buffer: AudioBuffer) {
+    const source = ac.createBufferSource();
     const gain = ac.createGain();
 
-    osc.connect(gain);
+    source.buffer = buffer;
+    source.connect(gain);
     gain.connect(ac.destination);
+    gain.gain.value = HOVER_VOLUME;
 
-    osc.type = "sine";
-    osc.frequency.value = 480;
-
-    const t = ac.currentTime;
-
-    gain.gain.setValueAtTime(0, t);
-    gain.gain.linearRampToValueAtTime(0.03, t + 0.012);
-    gain.gain.linearRampToValueAtTime(0, t + 0.06);
-
-    osc.start(t);
-    osc.stop(t + 0.06);
+    source.start();
 }
 
 export function playHover() {
     if (!ctx) ctx = new AudioContext();
 
+    const run = () => loadHoverBuffer(ctx!).then((buffer) => play(ctx!, buffer));
+
     if (ctx.state === "running") {
-        play(ctx);
+        run();
     } else {
-        ctx.resume().then(() => play(ctx!));
+        ctx.resume().then(run);
     }
 }
