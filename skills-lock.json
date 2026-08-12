@@ -19,6 +19,12 @@
       "skillPath": "skills/frontend-design/SKILL.md",
       "computedHash": "063a0e6448123cd359ad0044cc46b0e490cc7964d45ef4bb9fd842bd2ffbca67"
     },
+    "impeccable": {
+      "source": "pbakaus/impeccable",
+      "sourceType": "github",
+      "skillPath": ".agents/skills/impeccable/SKILL.md",
+      "computedHash": "2fbcec82202108fe231fa4091f8d528ce96978e21437ba55c21245186b15c0c7"
+    },
     "minimalist-ui": {
       "source": "leonxlnx/taste-skill",
       "sourceType": "github",

@@ -28,5 +28,6 @@ pnpm-debug.log*
 vscode
 
 # ia
-.claude
 .playwright-mcp
+# Local Pi runtime state
+.atl/

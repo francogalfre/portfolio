@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
 
-import AgentAvatar from "@/assets/agent-avatar.png"
+import AgentAvatar from "@/assets/agent-avatar.webp";
 
 type ChatHeaderProps = {
     online: boolean;
@@ -8,23 +8,27 @@ type ChatHeaderProps = {
 
 export function ChatHeader({ online }: ChatHeaderProps) {
     return (
-        <header className="flex items-center gap-3 border-b border-border px-3 py-5">
-            <div className="relative shrink-0">
-                <div className="flex size-10 items-center justify-center rounded-full bg-muted text-foreground">
-                    <img src={AgentAvatar.src} width="200" height="200" className="rounded-full border border-primary" alt="Franco robot version avatar" />
-                </div>
-                <span
-                    className={cn(
-                        "absolute top-0 -right-0.5 size-3 rounded-full border-2 border-background",
-                        online ? "bg-primary" : "bg-muted-foreground/50",
-                    )}
+        <header className="flex items-center gap-3.5 border-b border-border px-5 py-4">
+            <div className="relative shrink-0 transition-transform duration-300 ease-out hover:scale-105">
+                <img
+                    src={AgentAvatar.src}
+                    width="96"
+                    height="96"
+                    alt="Franco robot version avatar"
+                    className="size-14 rounded-full object-cover ring-1 ring-border"
                 />
             </div>
-            <div className="flex flex-col gap-2 pt-2">
-                <span className="text-[14px] leading-0.5 font-medium text-foreground">
+            <div className="flex flex-col gap-1.5">
+                <span className="text-[15.5px] font-medium leading-none tracking-tight text-foreground">
                     Franco's assistant
                 </span>
-                <span className="text-[11px] text-muted-foreground">
+                <span className="flex items-center gap-1.5 text-[13.5px] leading-none text-muted-foreground">
+                    <span
+                        className={cn(
+                            "size-1.5 shrink-0 rounded-full transition-colors duration-300",
+                            online ? "bg-emerald-500" : "bg-muted-foreground/40",
+                        )}
+                    />
                     {online ? "Online" : "Offline"}
                 </span>
             </div>

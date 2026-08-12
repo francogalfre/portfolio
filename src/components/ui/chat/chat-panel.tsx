@@ -28,7 +28,7 @@ export function ChatPanel({
       animate={{ opacity: 1, y: 0, scale: 1 }}
       exit={{ opacity: 0, y: 12, scale: 0.97 }}
       transition={PANEL_TRANSITION}
-      className="fixed bottom-24 right-4 z-50 flex origin-bottom-right flex-col overflow-hidden rounded-2xl border border-border bg-background sm:right-8"
+      className="fixed bottom-24 right-4 z-50 flex origin-bottom-right flex-col overflow-hidden rounded-3xl border border-border bg-background shadow-[0_16px_56px_-16px_rgba(0,0,0,0.14)] sm:right-8"
       style={{
         width: "min(440px, calc(100vw - 2rem))",
         height: "min(76vh, 580px)",

@@ -4,7 +4,7 @@ export const SUGGESTED_QUESTIONS = [
   "What projects has he built?",
 ];
 
-const SMOOTH_EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
+export const SMOOTH_EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
 export const PANEL_TRANSITION = { duration: 0.32, ease: SMOOTH_EASE };
 

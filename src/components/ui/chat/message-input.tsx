@@ -43,8 +43,8 @@ export function MessageInput({
     };
 
     return (
-        <div className="px-3 py-3">
-            <div className="flex items-end gap-2 rounded-2xl border border-border bg-background px-3.5 py-2.5 transition-colors duration-200 focus-within:border-primary">
+        <div className="border-t border-border px-4 pt-2 pb-4">
+            <div className="flex items-end gap-2 rounded-2xl border border-border bg-background px-3.5 py-2.5 transition-all duration-200 focus-within:border-primary/60 focus-within:ring-4 focus-within:ring-primary/10">
                 <textarea
                     ref={textareaRef}
                     rows={1}
@@ -65,9 +65,9 @@ export function MessageInput({
                     disabled={!canSend}
                     aria-label="Send message"
                     className={cn(
-                        "flex size-8 shrink-0 items-center justify-center rounded-full transition-all duration-200",
+                        "flex size-9 shrink-0 items-center justify-center rounded-full transition-all duration-200",
                         canSend
-                            ? "bg-primary text-primary-foreground hover:scale-105"
+                            ? "bg-primary text-primary-foreground shadow-sm hover:scale-105 active:scale-90"
                             : "bg-muted text-muted-foreground",
                     )}
                 >

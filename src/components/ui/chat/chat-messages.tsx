@@ -31,7 +31,7 @@ export function ChatMessages({
 
   return (
     <Conversation className="flex-1">
-      <ConversationContent>
+      <ConversationContent className="px-4">
         {isEmpty && (
           <ChatWelcome
             isOnline={isOnline}
