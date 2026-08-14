@@ -4,9 +4,9 @@ export const projects = [
         title: "Echo",
         detailsUrl: "echo",
         description:
-            "Customizable feedback pages that collect, triage, and understand customer insights with AI.",
+            "Feedback infrastructure for products: collect, triage, and understand customer insights with AI.",
         longDescription:
-            "Every product needs to hear from its users, but feedback gets lost in emails, support tickets, and DMs. Echo solves this with branded feedback pages: visit `echo.builders/feedback/yourproject` and land on a custom page designed for your product. Collect structured feedback, understand patterns, and act on insights.\n\nEach project gets its own page—no iframe widget, just a dedicated URL. Users share feedback directly, you triage it on a shared list or kanban board, and AI-assisted digests surface themes across incoming submissions. Invite teammates, manage API keys, and track usage against your plan from a unified dashboard.\n\nBuilt with Next.js for the dashboard and custom pages, Hono for the API, tRPC for end-to-end typed procedures, Drizzle ORM for data management, and PostgreSQL for persistence. The infrastructure is designed to scale from first customer to thousands.",
+            "Every product needs to hear from its users, but feedback gets lost in emails, support tickets, and DMs. Echo gives it a home. Drop a widget on your site or post to the API directly, and feedback lands in one place instead of scattered across tools.\n\nThe model is simple. Organizations own projects, projects collect feedback, and everything in the dashboard is scoped to the project you're working in. Triage happens on a shared list or a kanban-style board, and AI-assisted digests summarize patterns across incoming feedback so you see themes instead of reading every entry one by one. Invite teammates, manage API keys, and track usage against your plan, all from the same dashboard.\n\nBuilt as a Turborepo monorepo on Bun, with Next.js for the dashboard, Hono as the API transport layer, and tRPC for end-to-end typed procedures between them. Drizzle ORM and PostgreSQL handle persistence, and Better-Auth handles authentication. The interesting part was making the collection path work for both the widget and the API, feeding the same typed pipeline as the dashboard, so triage and digests work the same no matter how the feedback comes in.",
         image: "/projects/echo.webp",
         href: "https://echo.builders",
         repository: "https://github.com/francogalfre/echo",
@@ -18,6 +18,7 @@ export const projects = [
             "PostgreSQL",
             "TypeScript",
             "Better-Auth",
+            "Bun",
             "Turborepo",
             "AI SDK"
         ],
