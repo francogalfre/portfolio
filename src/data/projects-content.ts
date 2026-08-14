@@ -1,6 +1,29 @@
 export const projects = [
     {
         id: 1,
+        title: "Echo",
+        detailsUrl: "echo",
+        description:
+            "Customizable feedback pages that collect, triage, and understand customer insights with AI.",
+        longDescription:
+            "Every product needs to hear from its users, but feedback gets lost in emails, support tickets, and DMs. Echo solves this with branded feedback pages: visit `echo.builders/feedback/yourproject` and land on a custom page designed for your product. Collect structured feedback, understand patterns, and act on insights.\n\nEach project gets its own page—no iframe widget, just a dedicated URL. Users share feedback directly, you triage it on a shared list or kanban board, and AI-assisted digests surface themes across incoming submissions. Invite teammates, manage API keys, and track usage against your plan from a unified dashboard.\n\nBuilt with Next.js for the dashboard and custom pages, Hono for the API, tRPC for end-to-end typed procedures, Drizzle ORM for data management, and PostgreSQL for persistence. The infrastructure is designed to scale from first customer to thousands.",
+        image: "/projects/echo.webp",
+        href: "https://echo.builders",
+        repository: "https://github.com/francogalfre/echo",
+        tags: [
+            "Next.js",
+            "Hono",
+            "tRPC",
+            "Drizzle ORM",
+            "PostgreSQL",
+            "TypeScript",
+            "Better-Auth",
+            "Turborepo",
+            "AI SDK"
+        ],
+    },
+    {
+        id: 2,
         title: "Lens",
         detailsUrl: "lens",
         description:
@@ -20,7 +43,7 @@ export const projects = [
         ],
     },
     {
-        id: 2,
+        id: 3,
         title: "Vibrant",
         detailsUrl: "vibrant",
         description:
@@ -33,7 +56,7 @@ export const projects = [
         tags: ["TypeScript", "Node.js", "AI", "AI SDK", "CLI"],
     },
     {
-        id: 3,
+        id: 4,
         title: "Patitas",
         detailsUrl: "patitas",
         description:
@@ -46,7 +69,7 @@ export const projects = [
         tags: ["Next.js", "Node.js", "Tailwind", "Typescript", "PostgreSQL"],
     },
     {
-        id: 4,
+        id: 5,
         title: "Freelanceo",
         detailsUrl: "freelanceo",
         description:
@@ -60,7 +83,7 @@ export const projects = [
         tags: ["Next.js", "Node.js", "Tailwind", "Typescript", "PostgreSQL"],
     },
     {
-        id: 5,
+        id: 6,
         title: "Astrotips",
         detailsUrl: "astrotips",
         description:
@@ -74,7 +97,7 @@ export const projects = [
         tags: ["Astro", "Tailwind", "Typescript"],
     },
     {
-        id: 6,
+        id: 7,
         title: "Promptsmith",
         detailsUrl: "promptsmith",
         description:
