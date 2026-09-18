@@ -1,0 +1,66 @@
+---
+interface Props {
+  href?: string;
+  logo?: string;
+  logoAlt?: string;
+}
+
+const { href, logo, logoAlt = "" } = Astro.props;
+const Tag = href ? "a" : "span";
+---
+
+<Tag
+  {...(href ? { href, target: "_blank", rel: "noopener noreferrer" } : {})}
+  class="badge"
+>
+  {logo && <img src={logo} alt={logoAlt} class="badge-logo" />}
+  <span class="badge-label"><slot /></span>
+</Tag>
+
+<style>
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.275rem;
+    vertical-align: middle;
+    height: 1.5rem;
+    padding: 0.625rem 0.425rem;
+    border-radius: 9999px;
+    border: 1px dashed transparent;
+    background: var(--color-muted);
+    color: var(--color-foreground);
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1;
+    white-space: nowrap;
+    text-decoration: none;
+    transition:
+      background-color 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+      border-color 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .badge:hover {
+    background: transparent;
+    border-color: var(--rotating-border-color, #9ca3af);
+  }
+
+  .badge-logo {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+    flex-shrink: 0;
+  }
+
+  .badge-label {
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .badge-label:empty {
+    display: none;
+  }
+
+  .badge:has(.badge-label:empty) {
+    padding: 0.3rem;
+  }
+</style>

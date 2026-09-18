@@ -1,0 +1,62 @@
+---
+interface Props {
+  src: string;
+  title?: string;
+  type?: "youtube" | "mp4";
+  poster?: string;
+}
+
+const { src, title, type = "mp4", poster } = Astro.props;
+
+function toYoutubeEmbed(url: string): string {
+  const match = url.match(
+    /(?:youtube\.com\/(?:watch\?v=|shorts\/|embed\/)|youtu\.be\/)([A-Za-z0-9_-]{11})/,
+  );
+  if (match) return `https://www.youtube-nocookie.com/embed/${match[1]}`;
+  return url;
+}
+
+const isYouTube = type === "youtube";
+---
+
+<figure class="video">
+  {isYouTube ? (
+    <iframe
+      src={toYoutubeEmbed(src)}
+      title={title ?? "Video"}
+      loading="lazy"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      allowfullscreen
+      class="video-frame"
+    />
+  ) : (
+    <video controls preload="metadata" poster={poster} src={src} class="video-frame" />
+  )}
+
+  {title && <figcaption class="video-caption">{title}</figcaption>}
+</figure>
+
+<style>
+  .video {
+    margin: 0;
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+    border-radius: 0.75rem;
+    background: #000;
+  }
+
+  .video-frame {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border: 0;
+  }
+
+  .video-caption {
+    margin: 0;
+    padding: 0.6rem 0.9rem;
+    font-size: 12.5px;
+    color: var(--color-secondary);
+    background: var(--color-background);
+  }
+</style>
