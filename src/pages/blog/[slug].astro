@@ -8,9 +8,9 @@ import { HugeiconsIcon } from "@hugeicons/react";
 import BaseLayout from "@/layouts/base.astro";
 import Breadcrumb from "@/components/ui/widgets/breadcrumb.astro";
 import PostBody from "@/components/blog/post-body.astro";
+import EdgeBlur from "@/components/ui/edge-blur.astro";
 
 import { SITE_URL } from "@/data/seo-content";
-import { estimateReadingTime } from "@/utils/reading-time";
 import { renderInlineMarkdown } from "@/utils/inline-markdown";
 import { toCalendarDate } from "@/utils/date";
 
@@ -49,7 +49,6 @@ const seo = {
 	image: cover,
 };
 
-const readingTime = estimateReadingTime(post.body ?? "");
 const postUrl = new URL(`/blog/${post.id}`, SITE_URL).toString();
 const coverCreditHtml = renderInlineMarkdown(coverCredit);
 const displayDate = toCalendarDate(pubDate);
@@ -74,18 +73,38 @@ const jsonLd = {
 
   <Breadcrumb lastPage="blog" actualPage={title} />
 
-  <article class="space-y-8 animate-fade-in">
-    <figure class="space-y-2">
-      <img
-        src={cover}
-        alt={coverAlt || title}
-        class="w-full aspect-[16/9] rounded-lg border border-gray-100 object-cover"
-      />
+  <div id="post-skeleton" class="flex flex-col gap-6" aria-hidden="true">
+    <div class="img-skeleton w-full aspect-[16/9] rounded-lg"></div>
+    <div class="flex flex-col gap-3">
+      <div class="skeleton-line" style="width: 72%"></div>
+      <div class="skeleton-line" style="width: 52%"></div>
+    </div>
+    <div class="flex flex-col gap-2">
+      <div class="skeleton-line" style="width: 100%"></div>
+      <div class="skeleton-line" style="width: 96%"></div>
+      <div class="skeleton-line" style="width: 88%"></div>
+      <div class="skeleton-line" style="width: 64%"></div>
+    </div>
+    <div class="flex flex-col gap-2">
+      <div class="skeleton-line" style="width: 100%"></div>
+      <div class="skeleton-line" style="width: 90%"></div>
+      <div class="skeleton-line" style="width: 48%"></div>
+    </div>
+  </div>
 
-      <figcaption class="flex items-center justify-between gap-4 text-[12.5px] text-secondary">
-        <span set:html={coverCreditHtml} />
-      </figcaption>
-    </figure>
+  <div id="post-content" class="post-content">
+    <article class="space-y-8">
+      <figure class="space-y-2">
+        <img
+          src={cover}
+          alt={coverAlt || title}
+          class="img-skeleton w-full aspect-[16/9] rounded-lg border border-gray-100 object-cover"
+        />
+
+        <figcaption class="flex items-center justify-between gap-4 text-[12.5px] text-secondary">
+          <span set:html={coverCreditHtml} />
+        </figcaption>
+      </figure>
 
     <header class="space-y-4">
         <div class="flex flex-col gap-2">
@@ -98,7 +117,7 @@ const jsonLd = {
             </p>
         </div>
 
-      <div class="flex items-center gap-2 text-sm text-secondary">
+      <div class="flex items-center gap-2 justify-between text-sm text-secondary">
         {tags.length > 0 && (
             <div class="flex flex-wrap gap-2">
               {tags.map((tag) => (
@@ -112,8 +131,6 @@ const jsonLd = {
         <time datetime={pubDate.toISOString()} class="tabular-nums">
           {format(displayDate, "MMMM d, yyyy").toLowerCase()}
         </time>
-        <span class="text-gray-300">/</span>
-        <span>{readingTime} min read</span>
       </div>
     </header>
 
@@ -123,40 +140,64 @@ const jsonLd = {
       <Content />
     </PostBody>
 
-    {(prevPost || nextPost) && (
-      <>
-        <hr class="text-gray-200" />
-        <nav class="grid grid-cols-2 gap-3">
-          <div>
-            {prevPost && (
-              <a
-                href={`/blog/${prevPost.id}`}
-                class="group flex flex-col gap-1.5 rounded-lg py-2 px-3 -mx-3 hover:bg-gray-100/70 transition-colors duration-500"
-              >
-                <span class="flex items-center gap-1 text-[12px] text-secondary group-hover:text-primary transition-colors duration-500">
-                  <HugeiconsIcon icon={ArrowLeft01Icon} size={14} />
-                  newer
-                </span>
-                <span class="text-[13px] sm:text-[14px] text-black leading-[120%] truncate">{prevPost.data.title}</span>
-              </a>
-            )}
-          </div>
-          <div>
-            {nextPost && (
-              <a
-                href={`/blog/${nextPost.id}`}
-                class="group flex flex-col items-end gap-1.5 rounded-lg py-2 px-3 -mx-3 text-right hover:bg-gray-100/70 transition-colors duration-500"
-              >
-                <span class="flex items-center gap-1 text-[12px] text-secondary group-hover:text-primary transition-colors duration-500">
-                  older
-                  <HugeiconsIcon icon={ArrowRight01Icon} size={14} />
-                </span>
-                <span class="text-[13px] sm:text-[14px] text-black leading-[120%] truncate">{nextPost.data.title}</span>
-              </a>
-            )}
-          </div>
-        </nav>
-      </>
-    )}
   </article>
+
+  {(prevPost || nextPost) && (
+    <>
+      <hr class="text-gray-200 mt-8" />
+      <nav class="relative z-50 grid grid-cols-2 gap-3 mt-8">
+        <div>
+          {prevPost && (
+            <a
+              href={`/blog/${prevPost.id}`}
+              class="group flex flex-col gap-1.5 rounded-lg py-2 px-3 -mx-3 hover:bg-gray-100/70 transition-colors duration-500"
+            >
+              <span class="flex items-center gap-1 text-[12px] text-secondary">
+                <HugeiconsIcon icon={ArrowLeft01Icon} size={14} />
+                newer
+              </span>
+              <span class="text-[13px] sm:text-[14px] text-black leading-[120%] truncate">{prevPost.data.title}</span>
+            </a>
+          )}
+        </div>
+        <div>
+          {nextPost && (
+            <a
+              href={`/blog/${nextPost.id}`}
+              class="group flex flex-col items-end gap-1.5 rounded-lg py-2 px-3 -mx-3 text-right hover:bg-gray-100/70 transition-colors duration-500"
+            >
+              <span class="flex items-center gap-1 text-[12px] text-secondary ">
+                older
+                <HugeiconsIcon icon={ArrowRight01Icon} size={14} />
+              </span>
+              <span class="text-[13px] sm:text-[14px] text-black leading-[120%] truncate">{nextPost.data.title}</span>
+            </a>
+          )}
+        </div>
+      </nav>
+    </>
+  )}
+  </div>
+
+  <EdgeBlur position="bottom" height={80} />
 </BaseLayout>
+
+<style>
+  .post-content {
+    opacity: 0;
+    transition: opacity 0.5s ease;
+  }
+
+  .post-content.is-ready {
+    opacity: 1;
+  }
+</style>
+
+<script>
+  const reveal = () => {
+    document.getElementById("post-skeleton")?.remove();
+    document.getElementById("post-content")?.classList.add("is-ready");
+  };
+  window.addEventListener("load", reveal, { once: true });
+  setTimeout(reveal, 2500);
+</script>

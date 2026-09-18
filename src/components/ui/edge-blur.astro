@@ -1,0 +1,50 @@
+---
+interface Props {
+  position?: "top" | "bottom";
+  height?: number;
+}
+
+const { position = "bottom", height = 75 } = Astro.props;
+const blurLayers = [1, 2, 3, 6, 12];
+const isTop = position === "top";
+const maskDirection = isTop ? "bottom" : "top";
+---
+
+<div
+  class:list={["edge-blur", isTop ? "edge-blur-top" : "edge-blur-bottom"]}
+  style={`height: ${height}px`}
+>
+  {blurLayers.map((blur) => (
+    <div
+      class="edge-blur-layer"
+      style={`backdrop-filter: blur(${blur}px); -webkit-backdrop-filter: blur(${blur}px); mask-image: linear-gradient(to ${maskDirection}, black, transparent); -webkit-mask-image: linear-gradient(to ${maskDirection}, black, transparent);`}
+    />
+  ))}
+</div>
+
+<style>
+  .edge-blur {
+    position: fixed;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 42rem;
+    z-index: 40;
+    pointer-events: none;
+    isolation: isolate;
+  }
+
+  .edge-blur-top {
+    top: 0;
+  }
+
+  .edge-blur-bottom {
+    bottom: 0;
+  }
+
+  .edge-blur-layer {
+    position: absolute;
+    inset: 0;
+  }
+</style>

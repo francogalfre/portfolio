@@ -5,7 +5,6 @@ import { format } from "date-fns";
 import { ArrowRight01Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 
-import { estimateReadingTime } from "@/utils/reading-time";
 import { toCalendarDate } from "@/utils/date";
 
 const posts = (await getCollection("blog", ({ data }) => !data.draft)).sort(
@@ -16,7 +15,7 @@ const posts = (await getCollection("blog", ({ data }) => !data.draft)).sort(
 <section class="space-y-6 animate-fade-in">
   <div class="space-y-6">
     <div class="space-y-2">
-      <h2 class="text-[15px] sm:text-[16px] font-[450] text-black leading-[90%]">blog</h2>
+      <h2 class="text-md sm:text-lg font-[450] text-black leading-[90%] tracking-tighter">blog</h2>
       <p class="text-sm sm:text-[15px] font-normal text-gray-900 leading-[160%]">
         Notes about software engineering, AI agents and the things I learn while building. Written when I have something worth sharing.
       </p>
@@ -35,7 +34,6 @@ const posts = (await getCollection("blog", ({ data }) => !data.draft)).sort(
             <a href={`/blog/${post.id}`} class="flex items-center w-full justify-between gap-4">
               <div class="flex flex-col gap-1.5 py-2">
                 <h4 class="text-[14px] sm:text-[15px] font-[450] text-black leading-[90%]">{post.data.title}</h4>
-                <p class="text-sm sm:text-[14px] text-secondary mt-0.5 leading-[140%] truncate line-clamp-2 max-w-xs">{post.data.description}</p>
               </div>
 
               <div class="flex items-center gap-3 shrink-0">
@@ -43,8 +41,6 @@ const posts = (await getCollection("blog", ({ data }) => !data.draft)).sort(
                   <time datetime={post.data.pubDate.toISOString()}>
                     {format(toCalendarDate(post.data.pubDate), "MMM yyyy").toLowerCase()}
                   </time>
-                  <span class="text-gray-300">/</span>
-                  <span>{estimateReadingTime(post.body ?? "")} min read</span>
                 </div>
                 <span class="text-secondary hidden sm:flex"><HugeiconsIcon icon={ArrowRight01Icon} size={16} /></span>
               </div>
@@ -67,12 +63,5 @@ const posts = (await getCollection("blog", ({ data }) => !data.draft)).sort(
   .posts-list:hover .post-item:hover {
     opacity: 1;
     filter: blur(0);
-  }
-  .post-item p {
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis;
   }
 </style>
