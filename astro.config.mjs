@@ -56,6 +56,7 @@ export default defineConfig({
             alias: [
                 { find: "@/lib/utils", replacement: path.resolve("./src/utils/cn.ts") },
                 { find: "@", replacement: path.resolve("./src") },
+                { find: "react-tweet/utils", replacement: path.resolve("./node_modules/react-tweet/dist/utils.js") },
             ],
         },
         optimizeDeps: {

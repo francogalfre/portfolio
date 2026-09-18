@@ -23,6 +23,7 @@
   },
   "registries": {
     "@ai-elements": "https://elements.ai-sdk.dev/api/registry/{name}.json",
-    "@kibo-ui": "https://www.kibo-ui.com/r/{name}.json"
+    "@kibo-ui": "https://www.kibo-ui.com/r/{name}.json",
+    "@spell": "https://spell.sh/r/{name}.json"
   }
 }
