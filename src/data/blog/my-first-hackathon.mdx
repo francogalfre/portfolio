@@ -1,0 +1,63 @@
+---
+title: "My first hackathon"
+description: "Twenty-four hours, a shop that negotiates for my dad, and everything an all-nighter actually teaches you."
+pubDate: 2026-09-18
+cover: "/blog/covers/competition.webp"
+coverAlt: "Alexander von Wagner, The Chariot Race, 1882"
+coverCredit: "Alexander von Wagner, *The Chariot Race*, 1882"
+tags: ["hackathon", "ai agents", "shipping"]
+---
+
+import Badge from "@/components/blog/badge.astro";
+import Tweet from "@/components/blog/tweet.astro";
+
+I had never done a hackathon. Five years of shipping software and never once a room full of strangers, a deadline, and a projector. Last week I fixed that at the first event <Badge logo="https://pbs.twimg.com/profile_images/2100621384590172160/4QhWz6IG_400x400.jpg" href="https://x.com/remolitoral">Remo Litoral</Badge> ran in Santa Fe, with <Badge href="https://v0.dev" logo="https://svgl.app/library/v0_light.svg" logoAlt="v0" /> among the sponsors. I signed up with the only teammate I did not have to interview: my brother, <Badge href="https://galfrevn.com" logo="https://galfrevn.com/favicon.ico" logoAlt="Valentin Galfre avatar">Valentín Galfré</Badge>.
+
+We did not show up with an idea. We showed up with a problem that has a phone number: our dad. He sells things on Marketplace. A couch that no longer fits, a drill, whatever is in the way. He takes a photo against the kitchen window, writes two lines, guesses a price, and posts it. Then the messages start. Forty "is it still available?" at any hour, someone offering half at two in the morning, and him, who would rather fix an engine than answer a stranger, replying to no one and selling nothing.
+
+So we built <Badge href="https://tulocal.site" >tulocal</Badge>: photograph something, and get a shop with an employee that answers and negotiates for you.
+
+## What we built in twenty-four hours
+
+The pipeline is the part that still feels like magic. You photograph the object. The system identifies what it is, its brand, its model, its condition. It generates clean product shots that never alter the item itself. It writes the title and the description. It searches Mercado Libre for what that exact thing sells for in Argentina right now. Out the other side you get a price range, a shop with its own URL, and a QR code.
+
+Then the part our dad actually needed. Every shop comes with an employee, an agent with a name you choose, that answers buyer questions from what it knows about the product, negotiates without ever dropping below a floor price you set and the buyer never sees, and only opens a WhatsApp conversation with you when someone is actually ready to close. He does not talk to anyone until there is a sale.
+
+The whole demo, from photo to negotiated sale, runs in about a minute.
+
+## The night we built it
+
+A hackathon is a scope exercise wearing a coding costume. We wrote down exactly what the demo had to show, one path from photo to WhatsApp message, and everything that did not sit on that path got cut. No payments. No shipping. No buyer accounts. The product got better every time we said no.
+
+We split by instinct. Valentín took the pipeline and the seller side. I took the storefront and the metrics: the shop page, the QR code, the price search, the numbers that tell you whether any of this is working. On stage he would play the seller, and I would play the buyer.
+
+The last five hours were not engineering, and they decided whether the engineering got seen. We warmed the price cache with the exact product we would demo. We kept a fallback listing already processed in case the pipeline hung on stage. We mirrored a phone to the projector so the room could watch the buyer haggle. And we rehearsed three minutes with a clock.
+
+We slept. Not much.
+
+## The employee that stops at the floor
+
+The agent was the part I cared about most, because it is the part that can embarrass you in front of a room. It has to concede, or nobody believes it is negotiating. It has to stop, or the seller loses money. And it has to do both without the floor price ever appearing in a prompt, because a model that knows the number will eventually say it.
+
+So we made one rule. The floor never enters a prompt. The model that talks to the buyer only sees a yes or a no from the tool that validates the offer. The number lives in one place, on the server, out of reach.
+
+The other thing it needed was permission not to know. An agent that can say "let me ask the owner" is worth more than one that always has an answer. We gave it a tool for exactly that. The question goes to the seller, and the answer is saved to the product forever, so he only ever answers once.
+
+## The demo
+
+One minute. I scanned the QR with my own phone in front of a room full of people, lowballed the agent the way everyone lowballs, and read the replies out loud. The agent conceded a little, held at the floor, and closed the sale. The room clapped. My brother did not write a word of what I said, and it was the best part.
+
+<figure>
+  <img src="/blog/hackaton.webp" alt="The teams we met at the hackathon" />
+  <figcaption>Everyone we spent the event building alongside.</figcaption>
+</figure>
+
+## What I am taking home
+
+A shop my dad will use whether I finish it or not. A teammate I did not have to onboard. A few new friends from teams I had not met before. And a very specific kind of tired that only comes from a night spent building something with people you like.
+
+A hackathon does not give you a product. It gives you twenty-four hours to find out whether you want one.
+
+<Tweet id="2100415553554845942" />
+
+That was the night, compressed into a post. In Spanish, because that is the language the day happened in.
