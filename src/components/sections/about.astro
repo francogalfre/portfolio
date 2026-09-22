@@ -1,12 +1,14 @@
 ---
 import { Image } from "astro:assets";
-import Gif from "@/assets/gif-2.gif";
+import Gif from "@/assets/gifs/gif-2.gif";
 
 import CompanyBadge from "@/components/ui/widgets/company-badge.astro";
 import Spotify from "@/components/ui/spotify/spotify-player.astro";
 import { HoverLinkPreview } from "@/components/ui/widgets/hover-link-preview";
 
-import Me from "@/assets/me.webp";
+import Me from "@/assets/images/me.webp";
+import CrombieLogo from "@/assets/logos/crombie.webp";
+import ShipperslabLogo from "@/assets/logos/shipperslab.svg";
 
 import { getAgeData } from "@/utils/age-calculation";
 
@@ -25,11 +27,11 @@ const { years } = getAgeData();
 
   <div class="flex flex-col gap-6 mb-8">
         <p class="text-sm sm:text-[15px] font-normal sm:leading-[160%] animate-fade-in text-gray-600">
-      I'm Franco! I'm <span id="age-counter" style="font-variant-numeric: tabular-nums;">{years}</span> years old and a passionate Software Engineer & AI Engineer who loves computing, coding, and coffee. I approach every challenge by constantly learning new <a href="/stack" class="underline hover:text-primary hover:brightness-90 transition-all duration-400 mb-2">technologies</a>.
+      I'm Franco! I'm <span id="age-counter" class="text-primary" style="font-variant-numeric: tabular-nums;">{years}</span> years old and a passionate Software Engineer & AI Engineer who loves computing, coding, and coffee. I approach every challenge by constantly learning new <a href="/stack" class="underline hover:text-primary hover:brightness-90 transition-all duration-400 mb-2">technologies</a>.
 
       <br /><br />
 
-      Currently building amazing things at <CompanyBadge />, while crafting <a href="/projects" class="underline hover:text-primary hover:brightness-90 transition-all duration-400 mb-2">projects</a> focused on full-stack scalability and the development of AI agents.
+      Currently building amazing things at <CompanyBadge name="Crombie" logo={CrombieLogo} />, and running <CompanyBadge name="Shipperslab" logo={ShipperslabLogo} /> while crafting personal <a href="/projects" class="underline hover:text-primary hover:brightness-90 transition-all duration-400 mb-2">projects</a>.
     </p>
   </div>
 

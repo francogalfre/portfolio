@@ -1,8 +1,16 @@
 ---
-import CompanyLogo from "@/assets/crombie.webp";
+import type { ImageMetadata } from "astro";
+
+interface Props {
+  name: string;
+  logo: ImageMetadata;
+  href?: string;
+}
+
+const { name, logo, href = "/experience" } = Astro.props;
 ---
 
-<a href="/experience" class="inline-flex items-center text-gray-900 gap-1 bg-gray-200/60 my-2 sm:my-0 px-2 py-0.5 rounded-full select-none align-middle ml-0.5 hover:scale-[105px] transition-transform duration-500">
-    <img src={CompanyLogo.src} alt="Crombie Logo" class="w-4">
-    Crombie
+<a href={href} class="inline-flex items-center text-gray-900 gap-1 bg-gray-200/60 my-2 sm:my-0 px-2 py-0.5 rounded-full select-none align-middle ml-0.5 hover:scale-[105px] transition-transform duration-500">
+    <img src={logo.src} alt={`${name} Logo`} class="w-4">
+    {name}
 </a>

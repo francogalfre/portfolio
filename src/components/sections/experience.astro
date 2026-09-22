@@ -13,11 +13,16 @@ import { experiences } from "@/data/experience-content";
 
     <hr class=" text-gray-200" />
 
-    <ul class="flex flex-col gap-6">
+    <ul class="flex flex-col gap-10">
       {experiences.map((exp) => (
         <li class="space-y-2">
           <header class="flex flex-col gap-1.5">
-            <h4 class="text-[15px] sm:text-[16px] font-[450] text-black leading-[90%]">{exp.company}</h4>
+            <h4 class="text-[15px] sm:text-lg font-[450] text-black leading-[90%]">
+              <a href={exp.url} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 hover:underline">
+                {exp.logo && <img src={exp.logo.src} alt={`${exp.company} logo`} class="w-4 h-4" />}
+                {exp.company}
+              </a>
+            </h4>
             <p class="text-sm sm:text-[15px] text-secondary mt-0.5 leading-[120%]">{exp.role}, {exp.periods}</p>
           </header>
           <p class="text-sm sm:text-[15px] font-normal text-gray-900 leading-[160%] animate-fade-in prose">{exp.description}</p>

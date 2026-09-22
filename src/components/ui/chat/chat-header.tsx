@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
 
-import AgentAvatar from "@/assets/agent-avatar.webp";
+import AgentAvatar from "@/assets/images/agent-avatar.webp";
 
 type ChatHeaderProps = {
     online: boolean;
