@@ -180,8 +180,14 @@
         --rotating-border-color: #9ca3af;
     }
 
+    html,
+    body {
+        overflow-x: clip;
+    }
+
     body {
         font-family: var(--font-sans);
+        min-height: 100dvh;
     }
 
     h1,

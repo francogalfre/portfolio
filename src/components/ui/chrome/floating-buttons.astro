@@ -1,11 +1,13 @@
 ---
 import FloatingGameButton from "@/components/ui/games/floating-game-button.astro";
 import FloatingChatButton from "@/components/ui/chat/floating-chat-button.astro";
+import { SocialsMenu } from "@/components/ui/chrome/socials-menu";
 ---
 
 <div
-  class="fixed right-4 bottom-8 z-40 flex items-center gap-4 sm:right-8"
+  class="fixed right-4 bottom-[calc(1.5rem+env(safe-area-inset-bottom))] z-40 flex items-center gap-2.5 sm:right-8 sm:bottom-[calc(2rem+env(safe-area-inset-bottom))] sm:gap-3"
 >
+  <SocialsMenu client:load />
   <FloatingChatButton />
   <FloatingGameButton />
 </div>

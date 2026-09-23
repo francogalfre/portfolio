@@ -13,7 +13,7 @@ export function ChatLauncher({ isOpen, onToggle }: ChatLauncherProps) {
       type="button"
       onClick={onToggle}
       aria-label={isOpen ? "Close chat" : "Chat with Franco's assistant"}
-      className="flex items-center justify-center rounded-full bg-gray-100 p-4 text-secondary transition-all duration-300 hover:scale-105 hover:text-primary active:scale-95"
+      className="flex items-center justify-center rounded-full bg-gray-100 p-3 text-secondary transition-all duration-300 hover:scale-105 hover:text-primary active:scale-95"
     >
       <AnimatePresence mode="wait" initial={false}>
         <motion.span
@@ -24,7 +24,7 @@ export function ChatLauncher({ isOpen, onToggle }: ChatLauncherProps) {
           transition={{ duration: 0.18, ease: "easeOut" }}
           className="flex items-center justify-center"
         >
-          <HugeiconsIcon icon={isOpen ? Cancel01Icon : BubbleChatIcon} size={22} />
+          <HugeiconsIcon icon={isOpen ? Cancel01Icon : BubbleChatIcon} size={18} />
         </motion.span>
       </AnimatePresence>
     </button>
