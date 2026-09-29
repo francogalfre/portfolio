@@ -8,9 +8,9 @@ export const experiences = [
         url: "https://www.shipperslab.tech/",
         logo: ShipperslabLogo,
         role: "Co-founder",
-        periods: "Sep 2026 - Present · Santa Fe, Argentina",
+        periods: "Sep 2026 - Present",
         description:
-            "Co-founded a digital studio, lab and community. We design and build digital products for companies and founders, run our own product experiments, and organize events for people who build across Argentina. I lead brand, product design and frontend, and work directly with clients from scoping to launch.",
+            "Co-founded a digital studio, lab and community. We design and build digital products for companies and founders, run our own product experiments, and organize events for people who build across Argentina. I lead the team. We are small, so everyone works across brand, design, engineering and clients to move Shipperslab forward.",
     },
     {
         company: "Crombie",
