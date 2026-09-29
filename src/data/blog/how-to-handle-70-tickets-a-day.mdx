@@ -1,0 +1,279 @@
+---
+title: "How our AI agents handle 70 tickets a day"
+description: "A small service desk team drowning in tickets, and the multi-agent system I designed so most of them never reach a human. Agents that answer, interview, write and classify, all sharing one state."
+pubDate: 2026-09-15
+cover: "/blog/covers/lions.webp"
+coverAlt: "Briton Rivière, Daniel in the Lions' Den, 1872"
+coverCredit: "Briton Rivière, *Daniel in the Lions' Den*, 1872"
+tags: ["agents", "langgraph", "aws", "architecture"]
+---
+
+import Badge from "@/components/blog/badge.astro";
+import CodeBlock from "@/components/blog/code-block";
+import Queue from "@/components/blog/queue.astro";
+import AgentGraph from "@/components/blog/agent-graph.astro";
+import Chat from "@/components/blog/chat.astro";
+import TicketCompare from "@/components/blog/ticket-compare.astro";
+import Layers from "@/components/blog/layers.astro";
+
+export const agentsCode = `import { createAgent, tool } from "langchain";
+import { z } from "zod";
+
+const searchDocs = tool(
+  async ({ query }) => knowledgeBase.invoke(query),
+  {
+    name: "search_docs",
+    description: "Search Confluence and resolved tickets",
+    schema: z.object({ query: z.string() }),
+  },
+);
+
+// Calls search_docs as many times as it needs,
+// then answers or admits it can't.
+export const ragAgent = createAgent({
+  model: bedrock,
+  tools: [searchDocs],
+  systemPrompt: "Only answer from search_docs results.",
+});
+
+export const ticketAgent = createAgent({
+  model: bedrock,
+  tools: [askUser],
+  systemPrompt: "Ask for missing details, one at a time.",
+});
+
+// No tools: reads the conversation, returns a typed draft
+export const drafter = createAgent({
+  model: bedrock,
+  responseFormat: TicketDraft,
+  systemPrompt: "Write the ticket from the conversation.",
+});`;
+
+export const graphCode = `// One state object, shared by every node
+const TicketState = Annotation.Root({
+  ...MessagesAnnotation.spec,
+  draft: Annotation<TicketDraft>,
+  labels: Annotation<TicketLabels>,
+});
+
+const checkpointer = PostgresSaver.fromConnString(DB_URL);
+
+export const graph = new StateGraph(TicketState)
+  .addNode("rag", ragAgent)
+  .addNode("interview", ticketAgent)
+  .addNode("draft", drafter)
+  .addNode("classify", classifier)
+  .addNode("review", humanReview)
+  .addEdge(START, "rag")
+  .addConditionalEdges("rag", answeredOrTicket)
+  // Fan out: both branches run at the same time
+  .addEdge("interview", "draft")
+  .addEdge("interview", "classify")
+  // Fan in: review waits for both to finish
+  .addEdge(["draft", "classify"], "review")
+  .addEdge("review", END)
+  .compile({ checkpointer });`;
+
+export const reviewCode = `export async function humanReview(state: TicketState) {
+  // Stops here. Resumes when the user clicks a button,
+  // ten seconds or eighteen hours later.
+  const decision = interrupt({ draft: state.draft });
+
+  if (decision.action === "cancel") return { draft: null };
+
+  const ticket = await jira.createIssue(decision.draft);
+  return { ticketUrl: ticket.url };
+}`;
+
+Seventy tickets a day. On bad days, a hundred. The service desk team handling them was small.
+
+The usual answers are more people or faster people. My team and I proposed a third one: an agent that sits in front of the queue. Once the idea was approved I took it over. I spent a week reading real tickets, then designed the architecture, picked the stack, and started building.
+
+## What was actually in the queue
+
+Three kinds of tickets, and only one of them needed a human.
+
+<Queue
+  title="Service desk queue"
+  count="70 today"
+  tickets={[
+    { title: "How do I get access to the reporting dashboard?", tag: "in the docs", kind: "answerable" },
+    { title: "VPN disconnects every few minutes", tag: "known fix", kind: "answerable" },
+    { title: "Error", tag: "no context", kind: "human" },
+    { title: "Where is the latest rate sheet?", tag: "in the docs", kind: "answerable" },
+    { title: "Export not working", tag: "no context", kind: "human" },
+    { title: "Password reset link expired", tag: "known fix", kind: "answerable" },
+  ]}
+/>
+
+The first two had answers sitting in Confluence or in a ticket closed three weeks earlier. An engineer's whole contribution was finding them.
+
+The third kind was the real cost. A ticket that named an error and nothing else: no steps, no process, no expected result. The first reply was never a fix, it was a question. Then waiting. Then another question. A four-minute problem stretched across two days of round trips.
+
+So the problem wasn't speed. **The input was malformed.** Two goals came out of that: answer what's answerable before it reaches a human, and make sure everything else arrives complete.
+
+## Why a chatbot would make it worse
+
+A RAG chatbot over the docs covers the first two kinds and fails the third, badly. It answers until it can't, then apologizes and links the same empty form. The user already explained the problem once, to a bot, for nothing. What do they type into the form now? The error name. Nothing else.
+
+So "I couldn't help" can't be a dead end. **The failure path is where the system has to do its most valuable work.**
+
+## Agents that share one state
+
+The whole system is a single <Badge href="https://www.langchain.com/langgraph" logo="https://svgl.app/library/langchain-logo.svg" logoAlt="LangGraph">LangGraph</Badge> graph running models on <Badge href="https://aws.amazon.com/bedrock/" logo="https://svgl.app/library/aws_light.svg" logoAlt="AWS">Amazon Bedrock</Badge>. Each agent has one job, and they all read and write the same state, so none of them ever asks the user something another one already knows.
+
+<AgentGraph />
+
+**The RAG agent** answers from a Bedrock Knowledge Base fed by <Badge href="https://www.atlassian.com/software/confluence" logo="https://svgl.app/library/atlassian.svg" logoAlt="Atlassian">Confluence</Badge> and by every resolved ticket. The docs say how things should work. The resolved tickets say what people actually get wrong, in the same words users type. Indexing both made retrieval noticeably better than either alone.
+
+**The ticket agent** is the part I'd defend hardest. When there's no answer, it doesn't apologize. It offers to open a ticket and interviews the user, one question at a time. This is what that feels like from the user's side. Try the buttons at the end.
+
+<Chat
+  title="Service desk assistant"
+  items={[
+    { from: "user", text: "The export is failing" },
+    { step: "RAG agent", text: "no match in docs or resolved tickets", tone: "teal" },
+    { step: "Ticket agent", text: "asking only for what's missing", tone: "blue" },
+    { from: "agent", text: "Not in the docs yet, so let's open a ticket. Which export, and what happened?" },
+    { from: "user", text: "Monthly report, last quarter, Export CSV. It times out after 30 seconds" },
+    { step: "Drafter + Classifier", text: "in parallel, on the same state", tone: "violet" },
+    { draft: { title: "Monthly report export times out on long ranges", meta: "Reporting · P3" } },
+    { step: "Human review", text: "the graph is paused until you decide", tone: "amber" },
+  ]}
+  actions={[
+    {
+      label: "Ask for changes",
+      reply: [
+        { from: "user", text: "Mention it only fails for ranges over a month" },
+        { from: "agent", text: "Updated the description. Ready to create it?" },
+      ],
+    },
+    {
+      label: "Cancel",
+      reply: [{ from: "agent", text: "Cancelled. Nothing was written to Jira." }],
+    },
+    {
+      label: "Create",
+      primary: true,
+      reply: [
+        { step: "Jira tool", text: "ticket created", tone: "teal" },
+        { from: "agent", text: "Done. SD-2047 is open, here's the link." },
+      ],
+    },
+  ]}
+/>
+
+Nobody writes a good bug report into an empty box. Almost anyone can answer a few direct questions.
+
+Every agent has the same shape: a Bedrock model, a prompt, and only the tools its job needs. The RAG agent can call its search tool as many times as it wants before answering, which is the loop in the graph above. The drafter has no tools at all, just a typed output.
+
+<CodeBlock
+  client:visible
+  className="my-8"
+  copyable={false}
+  filename="agents.ts"
+  language="ts"
+  highlightLines={[17, 23, 30]}
+  code={agentsCode}
+/>
+
+Once nothing is missing, the agent drafts the ticket from what the user already said. Their job shrinks from *write a report* to *confirm this is right*.
+
+<TicketCompare
+  before={{
+    key: "SD-2045",
+    title: "Export not working",
+    status: { label: "Waiting for customer", tone: "amber" },
+    description: [
+      { label: "Steps to reproduce" },
+      { label: "Actual result", value: "doesn't work" },
+      { label: "Expected result" },
+    ],
+    details: [
+      { label: "Priority" },
+      { label: "Component" },
+      { label: "Reporter", value: "Operations" },
+    ],
+    activity: "4 comments asking for details · open for 2 days",
+  }}
+  after={{
+    key: "SD-2047",
+    title: "Monthly report export times out on long ranges",
+    status: { label: "Ready for triage", tone: "blue" },
+    description: [
+      { label: "Steps to reproduce", value: "Reports → Monthly → filter by last quarter → Export CSV" },
+      { label: "Actual result", value: "“Request timed out” after about 30 seconds" },
+      { label: "Expected result", value: "A CSV download, as with shorter date ranges" },
+    ],
+    details: [
+      { label: "Priority", value: "P3" },
+      { label: "Component", value: "Reporting" },
+      { label: "Reporter", value: "Operations" },
+    ],
+    activity: "Drafted by the assistant, approved by the reporter · no follow-up questions",
+  }}
+/>
+
+Once the interview is done, two agents start at the same time. **The drafter** writes the title and description. **The classifier** sets category and priority. Neither waits for the other: both read the same conversation from the shared state, each writes its own field, and the review step only runs when both are finished. The ticket is ready in the time the slower of the two takes, not the sum of both.
+
+The classifier works with plain rules, not model judgment. Routing affects SLAs and on-call, so it has to be deterministic and auditable. When someone asks why a ticket landed somewhere, the answer is a rule, not a prompt.
+
+Wiring it all together is where LangGraph earns its place. The shared state, every node, the parallel branches and the checkpointer live in one file you can read top to bottom.
+
+<CodeBlock
+  client:visible
+  className="my-8"
+  copyable={false}
+  filename="graph.ts"
+  language="ts"
+  highlightLines={[2, 8, 19, 20, 22]}
+  code={graphCode}
+/>
+
+## Nothing is written without a human
+
+Before anything reaches <Badge href="https://www.atlassian.com/software/jira" logo="https://svgl.app/library/atlassian.svg" logoAlt="Atlassian">Jira</Badge>, the user sees the draft and can ask for changes, cancel it, or create it. The agent will sometimes misread intent. What it can't do is file a ticket while being wrong.
+
+In LangGraph that's an `interrupt`. The graph stops mid-run, saves its state, and resumes from that exact line when the user answers, ten seconds or eighteen hours later.
+
+<CodeBlock
+  client:visible
+  className="my-8"
+  copyable={false}
+  filename="review.ts"
+  language="ts"
+  highlightLines={[4]}
+  code={reviewCode}
+/>
+
+If your agent can pause for a human, **it needs a real database, and it isn't the vector store.** A paused graph has to survive cold starts and deploys, which is why the graph above compiles with a Postgres checkpointer.
+
+## The architecture
+
+Everything runs on <Badge href="https://aws.amazon.com" logo="https://svgl.app/library/aws_light.svg" logoAlt="AWS">AWS</Badge>, defined with <Badge href="https://sst.dev" logo="https://svgl.app/library/sst.svg" logoAlt="SST">SST</Badge> and written in <Badge href="https://www.typescriptlang.org" logo="https://svgl.app/library/typescript.svg" logoAlt="TypeScript">TypeScript</Badge>.
+
+<Layers
+  title="One AWS account"
+  status="Nothing leaves it. Hover a layer."
+  layers={[
+    { label: "Entry", tone: "blue", why: "Spiky traffic, so nothing runs while nobody asks.", items: [{ name: "API Gateway", logo: "https://svgl.app/library/aws_light.svg" }, { name: "Lambda", logo: "https://svgl.app/library/aws_light.svg" }] },
+    { label: "Agents", tone: "violet", why: "A real state machine with pause and resume.", items: [{ name: "LangGraph", logo: "https://svgl.app/library/langchain-logo.svg" }, { name: "LangChain", logo: "https://svgl.app/library/langchain-logo.svg" }, { name: "Bedrock models", logo: "https://svgl.app/library/aws_light.svg" }] },
+    { label: "Knowledge", tone: "teal", why: "Docs and resolved tickets in one index.", items: [{ name: "Bedrock Knowledge Base", logo: "https://svgl.app/library/aws_light.svg" }, { name: "Confluence", logo: "https://svgl.app/library/atlassian.svg" }, { name: "Notion", logo: "https://svgl.app/library/notion.svg" }] },
+    { label: "State", tone: "amber", why: "Paused graphs, cached answers and feedback.", items: [{ name: "Aurora PostgreSQL", logo: "https://svgl.app/library/postgresql.svg" }, { name: "Redis", logo: "https://svgl.app/library/redis.svg" }, { name: "DynamoDB", logo: "https://svgl.app/library/aws_light.svg" }] },
+    { label: "Observability", tone: "gray", why: "Traces hold financial data, so they stay inside.", items: [{ name: "Langfuse on ECS" }] },
+  ]}
+/>
+
+One constraint shaped all of it. The end client, NFTYDoor, is a US lending platform, so every prompt, trace and retrieved chunk can contain financial data. Managed observability was out. Langfuse runs self-hosted on ECS, inside the same account as everything else.
+
+Compliance changes the question you ask. Not *what's the fastest way to wire this*, but *where does this data physically go, and who can read it*. Slower to build. It's also the difference between a demo and something a regulated company runs in production.
+
+Every answer also takes a thumbs up or down with an optional comment. Without that signal, a drop in tickets could mean good answers or users giving up. The thumbs-down comments became the most useful data in the system: each one points at a specific gap in the knowledge base.
+
+## What changed
+
+Ticket volume dropped, and that's the least interesting part. The tickets that still get created arrive complete: steps, exact error, expected result, the right category and priority. The team stopped opening tickets just to ask what the user meant.
+
+The goal was never fewer tickets. It was fewer broken ones, and giving a small team back the hours they spent on work that never needed them.
+
+If you build something similar, decide two things before picking a model: where your agent's state lives, and what it does the moment it doesn't know. Most of the value in this project came from the second one.
