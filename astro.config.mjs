@@ -61,7 +61,7 @@ export default defineConfig({
         },
         optimizeDeps: {
             exclude: ["streamdown", "@streamdown/code", "@streamdown/cjk"],
-            include: ["style-to-js", "debug", "extend"],
+            include: ["style-to-js", "debug", "extend", "date-fns"],
         },
         ssr: {
             noExternal: ["detect-libc"],
