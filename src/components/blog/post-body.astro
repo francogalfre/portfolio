@@ -186,14 +186,14 @@
     height: 14px;
   }
 
-  .post-body pre {
+  .post-body pre:not([data-code-block] pre) {
     margin: 0;
     padding: 0.875rem 1rem;
     overflow-x: auto;
     background: #fff !important;
   }
 
-  .post-body pre code {
+  .post-body pre:not([data-code-block] pre) code {
     font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
     font-size: 12.5px;
     line-height: 1.65;
@@ -218,6 +218,7 @@
 
   blocks.forEach((pre) => {
     if (pre.parentElement?.classList.contains("code-block")) return;
+    if (pre.closest("[data-code-block]")) return;
 
     const wrapper = document.createElement("div");
     wrapper.className = "code-block";

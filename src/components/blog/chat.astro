@@ -1,0 +1,291 @@
+---
+import "./figure.css";
+import { tones, type Tone } from "./tones";
+
+type Item =
+  | { from: "user" | "agent"; text: string }
+  | { step: string; text: string; tone: Tone }
+  | { draft: { title: string; meta: string } };
+
+interface Action {
+  label: string;
+  primary?: boolean;
+  reply: Item[];
+}
+
+interface Props {
+  title: string;
+  items: Item[];
+  actions: Action[];
+}
+
+const { title, items, actions } = Astro.props;
+
+// The main conversation, then one hidden reply per action button
+const groups = [
+  { id: "main", items },
+  ...actions.map((action, i) => ({ id: `reply-${i}`, items: action.reply })),
+];
+---
+
+<figure class="fig chat" data-chat>
+  <div class="fig-card chat-card">
+    <div class="fig-bar chat-bar">
+      <span class="fig-title">{title}</span>
+      <button type="button" class="fig-btn chat-replay" data-replay>Replay</button>
+    </div>
+
+    <div class="chat-body">
+      {groups.map((group) => (
+        <Fragment>
+          {group.items.map((item) => (
+            <div class="chat-item" data-group={group.id}>
+              {"from" in item && <p class:list={["chat-bubble", `chat-${item.from}`]}>{item.text}</p>}
+              {"step" in item && (
+                <div class="chat-step" style={`--tone: ${tones[item.tone]}`}>
+                  <span class="fig-dot" />
+                  <span class="chat-step-name">{item.step}</span>
+                  <span class="chat-step-text">{item.text}</span>
+                </div>
+              )}
+              {"draft" in item && (
+                <div class="chat-draft">
+                  <span class="chat-draft-label">Draft</span>
+                  <span class="chat-draft-title">{item.draft.title}</span>
+                  <span class="chat-draft-meta">{item.draft.meta}</span>
+                </div>
+              )}
+            </div>
+          ))}
+          {group.id === "main" && (
+            <div class="chat-item chat-actions" data-group="main" data-actions>
+              {actions.map((action, i) => (
+                <button
+                  type="button"
+                  class:list={["fig-btn", { "chat-primary": action.primary }]}
+                  data-action={`reply-${i}`}
+                >
+                  {action.label}
+                </button>
+              ))}
+            </div>
+          )}
+        </Fragment>
+      ))}
+    </div>
+  </div>
+</figure>
+
+<style>
+  .chat-card {
+    padding: 0;
+    overflow: hidden;
+  }
+
+  .chat-bar {
+    justify-content: space-between;
+    margin: 0;
+    padding: 0.875rem 1.25rem;
+    border-bottom: 1px solid var(--line);
+    background: white;
+  }
+
+  .chat-body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.625rem;
+    min-height: 12rem;
+    padding: 1.25rem;
+  }
+
+  .chat-item {
+    display: flex;
+    flex-direction: column;
+    transition:
+      opacity 0.45s var(--ease),
+      transform 0.45s var(--ease);
+  }
+
+  /* Hidden until revealed, only once the script is running */
+  .chat.is-live .chat-item:not(.is-shown) {
+    display: none;
+  }
+
+  .chat.is-live .chat-item.is-entering {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+
+  .chat-bubble {
+    max-width: 80%;
+    margin: 0 !important;
+    padding: 0.55rem 0.85rem;
+    border-radius: 0.875rem;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  .chat-user {
+    align-self: flex-end;
+    background: var(--ink);
+    color: white;
+    border-bottom-right-radius: 0.25rem;
+  }
+
+  /* The site's light selection color would hide white text */
+  .chat-user::selection {
+    color: var(--ink);
+  }
+
+  .chat-agent {
+    align-self: flex-start;
+    background: white;
+    border: 1px solid var(--line);
+    color: var(--ink);
+    border-bottom-left-radius: 0.25rem;
+  }
+
+  .chat-step {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0.375rem 0;
+    font-size: 12.5px;
+  }
+
+  .chat-step::after {
+    content: "";
+    flex: 1;
+    border-top: 1px dashed var(--line);
+  }
+
+  .chat-step-name {
+    color: var(--tone);
+    white-space: nowrap;
+  }
+
+  .chat-step-text {
+    color: var(--color-secondary);
+  }
+
+  .chat-draft {
+    align-self: flex-start;
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    width: min(100%, 22rem);
+    padding: 0.875rem 1rem;
+    border: 1px solid var(--line);
+    border-left: 2px solid #7c3aed;
+    border-radius: 0.5rem;
+    background: white;
+  }
+
+  .chat-draft-label,
+  .chat-draft-meta {
+    font-size: 12.5px;
+    color: var(--color-secondary);
+  }
+
+  .chat-draft-title {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--ink);
+  }
+
+  .chat-actions {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.375rem;
+  }
+
+  .chat-primary {
+    color: white;
+    border-color: var(--ink);
+    background: var(--ink);
+  }
+
+  .chat-primary:hover,
+  .chat-primary:focus-visible {
+    color: white;
+    background: #374151;
+  }
+
+  .chat-primary[aria-pressed="true"] {
+    color: white;
+    background: var(--ink);
+  }
+
+  @media (max-width: 520px) {
+    .chat-body {
+      padding: 1rem;
+    }
+
+    .chat-bubble {
+      max-width: 90%;
+    }
+
+    .chat-step-text {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  const STEP_MS = 380;
+
+  document.querySelectorAll<HTMLElement>("[data-chat]").forEach((figure) => {
+    const items = [...figure.querySelectorAll<HTMLElement>(".chat-item")];
+    const actions = [...figure.querySelectorAll<HTMLButtonElement>("[data-action]")];
+    let timers: number[] = [];
+
+    const show = (item: HTMLElement) => {
+      item.classList.add("is-shown", "is-entering");
+      requestAnimationFrame(() =>
+        requestAnimationFrame(() => item.classList.remove("is-entering")),
+      );
+    };
+
+    const play = (group: string) => {
+      items
+        .filter((item) => item.dataset.group === group)
+        .forEach((item, index) => {
+          timers.push(window.setTimeout(() => show(item), index * STEP_MS));
+        });
+    };
+
+    const reset = () => {
+      timers.forEach(clearTimeout);
+      timers = [];
+      items.forEach((item) => item.classList.remove("is-shown", "is-entering"));
+      actions.forEach((button) => {
+        button.disabled = false;
+        button.removeAttribute("aria-pressed");
+      });
+      play("main");
+    };
+
+    actions.forEach((button) => {
+      button.addEventListener("click", () => {
+        actions.forEach((b) => (b.disabled = b !== button));
+        button.setAttribute("aria-pressed", "true");
+        play(button.dataset.action ?? "");
+      });
+    });
+
+    figure.querySelector("[data-replay]")?.addEventListener("click", reset);
+
+    figure.classList.add("is-live");
+
+    // Start the conversation the first time it scrolls into view
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) return;
+        observer.disconnect();
+        play("main");
+      },
+      { threshold: 0.3 },
+    );
+    observer.observe(figure);
+  });
+</script>

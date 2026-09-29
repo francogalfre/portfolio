@@ -44,11 +44,18 @@ const Tag = href ? "a" : "span";
     border-color: var(--rotating-border-color, #9ca3af);
   }
 
+  /* The post body rounds and frames every image; logos opt out */
   .badge-logo {
-    width: 20px;
-    height: 20px;
+    width: 14px;
+    height: 14px;
     object-fit: contain;
     flex-shrink: 0;
+    margin: 0;
+    border: 0;
+    border-radius: 0;
+    aspect-ratio: auto;
+    background: none;
+    animation: none;
   }
 
   .badge-label {

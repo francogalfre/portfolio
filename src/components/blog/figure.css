@@ -1,0 +1,98 @@
+/* Shared look for the interactive figures inside blog posts */
+
+.fig {
+  --ink: #111;
+  --line: rgb(17 17 17 / 0.08);
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+
+  margin: 2.5rem 0 !important;
+  font-family: var(--font-sans);
+}
+
+.fig-card {
+  padding: 1.25rem;
+  border: 1px solid var(--line);
+  border-radius: 0.75rem;
+  background: rgb(17 17 17 / 0.02);
+}
+
+.fig-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.375rem;
+  margin-bottom: 1rem;
+}
+
+.fig-title {
+  font-size: 13.5px;
+  color: var(--ink);
+}
+
+.fig-status {
+  margin-left: auto;
+  font-size: 12.5px;
+  color: var(--color-secondary);
+  transition: opacity 0.3s var(--ease);
+}
+
+.fig-status.is-swapping {
+  animation: fig-swap 0.4s var(--ease);
+}
+
+@keyframes fig-swap {
+  from {
+    opacity: 0;
+    filter: blur(3px);
+    transform: translateY(4px);
+  }
+}
+
+.fig-btn {
+  padding: 0.3rem 0.75rem;
+  border: 1px solid var(--line);
+  border-radius: 9999px;
+  background: white;
+  font-size: 12.5px;
+  color: var(--color-secondary);
+  cursor: pointer;
+  transition:
+    color 0.3s var(--ease),
+    border-color 0.3s var(--ease),
+    background-color 0.3s var(--ease);
+}
+
+.fig-btn:hover,
+.fig-btn:focus-visible {
+  color: var(--ink);
+  border-color: rgb(17 17 17 / 0.3);
+  outline: none;
+}
+
+.fig-btn[aria-pressed="true"] {
+  color: var(--ink);
+  border-color: rgb(17 17 17 / 0.45);
+  background: rgb(17 17 17 / 0.05);
+}
+
+.fig-btn:disabled {
+  cursor: default;
+  opacity: 0.5;
+}
+
+.fig-dot {
+  flex-shrink: 0;
+  width: 7px;
+  height: 7px;
+  border-radius: 9999px;
+  background: var(--tone, var(--ink));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fig *,
+  .fig *::before,
+  .fig *::after {
+    transition-duration: 0s !important;
+    animation-duration: 0s !important;
+  }
+}

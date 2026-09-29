@@ -1,0 +1,260 @@
+---
+import "./figure.css";
+import { tones, type Tone } from "./tones";
+
+interface Field {
+  label: string;
+  value?: string;
+}
+
+interface Issue {
+  key: string;
+  title: string;
+  status: { label: string; tone: Tone };
+  description: Field[];
+  details: Field[];
+  activity: string;
+}
+
+interface Props {
+  before: Issue;
+  after: Issue;
+}
+
+const { before, after } = Astro.props;
+
+const sides = [
+  { id: "before", label: "What used to arrive", issue: before },
+  { id: "after", label: "What arrives now", issue: after },
+];
+---
+
+<figure class="fig compare" data-compare data-side="before">
+  <div class="fig-card">
+    <div class="fig-bar">
+      {sides.map((side, index) => (
+        <button
+          type="button"
+          class="fig-btn"
+          data-side-id={side.id}
+          aria-pressed={index === 0 ? "true" : "false"}
+        >
+          {side.label}
+        </button>
+      ))}
+    </div>
+
+    {sides.map(({ id, issue }) => (
+      <article class="issue" data-for={id}>
+        <header class="issue-head">
+          <span class="issue-crumb">
+            <span class="issue-type" aria-hidden="true" />
+            Service Desk / {issue.key}
+          </span>
+          <h4 class="issue-title">{issue.title}</h4>
+          <span class="issue-status" style={`--tone: ${tones[issue.status.tone]}`}>
+            {issue.status.label}
+          </span>
+        </header>
+
+        <div class="issue-body">
+          <section class="issue-description">
+            <span class="issue-section">Description</span>
+            {issue.description.map((field) => (
+              <div class="issue-field">
+                <span class="issue-field-label">{field.label}</span>
+                {field.value
+                  ? <p class="issue-field-value">{field.value}</p>
+                  : <p class="issue-field-value issue-missing">Not provided</p>}
+              </div>
+            ))}
+          </section>
+
+          <aside class="issue-details">
+            <span class="issue-section">Details</span>
+            <dl>
+              {issue.details.map((field) => (
+                <div class="issue-detail">
+                  <dt>{field.label}</dt>
+                  <dd class:list={{ "issue-empty": !field.value }}>{field.value ?? "None"}</dd>
+                </div>
+              ))}
+            </dl>
+          </aside>
+        </div>
+
+        <footer class="issue-activity">{issue.activity}</footer>
+      </article>
+    ))}
+  </div>
+</figure>
+
+<style>
+  .issue {
+    padding: 1.25rem;
+    border: 1px solid var(--line);
+    border-radius: 0.625rem;
+    background: white;
+    animation: fig-swap 0.4s var(--ease);
+  }
+
+  /* Only the selected issue is visible */
+  .compare[data-side="before"] [data-for="after"],
+  .compare[data-side="after"] [data-for="before"] {
+    display: none;
+  }
+
+  .issue-head {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .issue-crumb {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 12.5px;
+    color: var(--color-secondary);
+  }
+
+  /* Jira's bug icon: a red square with a white dot */
+  .issue-type {
+    position: relative;
+    width: 14px;
+    height: 14px;
+    border-radius: 3px;
+    background: #e5493a;
+  }
+
+  .issue-type::after {
+    content: "";
+    position: absolute;
+    inset: 4px;
+    border-radius: 9999px;
+    background: white;
+  }
+
+  .issue-title {
+    margin: 0 !important;
+    font-size: 16px !important;
+    font-weight: 500;
+    line-height: 1.35;
+    color: var(--ink);
+  }
+
+  .issue-status {
+    padding: 0.1rem 0.4rem;
+    border-radius: 0.25rem;
+    background: color-mix(in srgb, var(--tone) 12%, white);
+    color: color-mix(in srgb, var(--tone) 85%, black);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+  }
+
+  .issue-body {
+    display: grid;
+    grid-template-columns: 1fr 11rem;
+    gap: 1.5rem;
+    padding-top: 1rem;
+  }
+
+  .issue-section {
+    display: block;
+    margin-bottom: 0.625rem;
+    font-size: 12.5px;
+    font-weight: 500;
+    color: var(--ink);
+  }
+
+  .issue-field + .issue-field {
+    margin-top: 0.75rem;
+  }
+
+  .issue-field-label {
+    font-size: 12.5px;
+    color: var(--color-secondary);
+  }
+
+  .issue-field-value {
+    margin: 0.125rem 0 0 !important;
+    font-size: 13.5px;
+    line-height: 1.5;
+    color: var(--ink);
+  }
+
+  .issue-missing {
+    color: #e11d48;
+    font-style: italic;
+  }
+
+  .issue-details {
+    padding-left: 1.25rem;
+    border-left: 1px solid var(--line);
+  }
+
+  .issue-details dl {
+    display: flex;
+    flex-direction: column;
+    gap: 0.625rem;
+    margin: 0;
+  }
+
+  .issue-detail dt {
+    font-size: 12px;
+    color: var(--color-secondary);
+  }
+
+  .issue-detail dd {
+    margin: 0;
+    font-size: 13.5px;
+    color: var(--ink);
+  }
+
+  .issue-detail .issue-empty {
+    color: #9ca3af;
+  }
+
+  .issue-activity {
+    margin-top: 1rem;
+    padding-top: 0.875rem;
+    border-top: 1px solid var(--line);
+    font-size: 12.5px;
+    color: var(--color-secondary);
+  }
+
+  @media (max-width: 560px) {
+    .issue {
+      padding: 1rem;
+    }
+
+    .issue-body {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+
+    .issue-details {
+      padding: 1rem 0 0;
+      border-left: 0;
+      border-top: 1px solid var(--line);
+    }
+  }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLElement>("[data-compare]").forEach((figure) => {
+    const buttons = figure.querySelectorAll<HTMLButtonElement>("[data-side-id]");
+
+    buttons.forEach((button) => {
+      button.addEventListener("click", () => {
+        figure.dataset.side = button.dataset.sideId;
+        buttons.forEach((b) => b.setAttribute("aria-pressed", String(b === button)));
+      });
+    });
+  });
+</script>

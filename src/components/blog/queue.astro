@@ -1,0 +1,143 @@
+---
+import "./figure.css";
+import { tones } from "./tones";
+
+interface Ticket {
+  title: string;
+  tag: string;
+  kind: "answerable" | "human";
+}
+
+interface Props {
+  title: string;
+  count: string;
+  tickets: Ticket[];
+}
+
+const { title, count, tickets } = Astro.props;
+
+const answerable = tickets.filter((t) => t.kind === "answerable").length;
+const human = tickets.length - answerable;
+
+const filters = [
+  { id: "all", label: "All", status: `${tickets.length} tickets` },
+  { id: "answerable", label: "Already answered", status: `${answerable} never needed a person` },
+  { id: "human", label: "Needs a person", status: `${human} actually did` },
+];
+---
+
+<figure class="fig queue" data-queue data-filter="all">
+  <div class="fig-card">
+    <div class="queue-head">
+      <span class="fig-title">{title}</span>
+      <span class="queue-count">{count}</span>
+    </div>
+
+    <div class="fig-bar">
+      {filters.map((filter) => (
+        <button
+          type="button"
+          class="fig-btn"
+          data-filter-id={filter.id}
+          data-status={filter.status}
+          aria-pressed={filter.id === "all" ? "true" : "false"}
+        >
+          {filter.label}
+        </button>
+      ))}
+      <span class="fig-status" data-status-text>{filters[0].status}</span>
+    </div>
+
+    <ul class="queue-list">
+      {tickets.map((ticket) => (
+        <li
+          class="queue-row"
+          data-kind={ticket.kind}
+          style={`--tone: ${ticket.kind === "human" ? tones.rose : tones.teal}`}
+        >
+          <span class="fig-dot" />
+          <span class="queue-title">{ticket.title}</span>
+          <span class="queue-tag">{ticket.tag}</span>
+        </li>
+      ))}
+    </ul>
+  </div>
+</figure>
+
+<style>
+  .queue-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 0.875rem;
+  }
+
+  .queue-count {
+    font-size: 12.5px;
+    color: var(--color-secondary);
+  }
+
+  .queue-list {
+    list-style: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  .queue-row {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 0.75rem;
+    margin: 0 -0.625rem !important;
+    padding: 0.625rem;
+    border-radius: 0.5rem;
+    transition:
+      opacity 0.35s var(--ease),
+      background-color 0.25s var(--ease);
+  }
+
+  .queue-row:hover {
+    background: white;
+  }
+
+  .queue-title {
+    font-size: 14px;
+    line-height: 1.4;
+    color: var(--ink);
+  }
+
+  .queue-tag {
+    font-size: 12.5px;
+    color: var(--tone);
+    white-space: nowrap;
+  }
+
+  .queue[data-filter="answerable"] .queue-row:not([data-kind="answerable"]),
+  .queue[data-filter="human"] .queue-row:not([data-kind="human"]) {
+    opacity: 0.2;
+  }
+
+  @media (max-width: 520px) {
+    .queue .fig-status {
+      width: 100%;
+      margin: 0.25rem 0 0;
+    }
+  }
+</style>
+
+<script>
+  import { swapText } from "./swap-text";
+
+  document.querySelectorAll<HTMLElement>("[data-queue]").forEach((figure) => {
+    const buttons = figure.querySelectorAll<HTMLButtonElement>("[data-filter-id]");
+    const status = figure.querySelector("[data-status-text]");
+
+    buttons.forEach((button) => {
+      button.addEventListener("click", () => {
+        figure.dataset.filter = button.dataset.filterId;
+        swapText(status, button.dataset.status ?? "");
+        buttons.forEach((b) => b.setAttribute("aria-pressed", String(b === button)));
+      });
+    });
+  });
+</script>
