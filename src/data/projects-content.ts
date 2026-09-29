@@ -1,6 +1,26 @@
 export const projects = [
     {
         id: 1,
+        title: "Tulocal",
+        detailsUrl: "tulocal",
+        description:
+            "Snap three photos and get an online store, with an AI agent that haggles with buyers for you.",
+        longDescription:
+            "Selling something shouldn't take an afternoon. Whether you run a small business or just want to get rid of an old bike, you still need decent photos, a description, a price that makes sense, and then you answer \"is this still available?\" twenty times on WhatsApp.\n\nTulocal turns a handful of phone photos into an online store ready to share. The AI identifies the product, enhances the photos, writes the title and description, and suggests a price backed by real market comparables. Every store gets its own URL and an AI agent with its own personality that answers questions and negotiates with buyers, without ever going below the secret minimum price the seller sets. It's not a marketplace: no central catalog, no commission. Sellers bring their own buyers, and Tulocal does the heavy lifting of listing and replying.\n\nWe built it for the Remo Litoral hackathon as a Bun monorepo, with Next.js, Drizzle ORM on Neon Postgres, and Tailwind. The key piece was the negotiating agent: flexible enough to close a deal, but strict enough to never reveal or break the seller's floor price.",
+        image: "/projects/tulocal.webp",
+        href: "https://tulocal.site",
+        blogPost: "/blog/my-first-hackathon",
+        tags: [
+            "Next.js",
+            "TypeScript",
+            "Drizzle ORM",
+            "Neon",
+            "Tailwind",
+            "Bun",
+        ],
+    },
+    {
+        id: 2,
         title: "Echo",
         detailsUrl: "echo",
         description:
@@ -24,7 +44,7 @@ export const projects = [
         ],
     },
     {
-        id: 2,
+        id: 3,
         title: "Lens",
         detailsUrl: "lens",
         description:
@@ -44,7 +64,7 @@ export const projects = [
         ],
     },
     {
-        id: 3,
+        id: 4,
         title: "Vibrant",
         detailsUrl: "vibrant",
         description:
@@ -57,7 +77,7 @@ export const projects = [
         tags: ["TypeScript", "Node.js", "AI", "AI SDK", "CLI"],
     },
     {
-        id: 4,
+        id: 5,
         title: "Patitas",
         detailsUrl: "patitas",
         description:
@@ -70,7 +90,7 @@ export const projects = [
         tags: ["Next.js", "Node.js", "Tailwind", "Typescript", "PostgreSQL"],
     },
     {
-        id: 5,
+        id: 6,
         title: "Freelanceo",
         detailsUrl: "freelanceo",
         description:
@@ -84,7 +104,7 @@ export const projects = [
         tags: ["Next.js", "Node.js", "Tailwind", "Typescript", "PostgreSQL"],
     },
     {
-        id: 6,
+        id: 7,
         title: "Astrotips",
         detailsUrl: "astrotips",
         description:
@@ -98,7 +118,7 @@ export const projects = [
         tags: ["Astro", "Tailwind", "Typescript"],
     },
     {
-        id: 7,
+        id: 8,
         title: "Promptsmith",
         detailsUrl: "promptsmith",
         description:
