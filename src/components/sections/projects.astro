@@ -1,4 +1,5 @@
 ---
+import { HoverLinkPreview } from "@/components/ui/widgets/hover-link-preview";
 import { projects } from "@/data/projects-content";
 
 import { ArrowRight01Icon } from "@hugeicons/core-free-icons";
@@ -38,13 +39,23 @@ try {
     <ul class="projects-list flex flex-col gap-1.5">
       {projects.map((proj, index) => (
         <li class="project-item space-y-2 hover:bg-gray-100/70 transition-colors duration-500 rounded-lg py-2 px-3 -mx-3">
-          <a href={`/projects/${proj.detailsUrl}`} class="flex items-center w-full justify-between gap-4 animate-rise" style={`--i: ${4 + index}`}>
+          <HoverLinkPreview
+            client:visible
+            href={`/projects/${proj.detailsUrl}`}
+            external={false}
+            previewImage={proj.image}
+            imageAlt={`${proj.title} preview`}
+            previewWidth={288}
+            previewHeight={180}
+            className="flex items-center w-full justify-between gap-4 animate-rise"
+            style={{ "--i": 4 + index } as React.CSSProperties}
+          >
             <div class="flex flex-col gap-1.5 py-2">
               <h4 class="text-md sm:text-lg font-[450] text-black leading-[90%] tracking-tighter">{proj.title}</h4>
               <p class="text-sm sm:text-[15px] text-secondary mt-0.5 leading-[120%]">{proj.description}</p>
             </div>
             <span class="text-secondary hidden sm:flex"><HugeiconsIcon icon={ArrowRight01Icon} size={16} /></span>
-          </a>
+          </HoverLinkPreview>
         </li>
       ))}
     </ul>
@@ -65,7 +76,7 @@ try {
   }
   .projects-list:hover .project-item:hover {
     opacity: 1;
-    filter: blur(0);
+    filter: none;
   }
 </style>
   </div>
