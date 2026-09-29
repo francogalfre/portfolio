@@ -1,6 +1,7 @@
 import { cn } from "@/lib/utils";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { Check, Copy } from "lucide-react";
+import { Copy01Icon, Tick02Icon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 export type CodeBlockLanguage =
@@ -286,7 +287,7 @@ const CopyButton = ({ code, reduceMotion }: CopyButtonProps) => {
               : { bounce: 0.1, duration: 0.25, type: "spring" }
           }
         >
-          {copied ? <Check size={14} /> : <Copy size={14} />}
+          <HugeiconsIcon icon={copied ? Tick02Icon : Copy01Icon} size={14} />
         </motion.span>
       </AnimatePresence>
       <span aria-live="polite" className="sr-only">
