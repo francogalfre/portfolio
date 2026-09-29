@@ -2,20 +2,20 @@
 import { experiences } from "@/data/experience-content";
 ---
 
-<section class="space-y-6 animate-fade-in">
-  <div class="space-y-6 animate-fade-in" >
+<section class="space-y-6">
+  <div class="space-y-6">
     <div class="space-y-2">
-      <h2 class="text-md sm:text-lg font-[450] text-black leading-[90%] tracking-tighter">my work</h2>
-      <p class="text-sm sm:text-[15px] font-normal text-gray-900 leading-[160%] prose">
+      <h2 class="text-md sm:text-lg font-[450] text-black leading-[90%] tracking-tighter animate-rise" style="--i: 1">my work</h2>
+      <p class="text-sm sm:text-[15px] font-normal text-gray-900 leading-[160%] prose animate-rise" style="--i: 2">
         Software Engineer building production AI agent systems and full-stack web applications with TypeScript. I architect multi-agent workflows on AWS, design the APIs they run on, and build the interfaces on top.
       </p>
     </div>
 
-    <hr class=" text-gray-200" />
+    <hr class=" text-gray-200 animate-rise" style="--i: 3" />
 
     <ul class="flex flex-col gap-10">
-      {experiences.map((exp) => (
-        <li class="space-y-2">
+      {experiences.map((exp, index) => (
+        <li class="space-y-2 animate-rise" style={`--i: ${4 + index}`}>
           <header class="flex flex-col gap-1.5">
             <h4 class="text-[15px] sm:text-lg font-[450] text-black leading-[90%]">
               <a href={exp.url} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 hover:underline">
@@ -25,7 +25,7 @@ import { experiences } from "@/data/experience-content";
             </h4>
             <p class="text-sm sm:text-[15px] text-secondary mt-0.5 leading-[120%]">{exp.role}, {exp.periods}</p>
           </header>
-          <p class="text-sm sm:text-[15px] font-normal text-gray-900 leading-[160%] animate-fade-in prose">{exp.description}</p>
+          <p class="text-sm sm:text-[15px] font-normal text-gray-900 leading-[160%] prose">{exp.description}</p>
         </li>
       ))}
     </ul>

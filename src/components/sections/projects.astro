@@ -24,21 +24,21 @@ try {
 }
 ---
 
-<section class="space-y-6 animate-fade-in">
+<section class="space-y-6">
   <div class="space-y-6" >
     <div class="space-y-2">
-      <h2 class="text-md sm:text-lg font-[450] text-black leading-[90%] tracking-tighter">my projects</h2>
-      <p class="text-sm sm:text-[15px] font-normal text-gray-900 leading-[160%]">
+      <h2 class="text-md sm:text-lg font-[450] text-black leading-[90%] tracking-tighter animate-rise" style="--i: 1">my projects</h2>
+      <p class="text-sm sm:text-[15px] font-normal text-gray-900 leading-[160%] animate-rise" style="--i: 2">
         A collection of projects I've built — from CLI tools to full-stack web applications. Each one is a chance to learn and build something useful.
       </p>
     </div>
 
-    <hr class=" text-gray-200" />
+    <hr class=" text-gray-200 animate-rise" style="--i: 3" />
 
     <ul class="projects-list flex flex-col gap-1.5">
-      {projects.map((proj) => (
+      {projects.map((proj, index) => (
         <li class="project-item space-y-2 hover:bg-gray-100/70 transition-colors duration-500 rounded-lg py-2 px-3 -mx-3">
-          <a href={`/projects/${proj.detailsUrl}`} class="flex items-center w-full justify-between gap-4">
+          <a href={`/projects/${proj.detailsUrl}`} class="flex items-center w-full justify-between gap-4 animate-rise" style={`--i: ${4 + index}`}>
             <div class="flex flex-col gap-1.5 py-2">
               <h4 class="text-md sm:text-lg font-[450] text-black leading-[90%] tracking-tighter">{proj.title}</h4>
               <p class="text-sm sm:text-[15px] text-secondary mt-0.5 leading-[120%]">{proj.description}</p>
@@ -49,9 +49,11 @@ try {
       ))}
     </ul>
 
-    <hr class="text-gray-200" />
+    <div class="space-y-6 animate-rise" style={`--i: ${4 + projects.length}`}>
+      <hr class="text-gray-200" />
 
-    <ContributionGraphWidget data={contributions} client:load />
+      <ContributionGraphWidget data={contributions} client:load />
+    </div>
 
 <style>
   .project-item {

@@ -21,8 +21,8 @@ const { project } = Astro.props;
 <BaseLayout seo={seoData}>
   <Breadcrumb lastPage="projects" actualPage={project.title} />
 
-  <article class="space-y-6 animate-fade-in">
-    <a href={project.href} target="_blank">
+  <article class="space-y-6">
+    <a href={project.href} target="_blank" class="block animate-rise" style="--i: 1">
       <img
         src={project.image}
         alt={project.title + " landing page preview"}
@@ -31,9 +31,9 @@ const { project } = Astro.props;
     </a>
 
     <div class="space-y-4 mt-6">
-      <h1 class="text-md sm:text-lg font-[450] text-black leading-[90%] tracking-tighter">{project.title}</h1>
+      <h1 class="text-md sm:text-lg font-[450] text-black leading-[90%] tracking-tighter animate-rise" style="--i: 2">{project.title}</h1>
 
-      <div class="flex flex-wrap gap-2">
+      <div class="flex flex-wrap gap-2 animate-rise" style="--i: 3">
         {project.tags.map((tag) => (
           <span class="px-2 py-1 text-xs bg-gray-100 text-gray-700 rounded-full">
             {tag}
@@ -41,12 +41,12 @@ const { project } = Astro.props;
         ))}
       </div>
 
-      <p class="text-sm sm:text-[15px] font-normal text-gray-800 leading-[160%] whitespace-pre-line prose">
+      <p class="text-sm sm:text-[15px] font-normal text-gray-800 leading-[160%] whitespace-pre-line prose animate-rise" style="--i: 4">
         {project.longDescription}
       </p>
 
       {"blogPost" in project && project.blogPost && (
-        <p class="text-sm sm:text-[15px] text-gray-800">
+        <p class="text-sm sm:text-[15px] text-gray-800 animate-rise" style="--i: 5">
           Want the full story? Read about it in{" "}
           <a href={project.blogPost} class="underline underline-offset-2 hover:text-black transition-colors duration-500">
             my blog post
@@ -54,7 +54,7 @@ const { project } = Astro.props;
         </p>
       )}
 
-      <div class="flex gap-4 pt-4">
+      <div class="flex gap-4 pt-4 animate-rise" style="--i: 6">
         {project.href && (
           <a
             href={project.href}

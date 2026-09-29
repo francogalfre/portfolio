@@ -15,27 +15,31 @@ import { getAgeData } from "@/utils/age-calculation";
 const { years } = getAgeData();
 ---
 
-<section class="animate-fade-in flex flex-col gap-4">
-  <div class="animate-fade-in">
-    <Image src={Gif} alt="Animated hamster with orange fur working on a laptop" class="w-18 sm:w-22 animate-fade-in hover:scale-105 hover:rotate-3 transition-transform duration-500" />
+<section class="flex flex-col gap-4">
+  <div>
+    <Image src={Gif} alt="Animated hamster with orange fur working on a laptop" class="w-18 sm:w-22 animate-rise hover:scale-105 hover:rotate-3 transition-transform duration-500" />
 
-    <HoverLinkPreview href="https://www.linkedin.com/in/francogalfre/" previewImage={Me.src} imageAlt="Francogalfre avatar" client:visible>
-      <h1 class="text-md sm:text-lg font-[450] text-gray-900 leading-[90%] tracking-tighter">Franco Galfré</h1>
-    </HoverLinkPreview>
-    <p class="text-sm sm:text-[15px] text-secondary mt-0.5 leading-[120%]">Santa Fe, Argentina</p>
+    <div class="animate-rise" style="--i: 1">
+      <HoverLinkPreview href="https://www.linkedin.com/in/francogalfre/" previewImage={Me.src} imageAlt="Francogalfre avatar" client:visible>
+        <h1 class="text-md sm:text-lg font-[450] text-gray-900 leading-[90%] tracking-tighter">Franco Galfré</h1>
+      </HoverLinkPreview>
+    </div>
+    <p class="text-sm sm:text-[15px] text-secondary mt-0.5 leading-[120%] animate-rise" style="--i: 2">Santa Fe, Argentina</p>
   </div>
 
   <div class="flex flex-col gap-6 mb-8">
-        <p class="text-sm sm:text-[15px] font-normal sm:leading-[160%] animate-fade-in text-gray-600">
+    <p class="text-sm sm:text-[15px] font-normal sm:leading-[160%] text-gray-600 animate-rise" style="--i: 3">
       I'm Franco! I'm <span id="age-counter" class="text-primary" style="font-variant-numeric: tabular-nums;">{years}</span> years old and a passionate Software Engineer & AI Engineer who loves computing, coding, and coffee. I approach every challenge by constantly learning new <a href="/stack" class="underline hover:text-primary hover:brightness-90 transition-all duration-400 mb-2">technologies</a>.
 
       <br /><br />
 
-      Currently building amazing things at <CompanyBadge name="Crombie" logo={CrombieLogo} />, and running <CompanyBadge name="Shipperslab" logo={ShipperslabLogo} /> while crafting personal <a href="/projects" class="underline hover:text-primary hover:brightness-90 transition-all duration-400 mb-2">projects</a>.
+      Currently building amazing things at <CompanyBadge name="Crombie" logo={CrombieLogo} /> , and running <CompanyBadge name="Shipperslab" logo={ShipperslabLogo} /> while crafting personal <a href="/projects" class="underline hover:text-primary hover:brightness-90 transition-all duration-400 mb-2">projects</a>.
     </p>
   </div>
 
-  <Spotify />
+  <div class="animate-rise" style="--i: 4">
+    <Spotify />
+  </div>
 </section>
 
 <script>
@@ -45,9 +49,11 @@ const { years } = getAgeData();
 
   function render() {
     if (!el) return;
+
     const { years, days, hours, minutes, seconds } = getAgeData();
     const totalSeconds = days * 86400 + hours * 3600 + minutes * 60 + seconds;
     const decimal = totalSeconds / (365.25 * 86400);
+
     el.textContent = (years + decimal).toFixed(7);
   }
 

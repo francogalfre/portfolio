@@ -15,32 +15,42 @@ type StackCategory = {
 	items: StackItem[];
 };
 
-const categories: StackCategory[] = [
-	{ title: "technologies", items: technologies },
-	{ title: "ai", items: ai },
-	{ title: "applications", items: applications },
-];
+// Stagger order: each category title, then its items at half a step each
+const ITEM_STEP = 0.5;
+let order = 4;
+
+const categories = (
+	[
+		{ title: "technologies", items: technologies },
+		{ title: "ai", items: ai },
+		{ title: "applications", items: applications },
+	] satisfies StackCategory[]
+).map((category) => {
+	const start = order;
+	order += 1 + category.items.length * ITEM_STEP;
+	return { ...category, start };
+});
 ---
 
-<section class="space-y-6 animate-fade-in">
+<section class="space-y-6">
   <div class="space-y-2">
-    <h2 class="text-md sm:text-lg font-[450] text-black leading-[90%] tracking-tighter">my stack</h2>
-    <p class="text-sm sm:text-[15px] font-normal text-gray-900 leading-[160%]">
+    <h2 class="text-md sm:text-lg font-[450] text-black leading-[90%] tracking-tighter animate-rise" style="--i: 1">my stack</h2>
+    <p class="text-sm sm:text-[15px] font-normal text-gray-900 leading-[160%] animate-rise" style="--i: 2">
       An overview of the technologies, tools, and apps I use daily.
     </p>
   </div>
 
-  <hr class="border-gray-200" />
+  <hr class="border-gray-200 animate-rise" style="--i: 3" />
 
   <div class="space-y-8">
     {categories.map((category) => (
       <div class="space-y-4">
-        <h3 class="text-[14px] text-black leading-[90%]">
+        <h3 class="text-[14px] text-black leading-[90%] animate-rise" style={`--i: ${category.start}`}>
           {category.title}
         </h3>
         <ul class="flex flex-col gap-2.5">
-          {category.items.map((item: StackItem) => (
-            <li class="group">
+          {category.items.map((item: StackItem, index) => (
+            <li class="group animate-rise" style={`--i: ${category.start + 1 + index * ITEM_STEP}`}>
               <a
                 href={item.href}
                 target="_blank"

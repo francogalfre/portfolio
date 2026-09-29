@@ -5,20 +5,20 @@ import { ArrowRight01Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 ---
 
-<section class="space-y-6 animate-fade-in">
+<section class="space-y-6">
   <div class="space-y-6" >
     <div class="space-y-2">
-      <h2 class="text-md sm:text-lg font-[450] text-black leading-[90%] tracking-tighter">games</h2>
-      <p class="text-sm sm:text-[15px] font-normal text-gray-900 leading-[160%]">
+      <h2 class="text-md sm:text-lg font-[450] text-black leading-[90%] tracking-tighter animate-rise" style="--i: 1">games</h2>
+      <p class="text-sm sm:text-[15px] font-normal text-gray-900 leading-[160%] animate-rise" style="--i: 2">
         If you need a break from browsing my portfolio, enjoy a classic retro game below.
       </p>
     </div>
 
-    <hr class=" text-gray-200" />
+    <hr class=" text-gray-200 animate-rise" style="--i: 3" />
 
     <ul class="grid grid-cols-1 gap-12 sm:gap-3 sm:space-y-8 sm:grid-cols-2">
-      {games.map((game) => (
-        <li class="space-y-2 rounded-lg py-2">
+      {games.map((game, index) => (
+        <li class="space-y-2 rounded-lg py-2 animate-rise" style={`--i: ${4 + index}`}>
           <a href={`/games/${game.href}`} class="items-center w-full justify-between gap-4 hover:brightness-75 transition-all duration-300">
             <img class="bg-cover w-full min-h-48 h-full rounded-sm" src={game.image} alt={`${game.name} Game Cover`}>
             <div class="flex items-center gap-1 py-3 w-full text-black">

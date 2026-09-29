@@ -94,7 +94,7 @@ const jsonLd = {
 
   <div id="post-content" class="post-content">
     <article class="space-y-8">
-      <figure class="space-y-2">
+      <figure class="space-y-2 animate-rise" style="--i: 1">
         <img
           src={cover}
           alt={coverAlt || title}
@@ -106,7 +106,7 @@ const jsonLd = {
         </figcaption>
       </figure>
 
-    <header class="space-y-4">
+    <header class="space-y-4 animate-rise" style="--i: 2">
         <div class="flex flex-col gap-2">
             <h1 class="text-[20px] sm:text-3xl font-medium text-black leading-[130%] tracking-tighter">
               {title}
@@ -134,18 +134,20 @@ const jsonLd = {
       </div>
     </header>
 
-    <hr class="text-gray-200" />
+    <hr class="text-gray-200 animate-rise" style="--i: 3" />
 
-    <PostBody>
-      <Content />
-    </PostBody>
+    <div class="animate-rise" style="--i: 4">
+      <PostBody>
+        <Content />
+      </PostBody>
+    </div>
 
   </article>
 
   {(prevPost || nextPost) && (
     <>
       <hr class="text-gray-200 mt-8" />
-      <nav class="relative z-50 grid grid-cols-2 gap-3 mt-8">
+      <nav class="relative z-50 grid grid-cols-2 gap-3 mt-8 animate-rise" style="--i: 5">
         <div>
           {prevPost && (
             <a
@@ -190,6 +192,11 @@ const jsonLd = {
 
   .post-content.is-ready {
     opacity: 1;
+  }
+
+  /* Hold the stagger until the skeleton is swapped out */
+  .post-content:not(.is-ready) :global(.animate-rise) {
+    animation-play-state: paused;
   }
 </style>
 

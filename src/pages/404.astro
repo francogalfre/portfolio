@@ -5,17 +5,18 @@ import { seoData } from "@/data/seo-content";
 ---
 
 <CenteredLayout seo={seoData}>
-  <section class="animate-fade-in flex flex-col text-center justify-center items-center">
-    <img src={Gif.src} alt="Animated hamster with orange fur frustrated at a laptop" class="w-18 sm:w-22 animate-fade-in">
+  <section class="flex flex-col text-center justify-center items-center">
+    <img src={Gif.src} alt="Animated hamster with orange fur frustrated at a laptop" class="w-18 sm:w-22 animate-rise">
 
-    <div class="flex flex-col gap-3 text-center justify-center">
+    <div class="flex flex-col gap-3 text-center justify-center animate-rise" style="--i: 1">
       <h1 class="text-[15px] sm:text-lg font-[450] text-black leading-[90%] tracking-tighter">This page could not be found</h1>
       <p class="text-sm sm:text-[15px] text-secondary leading-[120%]">doesn't exist, was removed, or the link is incorrect.</p>
     </div>
 
     <a
       href="/"
-      class="text-sm bg-gray-200 px-4 py-2 rounded-sm hover:bg-gray-300/80 transition-colors duration-500 mt-6"
+      class="text-sm bg-gray-200 px-4 py-2 rounded-sm hover:bg-gray-300/80 transition-colors duration-500 mt-6 animate-rise"
+      style="--i: 2"
     >
       back home
     </a>
