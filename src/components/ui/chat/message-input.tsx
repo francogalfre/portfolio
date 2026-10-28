@@ -1,6 +1,6 @@
 import { SentIcon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
-import { type KeyboardEvent, useRef, useState } from "react";
+import { type KeyboardEvent, useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 
 const MAX_TEXTAREA_HEIGHT = 96;
@@ -8,16 +8,23 @@ const MAX_TEXTAREA_HEIGHT = 96;
 type MessageInputProps = {
     onSend: (text: string) => void;
     disabled: boolean;
+    onTypingChange?: (typing: boolean) => void;
     placeholder?: string;
 };
 
 export function MessageInput({
     onSend,
     disabled,
+    onTypingChange,
     placeholder,
 }: MessageInputProps) {
     const [draft, setDraft] = useState("");
+    const [focused, setFocused] = useState(false);
     const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+    useEffect(() => {
+        onTypingChange?.(focused && draft.length > 0);
+    }, [focused, draft, onTypingChange]);
 
     const canSend = draft.trim().length > 0 && !disabled;
 
@@ -56,6 +63,8 @@ export function MessageInput({
                         setDraft(event.target.value);
                         adjustHeight();
                     }}
+                    onFocus={() => setFocused(true)}
+                    onBlur={() => setFocused(false)}
                     onKeyDown={handleKeyDown}
                     className="max-h-24 flex-1 resize-none bg-transparent py-1 text-[14px] font-light leading-relaxed text-foreground outline-none placeholder:text-muted-foreground disabled:opacity-60"
                 />

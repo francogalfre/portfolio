@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { useState } from "react";
 import type { ChatMessage } from "@/types/chat";
 import { ChatHeader } from "./chat-header";
 import { ChatMessages } from "./chat-messages";
@@ -11,6 +12,7 @@ type ChatPanelProps = {
   isOnline: boolean;
   isInputDisabled: boolean;
   inputPlaceholder: string;
+  isThinking: boolean;
   onSend: (text: string) => void;
 };
 
@@ -20,8 +22,12 @@ export function ChatPanel({
   isOnline,
   isInputDisabled,
   inputPlaceholder,
+  isThinking,
   onSend,
 }: ChatPanelProps) {
+  const [isTyping, setIsTyping] = useState(false);
+  const avatarState = isThinking ? "thinking" : isTyping ? "typing" : "idle";
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 12, scale: 0.97 }}
@@ -34,7 +40,7 @@ export function ChatPanel({
         height: "min(76vh, 580px)",
       }}
     >
-      <ChatHeader online={isOnline} />
+      <ChatHeader online={isOnline} avatarState={avatarState} />
       <ChatMessages
         messages={messages}
         error={error}
@@ -44,6 +50,7 @@ export function ChatPanel({
       />
       <MessageInput
         onSend={onSend}
+        onTypingChange={setIsTyping}
         disabled={isInputDisabled}
         placeholder={inputPlaceholder}
       />

@@ -29,6 +29,7 @@ export function ChatWidget({ enabled = true }: ChatWidgetProps) {
                         isOnline={enabled}
                         isInputDisabled={isInputDisabled}
                         inputPlaceholder={inputPlaceholder}
+                        isThinking={isSending}
                         onSend={sendMessage}
                     />
                 )}

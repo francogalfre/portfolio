@@ -1,22 +1,17 @@
 import { cn } from "@/lib/utils";
 
-import AgentAvatar from "@/assets/images/agent-avatar.webp";
+import { AgentAvatar, type AgentAvatarState } from "./agent-avatar";
 
 type ChatHeaderProps = {
     online: boolean;
+    avatarState?: AgentAvatarState;
 };
 
-export function ChatHeader({ online }: ChatHeaderProps) {
+export function ChatHeader({ online, avatarState }: ChatHeaderProps) {
     return (
         <header className="flex items-center gap-3.5 border-b border-border px-5 py-4">
-            <div className="relative shrink-0 transition-transform duration-300 ease-out hover:scale-105">
-                <img
-                    src={AgentAvatar.src}
-                    width="96"
-                    height="96"
-                    alt="Franco robot version avatar"
-                    className="size-14 rounded-full object-cover ring-1 ring-border"
-                />
+            <div className="relative shrink-0 rounded-full p-1.5 ring-1 ring-border">
+                <AgentAvatar state={avatarState} size={36} />
             </div>
             <div className="flex flex-col gap-1.5">
                 <span className="text-[15.5px] font-medium leading-none tracking-tight text-foreground">
