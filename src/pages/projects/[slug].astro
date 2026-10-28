@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "@/layouts/base.astro";
 import Breadcrumb from "@/components/ui/widgets/breadcrumb.astro";
+import FramedImage from "@/components/ui/widgets/framed-image.astro";
 
 import { ArrowUpRight01Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
@@ -23,10 +24,10 @@ const { project } = Astro.props;
 
   <article class="space-y-6">
     <a href={project.href} target="_blank" class="block animate-rise" style="--i: 1">
-      <img
+      <FramedImage
         src={project.image}
         alt={project.title + " landing page preview"}
-        class="w-full rounded-lg border border-gray-100 object-cover hover:opacity-90 transition-opacity duration-500"
+        class="hover:opacity-90 transition-opacity duration-500"
       />
     </a>
 

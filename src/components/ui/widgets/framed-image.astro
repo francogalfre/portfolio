@@ -1,0 +1,21 @@
+---
+interface Props {
+  src: string;
+  alt: string;
+  caption?: string;
+  class?: string;
+}
+
+const { src, alt, caption, class: className } = Astro.props;
+---
+
+<figure class:list={["space-y-2", className]}>
+  <div class="rounded-xl border border-gray-200 bg-gray-50 p-1.5">
+    <img
+      src={src}
+      alt={alt}
+      class="w-full rounded-md border border-gray-200/70 object-cover"
+    />
+  </div>
+  {caption && <figcaption class="text-xs text-secondary leading-[140%] px-1">{caption}</figcaption>}
+</figure>
