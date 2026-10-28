@@ -1,0 +1,35 @@
+# Franco Galfré
+
+> Software & AI Engineer based in Santa Fe, Argentina. Builds production AI agent systems and full-stack web products. Co-founder of ShippersLab and Software & AI Engineer at Crombie.
+
+## About
+
+- [Home](https://francogalfre.vercel.app/): Short intro, current work and links.
+- [Experience](https://francogalfre.vercel.app/experience): ShippersLab (Co-founder, Sep 2026 - Present), Crombie (Software & AI Engineer, Jan 2026 - Present), Fiverr (Freelancer UI/UX Designer, Jun 2023 - Jan 2026).
+- [Stack](https://francogalfre.vercel.app/stack): TypeScript, React, Next.js, Astro, Tailwind CSS, Bun, PostgreSQL, Drizzle ORM, AWS, Docker, LangChain, AI SDK, MCP and more.
+
+## Projects
+
+- [ShippersLab](https://www.shipperslab.tech): Software agency co-founded by Franco, building custom products for small businesses. [Details](https://francogalfre.vercel.app/projects/shipperslab)
+- [Tulocal](https://tulocal.site): Snap three photos and get an online store, with an AI agent that haggles with buyers. [Details](https://francogalfre.vercel.app/projects/tulocal)
+- [Echo](https://echo.builders): Feedback infrastructure for products, with AI-assisted triage and digests. [Details](https://francogalfre.vercel.app/projects/echo) | [Source](https://github.com/francogalfre/echo)
+- [Lens](https://lenss.site): Multi-agent AI system (LangGraph) that analyzes and validates any idea. [Details](https://francogalfre.vercel.app/projects/lens) | [Source](https://github.com/francogalfre/lens)
+- [Vibrant](https://vibrantcli.vercel.app): CLI that catches AI-generated code issues before production. [Details](https://francogalfre.vercel.app/projects/vibrant) | [Source](https://github.com/francogalfre/vibrant)
+- [Patitas](https://adoptapatitas.vercel.app/): Pet adoption site where shelters list animals. [Details](https://francogalfre.vercel.app/projects/patitas) | [Source](https://github.com/francogalfre/patitas)
+- [Freelanceo](https://freelanceo-dashboard.vercel.app): Dashboard for freelancers to manage clients, projects and invoices. [Details](https://francogalfre.vercel.app/projects/freelanceo) | [Source](https://github.com/francogalfre/freelanceo)
+- [Astrotips](https://astrotips.vercel.app/): Practical Astro tips and patterns, built with Astro. [Details](https://francogalfre.vercel.app/projects/astrotips) | [Source](https://github.com/francogalfre/astrotips)
+- [Promptsmith](https://promptsmith.galfrevn.com/): Landing page for a type-safe prompt builder for the Vercel AI SDK. [Details](https://francogalfre.vercel.app/projects/promptsmith) | [Source](https://github.com/galfrevn/promptsmith)
+
+## Blog
+
+- [Hello World](https://francogalfre.vercel.app/blog/hello-world): Why I finally started writing, and what to expect here.
+- [How our AI agents handle 70 tickets a day](https://francogalfre.vercel.app/blog/how-to-handle-70-tickets-a-day): A multi-agent system so most service desk tickets never reach a human.
+- [My first hackathon](https://francogalfre.vercel.app/blog/my-first-hackathon): Twenty-four hours, a shop that negotiates for my dad, and what an all-nighter teaches you.
+- [RSS feed](https://francogalfre.vercel.app/rss.xml)
+
+## Contact
+
+- [GitHub](https://github.com/francogalfre)
+- [LinkedIn](https://www.linkedin.com/in/francogalfre/)
+- [X](https://x.com/francogalfredev)
+- [Email](mailto:francogalfre.work@gmail.com)
