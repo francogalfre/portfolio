@@ -1,5 +1,17 @@
 export const projects = [
     {
+        id: 9,
+        title: "ShippersLab",
+        detailsUrl: "shipperslab",
+        description:
+            "A software agency I co-founded, building custom products for small businesses and shipping something new every day.",
+        longDescription:
+            "ShippersLab is a software studio based in Santa Fe, Argentina. A small team of engineers and designers building custom management systems, integrations, AI WhatsApp bots, and websites for small businesses and shops, with scope and price agreed in writing before we start.\n\nI'm a co-founder, so I work directly with clients: understanding what they need, scoping it, and building the projects myself. I also designed and built the agency's landing page, which introduces our services, showcases our work, and highlights upcoming events.\n\nOne of our own products is EventOps, a platform for sound, lighting, and event companies that replaces spreadsheets: each event is loaded once, and the calendar, budget, payments, and expenses all come from it. We're building and shipping every day.",
+        image: "/projects/shipperslab.webp",
+        href: "https://www.shipperslab.tech",
+        tags: ["Next.js", "TypeScript", "Tailwind", "Bun"],
+    },
+    {
         id: 1,
         title: "Tulocal",
         detailsUrl: "tulocal",
@@ -85,7 +97,7 @@ export const projects = [
         longDescription:
             "Pet adoption in Argentina mostly happens through WhatsApp groups and Facebook posts. Shelters share photos, people ask questions in comment threads, and finding an animal depends on seeing the right post at the right time.\n\nPatitas is that place. Shelters and fosters can list animals with photos and details. Anyone looking to adopt can browse by species, size, age, or location and reach out directly.\n\nThe main challenge was making it fast on mobile, where most people browse. That shaped decisions about image handling, filter UX, and keeping the shelter onboarding short enough that people actually complete it.",
         image: "/projects/patitas.webp",
-        href: "https://www.patitas.site/",
+        href: "https://adoptapatitas.vercel.app/",
         repository: "https://github.com/francogalfre/patitas",
         tags: ["Next.js", "Node.js", "Tailwind", "Typescript", "PostgreSQL"],
     },
