@@ -205,6 +205,9 @@ const jsonLd = {
     document.getElementById("post-skeleton")?.remove();
     document.getElementById("post-content")?.classList.add("is-ready");
   };
-  window.addEventListener("load", reveal, { once: true });
-  setTimeout(reveal, 2500);
+  document.addEventListener("astro:page-load", () => {
+    if (document.readyState === "complete") reveal();
+    else window.addEventListener("load", reveal, { once: true });
+    setTimeout(reveal, 2500);
+  });
 </script>

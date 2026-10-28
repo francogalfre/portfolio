@@ -141,6 +141,7 @@ const { title, status, layers } = Astro.props;
 <script>
   import { swapText } from "./swap-text";
 
+document.addEventListener("astro:page-load", () => {
   document.querySelectorAll<HTMLElement>("[data-layers]").forEach((figure) => {
     const status = figure.querySelector<HTMLElement>("[data-status-text]");
     if (!status) return;
@@ -154,4 +155,5 @@ const { title, status, layers } = Astro.props;
       row.addEventListener("blur", reset);
     });
   });
+});
 </script>

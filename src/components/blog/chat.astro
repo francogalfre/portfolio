@@ -234,6 +234,7 @@ const groups = [
 <script>
   const STEP_MS = 380;
 
+document.addEventListener("astro:page-load", () => {
   document.querySelectorAll<HTMLElement>("[data-chat]").forEach((figure) => {
     const items = [...figure.querySelectorAll<HTMLElement>(".chat-item")];
     const actions = [...figure.querySelectorAll<HTMLButtonElement>("[data-action]")];
@@ -288,4 +289,5 @@ const groups = [
     );
     observer.observe(figure);
   });
+});
 </script>

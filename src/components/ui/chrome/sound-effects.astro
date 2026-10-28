@@ -5,6 +5,7 @@
 
   const INTERACTIVE = "a, button, [role='button']";
 
+  // Module scripts run once, so this listener never duplicates across navigations
   document.addEventListener("mouseover", (e) => {
     const el = (e.target as Element).closest(INTERACTIVE);
     if (!el) return;

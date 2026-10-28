@@ -240,3 +240,38 @@
         border: 1px solid rgba(98, 98, 98, 0.3);
     }
 }
+
+/* Page transitions (ClientRouter): short fade + slight rise */
+@keyframes vt-out {
+    to {
+        opacity: 0;
+    }
+}
+
+@keyframes vt-in {
+    from {
+        opacity: 0;
+        transform: translateY(6px);
+    }
+}
+
+::view-transition-old(root) {
+    animation: vt-out 150ms ease both;
+}
+
+::view-transition-new(root) {
+    animation: vt-in 250ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Persisted chrome stays put: no cross-fade between snapshots */
+::view-transition-group(cursor),
+::view-transition-group(floating-buttons) {
+    animation-duration: 0s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    ::view-transition-old(root),
+    ::view-transition-new(root) {
+        animation: none;
+    }
+}

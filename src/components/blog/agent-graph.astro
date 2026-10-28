@@ -230,6 +230,7 @@ const hint = "Hover a step to see what it does";
 <script>
   import { swapText } from "./swap-text";
 
+document.addEventListener("astro:page-load", () => {
   document.querySelectorAll<HTMLElement>("[data-graph]").forEach((figure) => {
     const status = figure.querySelector<HTMLElement>("[data-status-text]");
 
@@ -251,4 +252,5 @@ const hint = "Hover a step to see what it does";
       node.addEventListener("blur", leave);
     });
   });
+});
 </script>

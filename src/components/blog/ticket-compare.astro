@@ -247,6 +247,7 @@ const sides = [
 </style>
 
 <script>
+document.addEventListener("astro:page-load", () => {
   document.querySelectorAll<HTMLElement>("[data-compare]").forEach((figure) => {
     const buttons = figure.querySelectorAll<HTMLButtonElement>("[data-side-id]");
 
@@ -257,4 +258,5 @@ const sides = [
       });
     });
   });
+});
 </script>

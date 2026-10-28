@@ -1,6 +1,7 @@
 ---
 import "@/global.css";
 import "lenis/dist/lenis.css";
+import { ClientRouter } from "astro:transitions";
 
 import Cursor from "@/components/ui/chrome/cursor.astro";
 import BlogLink from "@/components/ui/chrome/blog-link.astro";
@@ -23,6 +24,7 @@ const { seo } = Astro.props;
   <head>
     <SEO page={seo} />
     <meta charset="UTF-8">
+    <ClientRouter />
   </head>
   <body class="relative">
     <Cursor />
@@ -38,46 +40,33 @@ const { seo } = Astro.props;
     <SoundEffects />
 
     <script>
-      import Lenis from "lenis";
+      import { getLenis } from "@/utils/smooth-scroll";
 
-      const dock = document.getElementById("socials-dock");
-      const lenis = new Lenis({ autoRaf: true });
+      const lenis = getLenis();
+      let dockVisible = false;
 
-      if (dock) {
-        let dockVisible = false;
+      const setDock = (show: boolean) => {
+        const dock = document.getElementById("socials-dock");
+        if (!dock || dockVisible === show) return;
+        dockVisible = show;
+        dock.style.opacity = show ? "1" : "0";
+        dock.style.transform = show ? "translateY(0)" : "translateY(100%)";
+      };
 
-        function showDock() {
-          if (!dockVisible) {
-            dockVisible = true;
-            dock.style.opacity = "1";
-            dock.style.transform = "translateY(0)";
-          }
-        }
+      window.addEventListener("wheel", (e) => {
+        if (e.deltaY > 0) setDock(true);
+        else if (e.deltaY < 0) setDock(false);
+      });
 
-        function hideDock() {
-          if (dockVisible) {
-            dockVisible = false;
-            dock.style.opacity = "0";
-            dock.style.transform = "translateY(100%)";
-          }
-        }
+      lenis.on("scroll", ({ scroll }: { scroll: number }) => {
+        if (scroll > 5) setDock(true);
+        else if (scroll === 0) setDock(false);
+      });
 
-        window.addEventListener("wheel", (e) => {
-          if (e.deltaY > 0) {
-            showDock();
-          } else if (e.deltaY < 0) {
-            hideDock();
-          }
-        });
-
-        lenis.on("scroll", ({ scroll }) => {
-          if (scroll > 5) {
-            showDock();
-          } else if (scroll === 0) {
-            hideDock();
-          }
-        });
-      }
+      // New page = fresh (hidden) dock element
+      document.addEventListener("astro:after-swap", () => {
+        dockVisible = false;
+      });
     </script>
   </body>
 </html>

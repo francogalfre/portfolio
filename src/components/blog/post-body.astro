@@ -214,6 +214,7 @@
     </svg>
   `;
 
+document.addEventListener("astro:page-load", () => {
   const blocks = document.querySelectorAll<HTMLPreElement>(".post-body pre");
 
   blocks.forEach((pre) => {
@@ -251,4 +252,5 @@
     pre.replaceWith(wrapper);
     wrapper.append(header, pre);
   });
+});
 </script>

@@ -20,9 +20,11 @@ const ARROW_UP_RIGHT = `
   </svg>
 `;
 
-const container = document.getElementById("now-playing")!;
+let audio: HTMLAudioElement | undefined;
 
 async function load() {
+    const container = document.getElementById("now-playing");
+    if (!container) return;
     const res = await fetch("/api/spotify");
     const song = (await res.json()) as NowPlayingResponse;
 
@@ -57,23 +59,28 @@ async function load() {
     if (!song.previewUrl) return;
 
     const btn = document.getElementById("play-btn")!;
-    const audio = new Audio(song.previewUrl);
-    audio.volume = 0.2;
+    const track = new Audio(song.previewUrl);
+    audio = track;
+    track.volume = 0.2;
 
-    audio.addEventListener("ended", () => {
+    track.addEventListener("ended", () => {
         btn.innerHTML = PLAY;
     });
 
     btn.addEventListener("click", () => {
-        if (audio.paused) {
-            audio.play();
+        if (track.paused) {
+            track.play();
             btn.innerHTML = STOP;
         } else {
-            audio.pause();
-            audio.currentTime = 0;
+            track.pause();
+            track.currentTime = 0;
             btn.innerHTML = PLAY;
         }
     });
 }
 
-load();
+document.addEventListener("astro:page-load", load);
+document.addEventListener("astro:before-swap", () => {
+    audio?.pause();
+    audio = undefined;
+});

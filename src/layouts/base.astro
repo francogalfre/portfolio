@@ -1,6 +1,7 @@
 ---
 import "@/global.css";
 import "lenis/dist/lenis.css";
+import { ClientRouter } from "astro:transitions";
 
 import Cursor from "@/components/ui/chrome/cursor.astro";
 import FloatingButtons from "@/components/ui/chrome/floating-buttons.astro";
@@ -20,6 +21,7 @@ const { seo } = Astro.props;
   <head>
     <SEO page={seo} />
     <meta charset="UTF-8">
+    <ClientRouter />
   </head>
   <body>
     <Cursor />
@@ -29,8 +31,8 @@ const { seo } = Astro.props;
     </main>
 
     <script>
-      import Lenis from "lenis";
-      new Lenis({ autoRaf: true });
+      import { getLenis } from "@/utils/smooth-scroll";
+      getLenis();
     </script>
     <SoundEffects />
   </body>
