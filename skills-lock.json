@@ -13,6 +13,12 @@
       "skillPath": "skills/copywriting/SKILL.md",
       "computedHash": "d3191c3ad90610e0cacecf638d927418852264fabbd6e81c045094dad7d96f11"
     },
+    "find-skills": {
+      "source": "vercel-labs/skills",
+      "sourceType": "github",
+      "skillPath": "skills/find-skills/SKILL.md",
+      "computedHash": "b146008599c31057cef1c145774cea5d5afb30e8f43fa802e47a4b461419aaaf"
+    },
     "frontend-design": {
       "source": "anthropics/skills",
       "sourceType": "github",

@@ -22,6 +22,16 @@ export const technologies: StackItem[] = [
         icon: "https://svgl.app/library/nextjs_icon_dark.svg",
     },
     {
+        name: "Go",
+        href: "https://go.dev",
+        icon: "https://svgl.app/library/golang.svg",
+    },
+    {
+        name: "Python",
+        href: "https://www.python.org/",
+        icon: "https://svgl.app/library/python.svg",
+    },
+    {
         name: "Astro",
         href: "https://astro.build/",
         icon: "https://svgl.app/library/astro-icon-light.svg",
@@ -85,16 +95,6 @@ export const technologies: StackItem[] = [
         name: "Biome",
         href: "https://biomejs.dev/",
         icon: "https://svgl.app/library/biomejs.svg",
-    },
-    {
-        name: "Nest",
-        href: "https://nestjs.com",
-        icon: "https://svgl.app/library/nestjs.svg",
-    },
-    {
-        name: "Go",
-        href: "https://go.dev",
-        icon: "https://svgl.app/library/golang.svg",
     },
 ];
 
