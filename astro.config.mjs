@@ -9,6 +9,7 @@ import vercel from "@astrojs/vercel";
 import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig({
+    site: "https://francogalfre.site",
     output: "static",
     markdown: {
         shikiConfig: {

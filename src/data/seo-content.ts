@@ -5,7 +5,7 @@ export interface PageSEO {
   image?: string;
 }
 
-export const SITE_URL = "https://francogalfre.vercel.app";
+export const SITE_URL = "https://francogalfre.site";
 export const SITE_NAME = "Franco Galfré";
 
 export const blogSeoData: PageSEO = {
