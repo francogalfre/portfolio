@@ -49,26 +49,35 @@ async function getSongPreview(
 }
 
 export const GET: APIRoute = async () => {
-	const token = await getAccessToken();
-	const data = await getRecentlyPlayed(token);
-	const track = data.items?.[0]?.track;
-
-	if (!track) {
+	// Missing credentials or a network failure must never break the page
+	if (!CLIENT_ID || !CLIENT_SECRET || !REFRESH_TOKEN) {
 		return Response.json({ title: null } satisfies Partial<NowPlayingResponse>);
 	}
 
-	const artist = track.artists.map((a) => a.name).join(", ");
-	const previewUrl =
-		track.preview_url ?? (await getSongPreview(track.name, artist));
+	try {
+		const token = await getAccessToken();
+		const data = await getRecentlyPlayed(token);
+		const track = data.items?.[0]?.track;
 
-	const response: NowPlayingResponse = {
-		title: track.name,
-		artist: track.artists.map((a: Artist) => a.name).join(", "),
-		albumArt: track.album.images[0]?.url ?? null,
-		songUrl: track.external_urls.spotify,
-		trackId: track.id,
-		previewUrl: previewUrl,
-	};
+		if (!track) {
+			return Response.json({ title: null } satisfies Partial<NowPlayingResponse>);
+		}
 
-	return Response.json(response);
+		const artist = track.artists.map((a) => a.name).join(", ");
+		const previewUrl =
+			track.preview_url ?? (await getSongPreview(track.name, artist));
+
+		const response: NowPlayingResponse = {
+			title: track.name,
+			artist: track.artists.map((a: Artist) => a.name).join(", "),
+			albumArt: track.album.images[0]?.url ?? null,
+			songUrl: track.external_urls.spotify,
+			trackId: track.id,
+			previewUrl: previewUrl,
+		};
+
+		return Response.json(response);
+	} catch {
+		return Response.json({ title: null } satisfies Partial<NowPlayingResponse>);
+	}
 };
