@@ -54,7 +54,7 @@ const { title, status, layers } = Astro.props;
 <style>
   .layers-boundary {
     border-style: dashed;
-    border-color: rgb(17 17 17 / 0.16);
+    border-color: rgb(var(--ink-rgb) / 0.16);
   }
 
   .layers-rows {
@@ -71,7 +71,7 @@ const { title, status, layers } = Astro.props;
     padding: 0.75rem 1rem;
     border: 1px solid var(--line);
     border-radius: 0.5rem;
-    background: white;
+    background: var(--color-background);
     outline: none;
     transition:
       opacity 0.35s var(--ease),
@@ -84,7 +84,7 @@ const { title, status, layers } = Astro.props;
 
   .layers-row:hover,
   .layers-row:focus-visible {
-    border-color: color-mix(in srgb, var(--tone) 55%, white);
+    border-color: color-mix(in srgb, var(--tone) 55%, var(--color-background));
   }
 
   .layers-label {

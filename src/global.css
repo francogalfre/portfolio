@@ -195,6 +195,12 @@
         overflow-x: clip;
     }
 
+    /* html carries the page colour so fixed, negative-z backdrops paint above it */
+    html {
+        background-color: var(--color-background);
+        color: var(--color-foreground);
+    }
+
     body {
         font-family: var(--font-sans);
         min-height: 100dvh;
@@ -274,4 +280,148 @@
     ::view-transition-new(root) {
         animation: none;
     }
+}
+
+/* ── Accent links: underline draws in from the left on hover, retracts to the right ── */
+.accent-link {
+    background-image: linear-gradient(currentColor, currentColor);
+    background-repeat: no-repeat;
+    background-position: 100% 100%;
+    background-size: 0% 1px;
+    padding-bottom: 1px;
+    transition: background-size 450ms cubic-bezier(0.16, 1, 0.3, 1), background-position 0s 450ms;
+}
+
+.accent-link:hover,
+.accent-link:focus-visible {
+    background-position: 0% 100%;
+    background-size: 100% 1px;
+    transition: background-size 450ms cubic-bezier(0.16, 1, 0.3, 1), background-position 0s;
+}
+
+/* ── Dark theme: redefine the tokens, every utility built on them follows ── */
+html[data-theme="dark"] {
+    color-scheme: dark;
+
+    --color-background: #0f0f0f;
+    --color-foreground: #e5e5e5;
+    --color-card: #141414;
+    --color-card-foreground: #e5e5e5;
+    --color-popover: #171717;
+    --color-popover-foreground: #e5e5e5;
+    --color-muted: #1c1c1c;
+    --color-muted-foreground: #8a8a8a;
+    --color-accent: #1c1c1c;
+    --color-accent-foreground: #e5e5e5;
+    --color-border: #262626;
+    --color-input: #262626;
+    --color-secondary: #8a8a8a;
+    --color-secondary-foreground: #e5e5e5;
+    --color-primary-selection: #3a2c10;
+    --rotating-border-color: #4b5563;
+
+    --color-gray-50: #161616;
+    --color-gray-100: #1c1c1c;
+    --color-gray-200: #262626;
+    --color-gray-300: #363636;
+    --color-gray-400: #6b6b6b;
+    --color-gray-500: #8a8a8a;
+    --color-gray-600: #b0b0b0;
+    --color-gray-700: #c8c8c8;
+    --color-gray-800: #dcdcdc;
+    --color-gray-900: #e5e5e5;
+    --color-black: #f2f2f2;
+}
+
+html[data-theme="dark"] .bg-white,
+html[data-theme="dark"] [class*="bg-white/"] {
+    background-color: rgb(28 28 28 / 0.95);
+}
+
+html[data-theme="dark"] [class*="ring-black/"] {
+    --tw-ring-color: rgb(255 255 255 / 0.08);
+}
+
+html[data-theme="dark"] #cursor {
+    background: rgb(170, 170, 170);
+}
+
+html[data-theme="dark"] #cursor.expanded {
+    background: rgba(170, 170, 170, 0.01);
+    border-color: rgba(170, 170, 170, 0.35);
+}
+
+html[data-theme="dark"] .img-skeleton,
+html[data-theme="dark"] .skeleton-line {
+    background-color: #1c1c1c;
+    background-image: linear-gradient(90deg, #1c1c1c 25%, #262626 37%, #1c1c1c 63%);
+}
+
+/* Theme switch: the circular reveal replaces the router's fade while it runs */
+html[data-vt]::view-transition-old(root),
+html[data-vt]::view-transition-new(root) {
+    animation: none;
+    mix-blend-mode: normal;
+}
+
+/* ── Shiki dual themes (defaultColor: false → vars on every span) ── */
+.astro-code,
+.astro-code span {
+    color: var(--shiki-light);
+}
+
+html[data-theme="dark"] .astro-code,
+html[data-theme="dark"] .astro-code span {
+    color: var(--shiki-dark);
+}
+
+:root {
+    --ink-rgb: 17 17 17;
+}
+
+html[data-theme="dark"] {
+    --ink-rgb: 242 242 242;
+    --color-sky-700: #7dd3fc;
+    --color-blue-600: #60a5fa;
+    --color-amber-700: #fbbf24;
+    --color-emerald-700: #6ee7b7;
+    --color-rose-600: #fb7185;
+}
+
+html[data-theme="dark"] .logo-mono {
+    filter: invert(1) hue-rotate(180deg);
+}
+
+html[data-theme="dark"] {
+    --tone-blue: #60a5fa;
+    --tone-teal: #2dd4bf;
+    --tone-amber: #fbbf24;
+    --tone-violet: #a78bfa;
+    --tone-rose: #fb7185;
+}
+
+html[data-theme="dark"] img[src$="/aws_light.svg"],
+html[data-theme="dark"] img[src$="/v0_light.svg"],
+html[data-theme="dark"] img[src$="/notion.svg"] {
+    filter: invert(1) hue-rotate(180deg);
+}
+
+/* The custom dot is the only cursor: block native ones (hand, text, grab…) coming from libraries/inline styles */
+*, *::before, *::after {
+    cursor: none !important;
+}
+
+/* ── Selection ── */
+html[data-theme="dark"] *::selection {
+    background-color: rgb(246 178 59 / 0.34);
+    color: #fff;
+}
+
+/* Selected images/logos must not get the selection tint overlay (it turns them dark and muddy) */
+html[data-theme] img::selection,
+html[data-theme] svg::selection,
+html[data-theme] svg *::selection,
+html[data-theme] video::selection,
+html[data-theme] canvas::selection {
+    background-color: transparent;
 }

@@ -1,0 +1,56 @@
+<button
+  id="theme-toggle"
+  type="button"
+  aria-label="Toggle color theme"
+  class="theme-toggle fixed right-4 top-8 z-40 text-[15px] text-secondary hover:text-black transition-colors duration-500 animate-rise sm:right-8"
+  style="--i: 3"
+>
+  <span class="tt-dark">dark</span><span class="tt-light">light</span>
+</button>
+
+<style is:global>
+  /* The label shows the mode you will switch to */
+  .theme-toggle .tt-light { display: none; }
+  html[data-theme="dark"] .theme-toggle .tt-dark { display: none; }
+  html[data-theme="dark"] .theme-toggle .tt-light { display: inline; }
+</style>
+
+<script>
+  const root = document.documentElement;
+
+  const apply = (theme: "dark" | "light") => root.setAttribute("data-theme", theme);
+
+  const toggle = (btn: HTMLElement) => {
+    const next = root.getAttribute("data-theme") === "dark" ? "light" : "dark";
+    try {
+      localStorage.setItem("theme", next);
+    } catch {}
+
+    const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (!document.startViewTransition || reduce) {
+      apply(next);
+      return;
+    }
+
+    // Circular reveal from the button
+    const r = btn.getBoundingClientRect();
+    const x = r.left + r.width / 2;
+    const y = r.top + r.height / 2;
+    const radius = Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y));
+
+    root.setAttribute("data-vt", "");
+    const vt = document.startViewTransition(() => apply(next));
+    vt.ready.then(() => {
+      root.animate(
+        { clipPath: [`circle(0px at ${x}px ${y}px)`, `circle(${radius}px at ${x}px ${y}px)`] },
+        { duration: 550, easing: "cubic-bezier(0.4, 0, 0.2, 1)", pseudoElement: "::view-transition-new(root)" },
+      );
+    });
+    vt.finished.finally(() => root.removeAttribute("data-vt"));
+  };
+
+  document.addEventListener("click", (e) => {
+    const btn = (e.target as Element).closest<HTMLElement>("#theme-toggle");
+    if (btn) toggle(btn);
+  });
+</script>

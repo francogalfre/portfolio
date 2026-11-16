@@ -1,8 +1,8 @@
 /* Shared look for the interactive figures inside blog posts */
 
 .fig {
-  --ink: #111;
-  --line: rgb(17 17 17 / 0.08);
+  --ink: var(--color-black);
+  --line: rgb(var(--ink-rgb) / 0.08);
   --ease: cubic-bezier(0.16, 1, 0.3, 1);
 
   margin: 2.5rem 0 !important;
@@ -13,7 +13,7 @@
   padding: 1.25rem;
   border: 1px solid var(--line);
   border-radius: 0.75rem;
-  background: rgb(17 17 17 / 0.02);
+  background: rgb(var(--ink-rgb) / 0.02);
 }
 
 .fig-bar {
@@ -52,10 +52,9 @@
   padding: 0.3rem 0.75rem;
   border: 1px solid var(--line);
   border-radius: 9999px;
-  background: white;
+  background: var(--color-background);
   font-size: 12.5px;
   color: var(--color-secondary);
-  cursor: pointer;
   transition:
     color 0.3s var(--ease),
     border-color 0.3s var(--ease),
@@ -65,14 +64,14 @@
 .fig-btn:hover,
 .fig-btn:focus-visible {
   color: var(--ink);
-  border-color: rgb(17 17 17 / 0.3);
+  border-color: rgb(var(--ink-rgb) / 0.3);
   outline: none;
 }
 
 .fig-btn[aria-pressed="true"] {
   color: var(--ink);
-  border-color: rgb(17 17 17 / 0.45);
-  background: rgb(17 17 17 / 0.05);
+  border-color: rgb(var(--ink-rgb) / 0.45);
+  background: rgb(var(--ink-rgb) / 0.05);
 }
 
 .fig-btn:disabled {

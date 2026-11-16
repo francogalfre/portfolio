@@ -94,7 +94,7 @@ const sides = [
     padding: 1.25rem;
     border: 1px solid var(--line);
     border-radius: 0.625rem;
-    background: white;
+    background: var(--color-background);
     animation: fig-swap 0.4s var(--ease);
   }
 
@@ -149,8 +149,8 @@ const sides = [
   .issue-status {
     padding: 0.1rem 0.4rem;
     border-radius: 0.25rem;
-    background: color-mix(in srgb, var(--tone) 12%, white);
-    color: color-mix(in srgb, var(--tone) 85%, black);
+    background: color-mix(in srgb, var(--tone) 12%, var(--color-background));
+    color: color-mix(in srgb, var(--tone) 85%, var(--color-black));
     font-size: 11px;
     font-weight: 600;
     letter-spacing: 0.03em;

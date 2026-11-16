@@ -75,7 +75,7 @@ const hint = "Hover a step to see what it does";
     <svg viewBox="0 0 420 436" class="graph-svg" role="img" aria-label="The agent graph, from question to answer or Jira ticket">
       <defs>
         <marker id="graph-arrow" viewBox="0 0 6 6" refX="5" refY="3" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-          <path d="M 0 0 L 6 3 L 0 6 z" fill="rgb(17 17 17 / 0.45)" />
+          <path d="M 0 0 L 6 3 L 0 6 z" fill="rgb(var(--ink-rgb) / 0.45)" />
         </marker>
       </defs>
 
@@ -130,18 +130,18 @@ const hint = "Hover a step to see what it does";
   /* The short path to an answer is solid; the agents' path is dashed */
   .graph-edge[data-path="both"],
   .graph-edge[data-path="answer"] {
-    stroke: rgb(17 17 17 / 0.4);
+    stroke: rgb(var(--ink-rgb) / 0.4);
   }
 
   .graph-edge[data-path="agents"] {
-    stroke: rgb(17 17 17 / 0.2);
+    stroke: rgb(var(--ink-rgb) / 0.2);
     stroke-dasharray: 4 4;
   }
 
   .graph-loop,
   .graph-state-link {
     fill: none;
-    stroke: rgb(17 17 17 / 0.45);
+    stroke: rgb(var(--ink-rgb) / 0.45);
     stroke-width: 1.25;
   }
 
@@ -157,8 +157,8 @@ const hint = "Hover a step to see what it does";
   }
 
   .graph-lane rect {
-    fill: rgb(17 17 17 / 0.02);
-    stroke: rgb(17 17 17 / 0.14);
+    fill: rgb(var(--ink-rgb) / 0.02);
+    stroke: rgb(var(--ink-rgb) / 0.14);
     stroke-dasharray: 3 3;
   }
 
@@ -173,8 +173,8 @@ const hint = "Hover a step to see what it does";
   }
 
   .graph-node rect {
-    fill: white;
-    stroke: rgb(17 17 17 / 0.12);
+    fill: var(--color-background);
+    stroke: rgb(var(--ink-rgb) / 0.12);
     transition: stroke 0.25s var(--ease);
   }
 
@@ -192,7 +192,7 @@ const hint = "Hover a step to see what it does";
 
   .graph-node:hover rect,
   .graph-node:focus-visible rect {
-    stroke: rgb(17 17 17 / 0.5);
+    stroke: rgb(var(--ink-rgb) / 0.5);
   }
 
   .graph[data-hover="agents"] :is(.graph-node, .graph-lane, .graph-state-link)[data-path="agents"] {
@@ -200,7 +200,7 @@ const hint = "Hover a step to see what it does";
   }
 
   .graph[data-hover="agents"] .graph-edge[data-path="agents"] {
-    stroke: rgb(17 17 17 / 0.55);
+    stroke: rgb(var(--ink-rgb) / 0.55);
     animation: graph-flow 0.8s linear infinite;
   }
 
@@ -210,7 +210,7 @@ const hint = "Hover a step to see what it does";
   }
 
   .graph[data-hover="answer"] .graph-edge[data-path="answer"] {
-    stroke: rgb(17 17 17 / 0.7);
+    stroke: rgb(var(--ink-rgb) / 0.7);
   }
 
   @keyframes graph-flow {

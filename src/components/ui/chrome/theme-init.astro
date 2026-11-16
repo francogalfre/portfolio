@@ -1,0 +1,22 @@
+---
+// Runs before first paint (in <head>): applies the saved/preferred theme and keeps it
+// across ClientRouter navigations (the swapped-in <html> would otherwise lose it).
+---
+
+<script is:inline>
+  (function () {
+    var root = document.documentElement;
+    var theme = "light";
+    try {
+      var saved = localStorage.getItem("theme");
+      theme = saved === "dark" || saved === "light" ? saved : matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    } catch (e) {}
+    root.setAttribute("data-theme", theme);
+
+    if (window.__themeInit) return;
+    window.__themeInit = true;
+    document.addEventListener("astro:before-swap", function (e) {
+      e.newDocument.documentElement.setAttribute("data-theme", root.getAttribute("data-theme") || "light");
+    });
+  })();
+</script>

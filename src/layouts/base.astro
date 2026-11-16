@@ -6,6 +6,9 @@ import { ClientRouter } from "astro:transitions";
 import Cursor from "@/components/ui/chrome/cursor.astro";
 import FloatingButtons from "@/components/ui/chrome/floating-buttons.astro";
 import SoundEffects from "@/components/ui/chrome/sound-effects.astro";
+import ThemeInit from "@/components/ui/chrome/theme-init.astro";
+import ThemeToggle from "@/components/ui/chrome/theme-toggle.astro";
+import Backdrop from "@/components/ui/chrome/backdrop.astro";
 
 import SEO from "@/components/seo/seo.astro";
 import type { PageSEO } from "@/data/seo-content";
@@ -19,12 +22,15 @@ const { seo } = Astro.props;
 
 <html lang="es">
   <head>
+    <ThemeInit />
     <SEO page={seo} />
     <meta charset="UTF-8">
     <ClientRouter />
   </head>
   <body>
     <Cursor />
+    <Backdrop />
+    <ThemeToggle />
     <FloatingButtons />
     <main class="w-full max-w-2xl px-5 sm:px-6 md:px-12 pt-20 md:pt-[16vh] pb-24 min-h-dvh flex flex-col gap-6 mx-auto overflow-x-clip">
       <slot />

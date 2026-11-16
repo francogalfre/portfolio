@@ -19,7 +19,7 @@
   .post-body h2,
   .post-body h3,
   .post-body h4 {
-    color: #000;
+    color: var(--color-black);
     font-weight: 450;
     letter-spacing: -0.01em;
     scroll-margin-top: 6rem;
@@ -45,7 +45,7 @@
 
   .post-body strong {
     font-weight: 550;
-    color: #000;
+    color: var(--color-black);
   }
 
   .post-body a {
@@ -97,8 +97,8 @@
     object-fit: cover;
     border-radius: 0.5rem;
     border: 1px solid var(--color-gray-100);
-    background-color: #f3f4f6;
-    background-image: linear-gradient(90deg, #f3f4f6 25%, #e5e7eb 37%, #f3f4f6 63%);
+    background-color: var(--color-gray-100);
+    background-image: linear-gradient(90deg, var(--color-gray-100) 25%, var(--color-gray-200) 37%, var(--color-gray-100) 63%);
     background-size: 400px 100%;
     background-repeat: no-repeat;
     animation: shimmer 1.4s ease infinite;
@@ -144,7 +144,7 @@
     border: 1px solid var(--color-border);
     border-radius: 0.5rem;
     overflow: hidden;
-    background: #fff;
+    background: var(--color-background);
   }
 
   .post-body .code-block-header {
@@ -190,7 +190,7 @@
     margin: 0;
     padding: 0.875rem 1rem;
     overflow-x: auto;
-    background: #fff !important;
+    background: var(--color-background) !important;
   }
 
   .post-body pre:not([data-code-block] pre) code {

@@ -87,7 +87,7 @@ const groups = [
     margin: 0;
     padding: 0.875rem 1.25rem;
     border-bottom: 1px solid var(--line);
-    background: white;
+    background: var(--color-background);
   }
 
   .chat-body {
@@ -128,7 +128,7 @@ const groups = [
   .chat-user {
     align-self: flex-end;
     background: var(--ink);
-    color: white;
+    color: var(--color-background);
     border-bottom-right-radius: 0.25rem;
   }
 
@@ -139,7 +139,7 @@ const groups = [
 
   .chat-agent {
     align-self: flex-start;
-    background: white;
+    background: var(--color-background);
     border: 1px solid var(--line);
     color: var(--ink);
     border-bottom-left-radius: 0.25rem;
@@ -178,7 +178,7 @@ const groups = [
     border: 1px solid var(--line);
     border-left: 2px solid #7c3aed;
     border-radius: 0.5rem;
-    background: white;
+    background: var(--color-background);
   }
 
   .chat-draft-label,
@@ -200,20 +200,25 @@ const groups = [
   }
 
   .chat-primary {
-    color: white;
+    color: var(--color-background);
     border-color: var(--ink);
     background: var(--ink);
   }
 
   .chat-primary:hover,
   .chat-primary:focus-visible {
-    color: white;
+    color: var(--color-background);
     background: #374151;
   }
 
   .chat-primary[aria-pressed="true"] {
-    color: white;
+    color: var(--color-background);
     background: var(--ink);
+  }
+
+  html[data-theme="dark"] .chat-primary:hover,
+  html[data-theme="dark"] .chat-primary:focus-visible {
+    background: #d4d4d4;
   }
 
   @media (max-width: 520px) {
