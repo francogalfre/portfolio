@@ -13,7 +13,7 @@ export function ChatLauncher({ isOpen, onToggle }: ChatLauncherProps) {
       type="button"
       onClick={onToggle}
       aria-label={isOpen ? "Close chat" : "Chat with Franco's assistant"}
-      className="flex items-center justify-center rounded-full bg-gray-100 p-3 sm:p-4 text-secondary transition-all duration-300 hover:scale-105 hover:text-primary active:scale-95"
+      className="flex items-center justify-center rounded-full bg-white ring-1 ring-black/[0.07] shadow-[0_2px_10px_rgba(0,0,0,0.06)] p-3 sm:p-4 text-gray-600 transition-all duration-300 hover:scale-105 hover:text-primary active:scale-95"
     >
       <AnimatePresence mode="wait" initial={false}>
         <motion.span

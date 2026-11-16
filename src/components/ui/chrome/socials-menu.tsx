@@ -60,7 +60,7 @@ export function SocialsMenu() {
 	}, [open]);
 
 	return (
-		<div ref={ref} className="relative md:hidden">
+		<div ref={ref} className="relative">
 			<AnimatePresence>
 				{open && (
 					<motion.div
@@ -80,9 +80,9 @@ export function SocialsMenu() {
 								initial={{ opacity: 0, y: 6 }}
 								animate={{ opacity: 1, y: 0 }}
 								transition={{ delay: index * 0.03 }}
-								className="flex size-9 items-center justify-center rounded-full bg-gray-100 text-secondary transition-all duration-300 hover:scale-105 hover:text-primary active:scale-95"
+								className="flex size-[42px] sm:size-[54px] items-center justify-center rounded-full bg-white ring-1 ring-black/[0.07] shadow-[0_2px_10px_rgba(0,0,0,0.06)] text-gray-600 transition-all duration-300 hover:scale-105 hover:text-primary active:scale-95"
 							>
-								<HugeiconsIcon icon={social.icon} size={17} />
+								<HugeiconsIcon icon={social.icon} size={18} className="sm:size-[22px]" />
 							</motion.a>
 						))}
 					</motion.div>
@@ -94,7 +94,7 @@ export function SocialsMenu() {
 				onClick={() => setOpen((value) => !value)}
 				aria-label={open ? "Close social links" : "Open social links"}
 				aria-expanded={open}
-				className="flex items-center justify-center rounded-full bg-gray-100 p-3 text-secondary transition-all duration-300 hover:scale-105 hover:text-primary active:scale-95"
+				className="flex items-center justify-center rounded-full bg-white ring-1 ring-black/[0.07] shadow-[0_2px_10px_rgba(0,0,0,0.06)] p-3 sm:p-4 text-gray-600 transition-all duration-300 hover:scale-105 hover:text-primary active:scale-95"
 			>
 				<AnimatePresence mode="wait" initial={false}>
 					<motion.span
@@ -105,7 +105,7 @@ export function SocialsMenu() {
 						transition={{ duration: 0.18, ease: "easeOut" }}
 						className="flex items-center justify-center"
 					>
-						<HugeiconsIcon icon={open ? Cancel01Icon : Share08Icon} size={18} />
+						<HugeiconsIcon icon={open ? Cancel01Icon : Share08Icon} size={18} className="sm:size-[22px]" />
 					</motion.span>
 				</AnimatePresence>
 			</button>

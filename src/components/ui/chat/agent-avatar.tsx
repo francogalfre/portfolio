@@ -165,7 +165,7 @@ export function AgentAvatar({
             viewBox="330 300 570 600"
             width={size}
             height={size}
-            className={cn("shrink-0 cursor-pointer overflow-visible", className)}
+            className={cn("shrink-0 overflow-visible", className)}
             onHoverStart={() => {
                 hoverRef.current = true;
                 setHovered(true);
