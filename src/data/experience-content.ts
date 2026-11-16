@@ -19,7 +19,7 @@ export const experiences = [
         role: "Software & AI Engineer",
         periods: "Jan 2026 - Present · Santa Fe, Argentina",
         description:
-            "Design and build production AI agent systems for a US-based lending platform under strict data-privacy and compliance requirements. Architect multi-agent workflows with LangGraph on AWS Lambda, build RAG pipelines over multi-source knowledge bases, own observability with self-hosted Langfuse, and ship the React and Next.js interfaces on top.",
+            "Part of the AI Squad building production AI agents for NFTYDoor, a US lending platform. Designed a multi-agent Service Desk that delivers 100% of tickets with full context. Agents use LangChain, LangGraph and AWS Bedrock, with RAG, custom tools and human approval, and run serverless on AWS. I also build the React and Next.js interfaces and Jira integration.",
     },
     {
         company: "Fiverr",
