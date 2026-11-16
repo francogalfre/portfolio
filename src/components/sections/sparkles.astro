@@ -1,0 +1,108 @@
+---
+// Home-only: small sparkles spread across the viewport (mostly the side gutters).
+// They pop in after the signature is written (intro) and keep a slow twinkle.
+interface Props {
+	start?: number; // seconds before the first sparkle pops in (intro only)
+}
+const { start = 2.8 } = Astro.props;
+
+// `m`: also shown on small screens (a short, edge-hugging subset so they never crowd the text)
+type Spark = { top: string; left: string; size: number; warm?: boolean; m?: boolean };
+
+const sparks: Spark[] = [
+	{ top: "9%", left: "6%", size: 16, m: true },
+	{ top: "22%", left: "17%", size: 9, warm: true },
+	{ top: "38%", left: "4%", size: 12, m: true },
+	{ top: "55%", left: "13%", size: 18, warm: true },
+	{ top: "71%", left: "7%", size: 10, m: true },
+	{ top: "86%", left: "19%", size: 13 },
+	{ top: "6%", left: "44%", size: 8, warm: true },
+	{ top: "93%", left: "52%", size: 9 },
+	{ top: "12%", left: "84%", size: 13, warm: true },
+	{ top: "27%", left: "93%", size: 9, m: true },
+	{ top: "42%", left: "80%", size: 17 },
+	{ top: "60%", left: "91%", size: 11, warm: true },
+	{ top: "76%", left: "83%", size: 15 },
+	{ top: "90%", left: "94%", size: 8, m: true },
+	{ top: "18%", left: "68%", size: 7 },
+	{ top: "82%", left: "34%", size: 7, warm: true },
+];
+---
+
+<div class="sparkles" aria-hidden="true">
+  {
+    sparks.map((s, i) => (
+      <svg
+        class:list={["sparkle", !s.m && "sparkle--wide"]}
+        viewBox="-12 -12 24 24"
+        style={`top:${s.top};left:${s.left};--size:${s.size}px;--delay:${(start + i * 0.1).toFixed(2)}s;--rot:${((i * 37) % 60) - 30}deg;--tw:${(2.2 + (i % 5) * 0.55).toFixed(2)}s`}
+      >
+        <path class={s.warm ? "warm" : "cool"} d="M0 -11 C 1 -3, 3 -1, 11 0 C 3 1, 1 3, 0 11 C -1 3, -3 1, -11 0 C -3 -1, -1 -3, 0 -11 Z" />
+      </svg>
+    ))
+  }
+</div>
+
+<style is:global>
+  .sparkles {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    overflow: hidden;
+    --max: 0.4;
+    --k: 0.9;
+  }
+
+  html[data-theme="dark"] .sparkles { --max: 0.6; }
+
+  .sparkle {
+    position: absolute;
+    width: calc(var(--size) * var(--k, 1));
+    height: calc(var(--size) * var(--k, 1));
+    opacity: var(--max);
+    transform: rotate(var(--rot));
+    animation: sparkle-twinkle var(--tw) ease-in-out var(--delay) infinite;
+  }
+
+  .sparkle .cool { fill: #F6B23B; }
+  .sparkle .warm { fill: #F2895B; }
+
+  /* Dark: slightly larger and lighter so they read on near-black, with a faint glow */
+  html[data-theme="dark"] .sparkle {
+    --k: 1.2;
+    filter: drop-shadow(0 0 3px rgba(246, 178, 59, 0.3));
+  }
+  html[data-theme="dark"] .sparkle .cool { fill: #ffd78a; }
+  html[data-theme="dark"] .sparkle .warm { fill: #ff9c73; }
+
+  /* Intro: each sparkle pops in once the signature is written */
+  html.intro .sparkle {
+    opacity: 0;
+    animation:
+      sparkle-pop 0.7s cubic-bezier(0.34, 1.6, 0.5, 1) var(--delay) both,
+      sparkle-twinkle var(--tw) ease-in-out calc(var(--delay) + 0.7s) infinite;
+  }
+
+  @keyframes sparkle-pop {
+    from { opacity: 0; transform: scale(0) rotate(calc(var(--rot) - 90deg)); }
+    to { opacity: var(--max); transform: scale(1) rotate(var(--rot)); }
+  }
+
+  @keyframes sparkle-twinkle {
+    0%, 100% { opacity: var(--max); transform: scale(1) rotate(var(--rot)); }
+    50% { opacity: calc(var(--max) * 0.72); transform: scale(0.8) rotate(calc(var(--rot) + 20deg)); }
+  }
+
+  /* Small screens: only the edge-hugging subset, smaller and fainter */
+  @media (max-width: 767px) {
+    .sparkle--wide { display: none; }
+    .sparkles { --max: 0.3; --k: 0.75; }
+    html[data-theme="dark"] .sparkles { --max: 0.45; }
+    html[data-theme="dark"] .sparkle { --k: 0.95; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .sparkle, html.intro .sparkle { opacity: var(--max); animation: none; }
+  }
+</style>

@@ -3,7 +3,9 @@ import { Image } from "astro:assets";
 import Gif from "@/assets/gifs/gif-2.gif";
 
 import CompanyBadge from "@/components/ui/widgets/company-badge.astro";
+import Signature from "@/components/ui/widgets/signature.astro";
 import Spotify from "@/components/ui/spotify/spotify-player.astro";
+import Sparkles from "@/components/sections/sparkles.astro";
 import { HoverLinkPreview } from "@/components/ui/widgets/hover-link-preview";
 
 import Me from "@/assets/images/me.webp";
@@ -13,42 +15,207 @@ import ShipperslabLogo from "@/assets/logos/shipperslab.svg";
 import { getAgeData } from "@/utils/age-calculation";
 
 const { years } = getAgeData();
+
+// Seconds the signature takes to write. Everything else waits for it.
+const SIG = 2.7;
+const at = (extra: number) => `--t: ${(SIG + extra).toFixed(2)}s`;
 ---
+
+<!-- Intro (first landing only): flag the page before first paint -->
+<script is:inline>
+  (function () {
+    if (window.__introChecked) return;
+    window.__introChecked = true;
+    if (!matchMedia("(prefers-reduced-motion: reduce)").matches) document.documentElement.classList.add("intro");
+  })();
+</script>
+
+<Sparkles start={SIG + 0.15} />
+
+<!-- Blur veil: above all content, below the signature; eases out when it is written -->
+<div class="intro-veil" style={`--sig:${SIG}`} aria-hidden="true"></div>
 
 <section class="flex flex-col gap-4">
   <div>
-    <Image src={Gif} alt="Animated hamster with orange fur working on a laptop" class="w-18 sm:w-22 animate-rise hover:scale-105 hover:rotate-3 transition-transform duration-500" />
+    <Image src={Gif} alt="Animated hamster with orange fur working on a laptop" class="rv animate-rise w-18 sm:w-22 -ml-[6.5px] sm:-ml-[8px] hover:scale-105 hover:rotate-3 transition-transform duration-500" style={at(0)} />
 
-    <div class="animate-rise" style="--i: 1">
-      <HoverLinkPreview href="https://www.linkedin.com/in/francogalfre/" previewImage={Me.src} imageAlt="Francogalfre avatar" previewWidth={160} previewHeight={128} client:visible>
-        <h1 class="text-md sm:text-lg font-[450] text-gray-900 leading-[90%] tracking-tighter">Franco Galfré</h1>
-      </HoverLinkPreview>
+    <h1 class="sr-only">Franco Galfré</h1>
+    <div class="sig-lift relative text-gray-900 mt-1" style={`--sig:${SIG}`}>
+      <Signature width={230} total={SIG} class="max-sm:w-[185px]!" />
     </div>
-    <p class="text-sm sm:text-[15px] text-secondary mt-0.5 leading-[120%] animate-rise" style="--i: 2">Santa Fe, Argentina</p>
   </div>
 
   <div class="flex flex-col gap-6 mb-8">
-    <p class="text-sm sm:text-[15px] font-normal sm:leading-[160%] text-gray-600 animate-rise" style="--i: 3">
-      I'm Franco! I'm <span id="age-counter" class="text-primary" style="font-variant-numeric: tabular-nums;">{years}</span> years old and a passionate Software Engineer & AI Engineer who loves computing, coding, and coffee. I approach every challenge by constantly learning new <a href="/stack" class="underline hover:text-primary hover:brightness-90 transition-all duration-400 mb-2">technologies</a>.
+    <p class="rv rv-text animate-rise text-sm sm:text-[15px] font-normal sm:leading-[160%] text-gray-600" style={`--i: 1; ${at(0.05)}`} data-reveal>
+      <span class="inline-block"><HoverLinkPreview href="https://www.linkedin.com/in/francogalfre/" previewImage={Me.src} imageAlt="Francogalfre avatar" previewWidth={160} previewHeight={128} className="relative inline-block text-gray-900" client:visible>I'm Franco!</HoverLinkPreview></span> I'm <span id="age-counter" class="text-primary" style="font-variant-numeric: tabular-nums;">{years}</span> years old and a passionate Software Engineer & AI Engineer who loves computing, coding, and coffee. I approach every challenge by constantly learning new <a href="/stack" class="accent-link text-primary">technologies</a>.
 
       <br /><br />
 
-      Currently building amazing things at <CompanyBadge name="Crombie" logo={CrombieLogo} /> , and running <CompanyBadge name="Shipperslab" logo={ShipperslabLogo} /> while crafting personal <a href="/projects" class="underline hover:text-primary hover:brightness-90 transition-all duration-400 mb-2">projects</a>.
+      Currently building amazing things at <CompanyBadge name="Crombie" logo={CrombieLogo} /> , and running <CompanyBadge name="Shipperslab" logo={ShipperslabLogo} /> while crafting personal <a href="/projects" class="accent-link text-primary">projects</a>.
     </p>
   </div>
 
-  <div class="animate-rise" style="--i: 4">
+  <div class="rv animate-rise" style={`--i: 2; ${at(0.4)}`}>
     <Spotify />
   </div>
 </section>
 
+<style is:global>
+  /* ── Veil ── */
+  .intro-veil { display: none; }
+
+  html.intro .intro-veil {
+    --veil-tint: rgb(255 255 255 / 0.2);
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    /* Blocks hover/clicks on everything below until it has fully faded (then visibility:hidden) */
+    pointer-events: auto;
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
+    background-color: var(--veil-tint);
+    animation: veil-out 1100ms cubic-bezier(0.16, 1, 0.3, 1) calc(var(--sig) * 1s) forwards;
+  }
+
+  html[data-theme="dark"].intro .intro-veil { --veil-tint: rgb(15 15 15 / 0.25); }
+
+  @keyframes veil-out {
+    to {
+      -webkit-backdrop-filter: blur(0px);
+      backdrop-filter: blur(0px);
+      background-color: transparent;
+      visibility: hidden;
+    }
+  }
+
+  /* Signature sits above the veil (z-110) only while the intro runs; afterwards it drops back
+     so overlays like the hover preview can cover it */
+  html.intro .sig-lift {
+    z-index: 110;
+    animation: sig-drop 1ms calc(var(--sig) * 1s + 1.2s) forwards;
+  }
+
+  @keyframes sig-drop { to { z-index: auto; } }
+
+  /* ── Intro reveal (after the signature): blocks rise, characters sharpen one by one ── */
+  html.intro .rv { animation: rv-in 640ms cubic-bezier(0.16, 1, 0.3, 1) var(--t, 0s) both; }
+  html.intro .rv-text { animation: none; }
+
+  html.intro .rv-c {
+    display: inline-block;
+    opacity: 0.3;
+    filter: blur(6px);
+    animation: rv-char 380ms cubic-bezier(0.16, 1, 0.3, 1) calc(var(--t, 0s) + var(--d, 0ms)) both;
+  }
+
+  html.intro [data-pop] {
+    animation: rv-pop 480ms cubic-bezier(0.34, 1.56, 0.64, 1) calc(var(--t, 0s) + var(--d, 0ms)) both;
+  }
+
+  .rv-w { white-space: nowrap; }
+
+  @keyframes rv-in {
+    from { opacity: 0.3; filter: blur(8px); transform: translateY(4px); }
+    to { opacity: 1; filter: none; transform: none; }
+  }
+
+  @keyframes rv-char {
+    from { opacity: 0.3; transform: translateY(2px); filter: blur(6px); }
+    to { opacity: 1; transform: none; filter: none; }
+  }
+
+  @keyframes rv-pop {
+    from { opacity: 0.3; filter: blur(6px); transform: scale(0.9); }
+    to { opacity: 1; filter: none; transform: none; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html.intro .intro-veil { display: none; }
+    html.intro .rv,
+    html.intro .rv-c,
+    html.intro [data-pop] { animation: none; opacity: 1; filter: none; }
+  }
+</style>
+
 <script>
   import { getAgeData } from "../../utils/age-calculation";
+
+  const MAX_STAGGER = 28; // ms per character
+  const BUDGET = 1100; // max ms to reveal a whole block, so long text doesn't drag
+
+  // Split text nodes into per-character spans. Links with text only are walked; any other
+  // inline element (badges, the age number, the hover-preview wrapper) pops in as a unit.
+  function split(block: HTMLElement) {
+    const total = (block.textContent ?? "").replace(/\s+/g, "").length || 1;
+    const stagger = Math.min(MAX_STAGGER, BUDGET / total);
+    let n = 0;
+    const delay = () => `${Math.round(n * stagger)}ms`;
+
+    const walk = (node: Node) => {
+      for (const child of Array.from(node.childNodes)) {
+        if (child instanceof HTMLElement) {
+          if (child.tagName === "BR") continue;
+          if (child.tagName === "A" && !child.querySelector("img, svg")) {
+            walk(child);
+            continue;
+          }
+          child.setAttribute("data-pop", "");
+          child.style.setProperty("--d", delay());
+          n += child.textContent?.trim().length ?? 0;
+          continue;
+        }
+        if (child.nodeType !== Node.TEXT_NODE || !child.textContent?.trim()) continue;
+
+        const text = child.textContent;
+        const frag = document.createDocumentFragment();
+
+        const sr = document.createElement("span");
+        sr.className = "sr-only";
+        sr.textContent = text;
+
+        const visual = document.createElement("span");
+        visual.setAttribute("aria-hidden", "true");
+
+        for (const part of text.split(/(\s+)/)) {
+          if (!part) continue;
+          if (/^\s+$/.test(part)) {
+            visual.append(" ");
+            continue;
+          }
+          const word = document.createElement("span");
+          word.className = "rv-w";
+          for (const ch of part) {
+            const c = document.createElement("span");
+            c.className = "rv-c";
+            c.textContent = ch;
+            c.style.setProperty("--d", delay());
+            word.append(c);
+            n++;
+          }
+          visual.append(word);
+        }
+
+        frag.append(sr, visual);
+        child.replaceWith(frag);
+      }
+    };
+
+    walk(block);
+  }
 
   let timer: number | undefined;
 
   document.addEventListener("astro:page-load", () => {
     clearInterval(timer);
+
+    if (document.documentElement.classList.contains("intro")) {
+      for (const block of document.querySelectorAll<HTMLElement>("[data-reveal]:not([data-split])")) {
+        block.setAttribute("data-split", "");
+        split(block);
+      }
+    }
+
     const el = document.getElementById("age-counter");
     if (!el) return;
 
