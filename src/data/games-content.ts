@@ -2,16 +2,16 @@ export const games = [
   {
     name: "Sonic the Hedgehod",
     href: "sonic",
-    image: "/games/sonic.webp",
+    image: "/images/games/sonic.webp",
   },
   {
     name: "Mortal Kombat",
     href: "mortal-kombat",
-    image: "/games/mk.webp",
+    image: "/images/games/mk.webp",
   },
   {
     name: "Doom",
     href: "doom",
-    image: "/games/doom.webp",
+    image: "/images/games/doom.webp",
   },
 ];

@@ -7,7 +7,7 @@ interface Props {
 
 const { page } = Astro.props;
 const canonicalURL = new URL(Astro.url.pathname, SITE_URL);
-const ogImage = new URL(page.image ?? "/og-image.webp", SITE_URL).href;
+const ogImage = new URL(page.image ?? "/images/og/og-image.webp", SITE_URL).href;
 ---
 
 <title>Franco Galfré</title>
@@ -32,5 +32,5 @@ const ogImage = new URL(page.image ?? "/og-image.webp", SITE_URL).href;
 <meta name="twitter:description" content={page.description} />
 <meta name="twitter:image" content={ogImage} />
 
-<link rel="icon" href="/favicon-light.ico" media="(prefers-color-scheme: dark)" />
-<link rel="icon" href="/favicon-dark.ico" media="(prefers-color-scheme: light)" />
+<link rel="icon" href="/icons/favicon-light.ico" media="(prefers-color-scheme: dark)" />
+<link rel="icon" href="/icons/favicon-dark.ico" media="(prefers-color-scheme: light)" />

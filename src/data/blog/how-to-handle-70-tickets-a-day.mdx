@@ -2,7 +2,7 @@
 title: "How our AI agents handle 70 tickets a day"
 description: "A small service desk team drowning in tickets, and the multi-agent system I designed so most of them never reach a human. Agents that answer, interview, write and classify, all sharing one state."
 pubDate: 2026-09-15
-cover: "/blog/covers/lions.webp"
+cover: "/images/blog/covers/lions.webp"
 coverAlt: "Briton Rivière, Daniel in the Lions' Den, 1872"
 coverCredit: "Briton Rivière, *Daniel in the Lions' Den*, 1872"
 tags: ["agents", "langgraph", "aws", "architecture"]
@@ -10,11 +10,11 @@ tags: ["agents", "langgraph", "aws", "architecture"]
 
 import Badge from "@/components/blog/badge.astro";
 import CodeBlock from "@/components/blog/code-block";
-import Queue from "@/components/blog/queue.astro";
-import AgentGraph from "@/components/blog/agent-graph.astro";
-import Chat from "@/components/blog/chat.astro";
-import TicketCompare from "@/components/blog/ticket-compare.astro";
-import Layers from "@/components/blog/layers.astro";
+import Queue from "@/components/blog/figures/queue.astro";
+import AgentGraph from "@/components/blog/figures/agent-graph.astro";
+import Chat from "@/components/blog/figures/chat.astro";
+import TicketCompare from "@/components/blog/figures/ticket-compare.astro";
+import Layers from "@/components/blog/figures/layers.astro";
 
 export const agentsCode = `import { createAgent, tool } from "langchain";
 import { z } from "zod";
