@@ -2,6 +2,7 @@ type StackItem = {
     name: string;
     href: string;
     icon: string;
+    iconDark?: string; // shown instead of `icon` in dark mode
 };
 
 // ─── TECHNOLOGIES ────────────────────────────────────────────
@@ -139,6 +140,7 @@ export const ai: StackItem[] = [
         name: "GitHub Copilot",
         href: "https://github.com/features/copilot",
         icon: "https://svgl.app/library/copilot.svg",
+        iconDark: "https://svgl.app/library/copilot_dark.svg",
     },
     {
         name: "OpenCode",

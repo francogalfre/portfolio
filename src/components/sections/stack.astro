@@ -4,10 +4,14 @@ import { technologies, ai, applications } from "@/data/stack-content";
 import { ArrowUpRight01Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 
+const monoLogos = ["astro-icon-light", "aws_light", "better-auth_light", "drizzle-orm_light", "expressjs", "github_light", "golang", "model-context-protocol-light", "nextjs_icon_dark", "openrouter_light", "v0_light", "vercel", "cursor_light", "opencode-dark", "zod"];
+const isMono = (icon: string) => monoLogos.some((n) => icon.endsWith(`/${n}.svg`));
+
 type StackItem = {
 	name: string;
 	href: string;
 	icon: string;
+	iconDark?: string;
 };
 
 type StackCategory = {
@@ -15,7 +19,6 @@ type StackCategory = {
 	items: StackItem[];
 };
 
-// Stagger order: each category title, then its items at half a step each
 const ITEM_STEP = 0.5;
 let order = 4;
 
@@ -55,19 +58,29 @@ const categories = (
                 href={item.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                class="inline-flex items-center gap-2.5 text-sm text-gray-900 hover:text-black transition-colors"
+                class="stack-link inline-flex items-center gap-2.5 text-sm text-gray-900"
               >
-                <span class="hidden group-hover:flex transition-all"><HugeiconsIcon icon={ArrowUpRight01Icon} size={16} /></span>
-                <span class="relative size-4 shrink-0 group-hover:hidden">
-                  <span class="absolute inset-0 rounded bg-gray-200 animate-pulse" data-skeleton></span>
-                  <img
-                    src={item.icon}
-                    alt={item.name}
-                    class="size-4 opacity-0 transition-opacity duration-300"
-                    onload="this.style.opacity='1'; this.previousElementSibling.remove();"
-                  />
+                <span class="relative size-4 shrink-0">
+                  <span class:list={["stack-icon absolute inset-0", item.iconDark && "has-dark"]}>
+                    <span class="absolute inset-0 rounded bg-gray-200 animate-pulse" data-skeleton></span>
+                    <img
+                      src={item.icon}
+                      alt={item.name}
+                      class:list={["stack-img stack-img--light size-4 opacity-0 transition-opacity duration-300", isMono(item.icon) && "logo-mono"]}
+                      onload="this.style.opacity='1'; this.closest('.stack-icon').querySelector('[data-skeleton]')?.remove();"
+                    />
+                    {item.iconDark && (
+                      <img
+                        src={item.iconDark}
+                        alt=""
+                        class="stack-img stack-img--dark size-4 opacity-0 transition-opacity duration-300"
+                        onload="this.style.opacity='1'; this.closest('.stack-icon').querySelector('[data-skeleton]')?.remove();"
+                      />
+                    )}
+                  </span>
+                  <span class="stack-arrow absolute inset-0 flex items-center justify-center text-gray-900"><HugeiconsIcon icon={ArrowUpRight01Icon} size={16} /></span>
                 </span>
-                <span class="text-secondary hover:text-gray-900 hover:underline transition-all duration-300">{item.name}</span>
+                <span class="stack-name text-secondary">{item.name}</span>
               </a>
             </li>
           ))}
@@ -76,3 +89,51 @@ const categories = (
     ))}
   </div>
 </section>
+
+<style is:global>
+  /* Hover: the logo shrinks away while an arrow slides in; the name darkens and gets an
+     underline that draws in from the left (and retracts to the right on leave). */
+  .stack-icon,
+  .stack-arrow {
+    transition: opacity 300ms ease, transform 450ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .stack-arrow { opacity: 0; transform: translate(-3px, 3px) scale(0.8); }
+
+  .stack-link:hover .stack-icon { opacity: 0; transform: scale(0.7); }
+  .stack-link:hover .stack-arrow { opacity: 1; transform: none; }
+
+  .stack-name {
+    background-image: linear-gradient(currentColor, currentColor);
+    background-repeat: no-repeat;
+    background-position: 100% 100%;
+    background-size: 0% 1px;
+    padding-bottom: 1px;
+    transition:
+      color 300ms ease,
+      transform 450ms cubic-bezier(0.16, 1, 0.3, 1),
+      background-size 450ms cubic-bezier(0.16, 1, 0.3, 1),
+      background-position 0s 450ms;
+  }
+
+  .stack-link:hover .stack-name {
+    color: var(--color-gray-900);
+    transform: translateX(2px);
+    background-position: 0% 100%;
+    background-size: 100% 1px;
+    transition:
+      color 300ms ease,
+      transform 450ms cubic-bezier(0.16, 1, 0.3, 1),
+      background-size 450ms cubic-bezier(0.16, 1, 0.3, 1),
+      background-position 0s;
+  }
+
+  /* Light/dark logo variants */
+  .stack-img--dark { display: none; }
+  html[data-theme="dark"] .has-dark .stack-img--dark { display: block; }
+  html[data-theme="dark"] .has-dark .stack-img--light { display: none; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .stack-icon, .stack-arrow, .stack-name { transition: none; }
+  }
+</style>
