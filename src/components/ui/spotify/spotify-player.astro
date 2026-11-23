@@ -1,12 +1,27 @@
 <div id="now-playing" class="items-center">
-  <div class="flex items-center gap-3 animate-pulse">
-    <div class="w-8 h-8 shrink-0 bg-gray-200"></div>
+  <div class="flex items-center gap-3 animate-pulse" aria-hidden="true">
+    <div class="size-8 shrink-0 rounded-xs bg-gray-200"></div>
     <div class="flex flex-col gap-1.5 min-w-0 flex-1">
-      <div class="h-3 w-28 bg-gray-200"></div>
-      <div class="h-2.5 w-20 bg-gray-200"></div>
+      <div class="h-3.5 w-28 rounded-xs bg-gray-200"></div>
+      <div class="h-3 w-20 rounded-xs bg-gray-200"></div>
     </div>
-    <div class="h-3 w-3 bg-gray-200 shrink-0"></div>
+    <div class="size-4 shrink-0 rounded-xs bg-gray-200"></div>
   </div>
 </div>
+
+<style is:global>
+  #now-playing .np-item {
+    animation: np-in 700ms cubic-bezier(0.22, 1, 0.36, 1) calc(var(--k, 0) * 120ms) both;
+  }
+
+  @keyframes np-in {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: none; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #now-playing .np-item { animation: none; }
+  }
+</style>
 
 <script src="./spotify-player.ts"></script>

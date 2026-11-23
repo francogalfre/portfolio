@@ -1,7 +1,7 @@
 <button
   id="theme-toggle"
   type="button"
-  aria-label="Toggle color theme"
+  aria-label="Switch to dark mode"
   class="theme-toggle fixed right-4 top-8 z-40 text-[15px] text-secondary hover:text-black transition-colors duration-500 animate-rise sm:right-8"
   style="--i: 3"
 >
@@ -18,7 +18,10 @@
 <script>
   const root = document.documentElement;
 
-  const apply = (theme: "dark" | "light") => root.setAttribute("data-theme", theme);
+  const apply = (theme: "dark" | "light") => {
+    root.setAttribute("data-theme", theme);
+    document.getElementById("theme-toggle")?.setAttribute("aria-label", `Switch to ${theme === "dark" ? "light" : "dark"} mode`);
+  };
 
   const toggle = (btn: HTMLElement) => {
     const next = root.getAttribute("data-theme") === "dark" ? "light" : "dark";

@@ -1,6 +1,9 @@
 import { BubbleChatIcon, Cancel01Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, LazyMotion, m } from "framer-motion";
+
+const loadMotion = () => import("@/utils/motion-features").then((mod) => mod.default);
+
 
 type ChatLauncherProps = {
   isOpen: boolean;
@@ -9,14 +12,15 @@ type ChatLauncherProps = {
 
 export function ChatLauncher({ isOpen, onToggle }: ChatLauncherProps) {
   return (
+    <LazyMotion features={loadMotion} strict>
     <button
       type="button"
       onClick={onToggle}
       aria-label={isOpen ? "Close chat" : "Chat with Franco's assistant"}
-      className="flex items-center justify-center rounded-full bg-white ring-1 ring-black/[0.07] shadow-[0_2px_10px_rgba(0,0,0,0.06)] p-3 sm:p-4 text-gray-600 transition-all duration-300 hover:scale-105 hover:text-primary active:scale-95"
+      className="flex items-center justify-center rounded-full bg-white ring-1 ring-black/[0.16] p-3 sm:p-4 text-gray-600 transition-all duration-300 hover:scale-105 hover:text-primary active:scale-95"
     >
       <AnimatePresence mode="wait" initial={false}>
-        <motion.span
+        <m.span
           key={isOpen ? "close" : "open"}
           initial={{ opacity: 0, rotate: -45, scale: 0.6 }}
           animate={{ opacity: 1, rotate: 0, scale: 1 }}
@@ -25,8 +29,9 @@ export function ChatLauncher({ isOpen, onToggle }: ChatLauncherProps) {
           className="flex items-center justify-center"
         >
           <HugeiconsIcon icon={isOpen ? Cancel01Icon : BubbleChatIcon} size={18} className="sm:size-[22px]" />
-        </motion.span>
+        </m.span>
       </AnimatePresence>
     </button>
+    </LazyMotion>
   );
 }

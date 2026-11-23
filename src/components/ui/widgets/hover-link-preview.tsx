@@ -2,11 +2,14 @@ import * as React from "react";
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import {
-  motion,
+  m,
+  LazyMotion,
   AnimatePresence,
   useMotionValue,
   useSpring,
 } from "framer-motion";
+
+const loadMotion = () => import("@/utils/motion-features").then((mod) => mod.default);
 
 interface HoverLinkPreviewProps {
   href: string;
@@ -87,7 +90,7 @@ const HoverLinkPreview: React.FC<HoverLinkPreviewProps> = ({
   };
 
   return (
-    <>
+    <LazyMotion features={loadMotion} strict>
       <a
         href={href}
         {...(external && { target: "_blank", rel: "noopener noreferrer" })}
@@ -105,7 +108,7 @@ const HoverLinkPreview: React.FC<HoverLinkPreviewProps> = ({
         createPortal(
           <AnimatePresence>
             {showPreview && (
-              <motion.div
+              <m.div
                 initial={{ opacity: 0, scale: 0.85, y: 8 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.85, y: 8 }}
@@ -130,12 +133,12 @@ const HoverLinkPreview: React.FC<HoverLinkPreviewProps> = ({
                     className="object-cover rounded-[20px] bg-gray-100"
                   />
                 </div>
-              </motion.div>
+              </m.div>
             )}
           </AnimatePresence>,
           document.body,
         )}
-    </>
+    </LazyMotion>
   );
 };
 

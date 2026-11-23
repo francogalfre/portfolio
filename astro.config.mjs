@@ -11,6 +11,7 @@ import tailwindcss from "@tailwindcss/vite";
 export default defineConfig({
     site: "https://francogalfre.site",
     output: "static",
+    build: { inlineStylesheets: "always" },
     markdown: {
         shikiConfig: {
             themes: { light: "github-light", dark: "github-dark" },

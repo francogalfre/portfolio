@@ -18,7 +18,10 @@ const { years } = getAgeData();
 
 // Seconds the signature takes to write. Everything else waits for it.
 const SIG = 2.7;
-const at = (extra: number) => `--t: ${(SIG + extra).toFixed(2)}s`;
+// The hamster comes in first, then the signature is written, then everything else
+const HAM = 0.7;
+const END = HAM + SIG;
+const at = (extra: number) => `--t: ${(END + extra).toFixed(2)}s`;
 ---
 
 <!-- Intro (first landing only): flag the page before first paint -->
@@ -30,23 +33,23 @@ const at = (extra: number) => `--t: ${(SIG + extra).toFixed(2)}s`;
   })();
 </script>
 
-<Sparkles start={SIG + 0.15} />
+<Sparkles start={END + 0.15} />
 
 <!-- Blur veil: above all content, below the signature; eases out when it is written -->
-<div class="intro-veil" style={`--sig:${SIG}`} aria-hidden="true"></div>
+<div class="intro-veil" style={`--sig:${END}`} aria-hidden="true"></div>
 
 <section class="flex flex-col gap-4">
   <div>
-    <Image src={Gif} alt="Animated hamster with orange fur working on a laptop" class="rv animate-rise w-18 sm:w-22 -ml-[6.5px] sm:-ml-[8px] hover:scale-105 hover:rotate-3 transition-transform duration-500" style={at(0)} />
+    <Image src={Gif} width={132} height={132} quality={60} priority alt="Animated hamster with orange fur working on a laptop" class="sig-lift relative rv-ham animate-rise w-18 sm:w-22 -ml-[6.5px] sm:-ml-[8px] hover:scale-105 hover:rotate-3 transition-transform duration-500" style={`--sig:${END}`} />
 
     <h1 class="sr-only">Franco Galfré</h1>
-    <div class="sig-lift relative text-gray-900 mt-1" style={`--sig:${SIG}`}>
-      <Signature width={230} total={SIG} class="max-sm:w-[185px]!" />
+    <div class="sig-lift relative text-gray-900 mt-1" style={`--sig:${END}`}>
+      <Signature width={230} total={SIG} start={HAM} class="max-sm:w-[185px]!" />
     </div>
   </div>
 
   <div class="flex flex-col gap-6 mb-8">
-    <p class="rv rv-text animate-rise text-sm sm:text-[15px] font-normal sm:leading-[160%] text-gray-600" style={`--i: 1; ${at(0.05)}`} data-reveal>
+    <p class="rv rv-text animate-rise text-sm sm:text-[15px] font-normal sm:leading-[160%] text-gray-600" style={`--i: 1; ${at(0)}`} data-reveal>
       <span class="inline-block"><HoverLinkPreview href="https://www.linkedin.com/in/francogalfre/" previewImage={Me.src} imageAlt="Francogalfre avatar" previewWidth={160} previewHeight={128} className="relative inline-block text-gray-900" client:visible>I'm Franco!</HoverLinkPreview></span> I'm <span id="age-counter" class="text-primary" style="font-variant-numeric: tabular-nums;">{years}</span> years old and a passionate Software Engineer & AI Engineer who loves computing, coding, and coffee. I approach every challenge by constantly learning new <a href="/stack" class="accent-link text-primary">technologies</a>.
 
       <br /><br />
@@ -55,36 +58,39 @@ const at = (extra: number) => `--t: ${(SIG + extra).toFixed(2)}s`;
     </p>
   </div>
 
-  <div class="rv animate-rise" style={`--i: 2; ${at(0.4)}`}>
+  <div class="rv animate-rise" style={`--i: 2; ${at(0.75)}`}>
     <Spotify />
   </div>
 </section>
+
+<style is:global define:vars={{ chromeT: `${(END + 0.4).toFixed(2)}s` }}>
+  /* Page chrome (theme toggle, blog link) fades in once the intro is done */
+  html.intro #theme-toggle,
+  html.intro .blog-link { animation-delay: var(--chromeT); }
+</style>
 
 <style is:global>
   /* ── Veil ── */
   .intro-veil { display: none; }
 
   html.intro .intro-veil {
-    --veil-tint: rgb(255 255 255 / 0.2);
+    --veil-tint: rgb(255 255 255 / 0.55);
     display: block;
     position: fixed;
     inset: 0;
     z-index: 100;
     /* Blocks hover/clicks on everything below until it has fully faded (then visibility:hidden) */
     pointer-events: auto;
-    -webkit-backdrop-filter: blur(14px);
-    backdrop-filter: blur(14px);
     background-color: var(--veil-tint);
-    animation: veil-out 1100ms cubic-bezier(0.16, 1, 0.3, 1) calc(var(--sig) * 1s) forwards;
+    will-change: opacity;
+    animation: veil-out 1300ms cubic-bezier(0.33, 1, 0.68, 1) calc(var(--sig) * 1s - 0.15s) forwards;
   }
 
-  html[data-theme="dark"].intro .intro-veil { --veil-tint: rgb(15 15 15 / 0.25); }
+  html[data-theme="dark"].intro .intro-veil { --veil-tint: rgb(15 15 15 / 0.55); }
 
   @keyframes veil-out {
     to {
-      -webkit-backdrop-filter: blur(0px);
-      backdrop-filter: blur(0px);
-      background-color: transparent;
+      opacity: 0;
       visibility: hidden;
     }
   }
@@ -93,45 +99,62 @@ const at = (extra: number) => `--t: ${(SIG + extra).toFixed(2)}s`;
      so overlays like the hover preview can cover it */
   html.intro .sig-lift {
     z-index: 110;
-    animation: sig-drop 1ms calc(var(--sig) * 1s + 1.2s) forwards;
+    will-change: transform;
+    animation: sig-drop 1ms calc(var(--sig) * 1s + 1.3s) forwards;
   }
 
   @keyframes sig-drop { to { z-index: auto; } }
 
   /* ── Intro reveal (after the signature): blocks rise, characters sharpen one by one ── */
-  html.intro .rv { animation: rv-in 640ms cubic-bezier(0.16, 1, 0.3, 1) var(--t, 0s) both; }
+  html.intro [data-reveal]:not([data-split]) { visibility: hidden; }
+
+  html.intro .rv { animation: rv-in 900ms cubic-bezier(0.22, 1, 0.36, 1) var(--t, 0s) both; }
   html.intro .rv-text { animation: none; }
+
+  /* Hamster: first thing on screen; `backwards` so hover transforms still work afterwards */
+  html.intro .rv-ham {
+    animation:
+      ham-in 800ms cubic-bezier(0.22, 1.2, 0.36, 1) 0.1s backwards,
+      sig-drop 1ms calc(var(--sig) * 1s + 1.3s) forwards;
+  }
+
+  @keyframes ham-in {
+    from { opacity: 0; transform: translateY(10px) scale(0.8) rotate(-6deg); }
+    to { opacity: 1; transform: none; }
+  }
 
   html.intro .rv-c {
     display: inline-block;
-    opacity: 0.3;
-    filter: blur(6px);
-    animation: rv-char 380ms cubic-bezier(0.16, 1, 0.3, 1) calc(var(--t, 0s) + var(--d, 0ms)) both;
+    opacity: 0;
+    will-change: opacity, transform;
+    animation: rv-char 560ms cubic-bezier(0.22, 1, 0.36, 1) calc(var(--t, 0s) + var(--d, 0ms)) both;
   }
 
   html.intro [data-pop] {
-    animation: rv-pop 480ms cubic-bezier(0.34, 1.56, 0.64, 1) calc(var(--t, 0s) + var(--d, 0ms)) both;
+    animation: rv-pop 650ms cubic-bezier(0.22, 1.2, 0.36, 1) calc(var(--t, 0s) + var(--d, 0ms)) both;
   }
 
   .rv-w { white-space: nowrap; }
+  #age-counter { display: inline-block; }
 
   @keyframes rv-in {
-    from { opacity: 0.3; filter: blur(8px); transform: translateY(4px); }
-    to { opacity: 1; filter: none; transform: none; }
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: none; }
   }
 
   @keyframes rv-char {
-    from { opacity: 0.3; transform: translateY(2px); filter: blur(6px); }
-    to { opacity: 1; transform: none; filter: none; }
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: none; }
   }
 
   @keyframes rv-pop {
-    from { opacity: 0.3; filter: blur(6px); transform: scale(0.9); }
-    to { opacity: 1; filter: none; transform: none; }
+    from { opacity: 0; transform: translateY(6px) scale(0.94); }
+    to { opacity: 1; transform: none; }
   }
 
   @media (prefers-reduced-motion: reduce) {
     html.intro .intro-veil { display: none; }
+    html.intro .rv-ham,
     html.intro .rv,
     html.intro .rv-c,
     html.intro [data-pop] { animation: none; opacity: 1; filter: none; }
@@ -141,8 +164,9 @@ const at = (extra: number) => `--t: ${(SIG + extra).toFixed(2)}s`;
 <script>
   import { getAgeData } from "../../utils/age-calculation";
 
-  const MAX_STAGGER = 28; // ms per character
-  const BUDGET = 1100; // max ms to reveal a whole block, so long text doesn't drag
+  const SIG_MS = 2700;
+  const MAX_STAGGER = 22; // ms per character (words wait for their first character)
+  const BUDGET = 900; // max ms to reveal a whole block, so long text doesn't drag
 
   // Split text nodes into per-character spans. Links with text only are walked; any other
   // inline element (badges, the age number, the hover-preview wrapper) pops in as a unit.
@@ -184,15 +208,10 @@ const at = (extra: number) => `--t: ${(SIG + extra).toFixed(2)}s`;
             continue;
           }
           const word = document.createElement("span");
-          word.className = "rv-w";
-          for (const ch of part) {
-            const c = document.createElement("span");
-            c.className = "rv-c";
-            c.textContent = ch;
-            c.style.setProperty("--d", delay());
-            word.append(c);
-            n++;
-          }
+          word.className = "rv-w rv-c";
+          word.textContent = part;
+          word.style.setProperty("--d", delay());
+          n += part.length;
           visual.append(word);
         }
 
@@ -208,6 +227,7 @@ const at = (extra: number) => `--t: ${(SIG + extra).toFixed(2)}s`;
 
   document.addEventListener("astro:page-load", () => {
     clearInterval(timer);
+    clearTimeout(timer);
 
     if (document.documentElement.classList.contains("intro")) {
       for (const block of document.querySelectorAll<HTMLElement>("[data-reveal]:not([data-split])")) {
@@ -223,12 +243,21 @@ const at = (extra: number) => `--t: ${(SIG + extra).toFixed(2)}s`;
       const { years, days, hours, minutes, seconds } = getAgeData();
       const totalSeconds = days * 86400 + hours * 3600 + minutes * 60 + seconds;
       const decimal = totalSeconds / (365.25 * 86400);
-      el.textContent = (years + decimal).toFixed(7);
+      const text = (years + decimal).toFixed(7);
+      const node = el.firstChild;
+      if (node && node.nodeType === Node.TEXT_NODE) node.data = text;
+      else el.textContent = text;
     };
 
     render();
-    timer = window.setInterval(render, 50);
+    const start = document.documentElement.classList.contains("intro") ? (SIG_MS + 1500) : 0;
+    timer = window.setTimeout(() => {
+      timer = window.setInterval(render, 50);
+    }, start);
   });
 
-  document.addEventListener("astro:before-swap", () => clearInterval(timer));
+  document.addEventListener("astro:before-swap", () => {
+    clearInterval(timer);
+    clearTimeout(timer);
+  });
 </script>

@@ -7,7 +7,7 @@ import {
 	Share08Icon,
 } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, LazyMotion, m } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 
 const socials = [
@@ -32,6 +32,8 @@ const socials = [
 		icon: Mail01Icon,
 	},
 ];
+
+const loadMotion = () => import("@/utils/motion-features").then((mod) => mod.default);
 
 export function SocialsMenu() {
 	const [open, setOpen] = useState(false);
@@ -60,10 +62,11 @@ export function SocialsMenu() {
 	}, [open]);
 
 	return (
+		<LazyMotion features={loadMotion} strict>
 		<div ref={ref} className="relative">
 			<AnimatePresence>
 				{open && (
-					<motion.div
+					<m.div
 						initial={{ opacity: 0, y: 8, scale: 0.96 }}
 						animate={{ opacity: 1, y: 0, scale: 1 }}
 						exit={{ opacity: 0, y: 8, scale: 0.96 }}
@@ -71,7 +74,7 @@ export function SocialsMenu() {
 						className="absolute right-0 bottom-full mb-2.5 flex flex-col items-center gap-2"
 					>
 						{socials.map((social, index) => (
-							<motion.a
+							<m.a
 								key={social.name}
 								href={social.href}
 								target="_blank"
@@ -80,12 +83,12 @@ export function SocialsMenu() {
 								initial={{ opacity: 0, y: 6 }}
 								animate={{ opacity: 1, y: 0 }}
 								transition={{ delay: index * 0.03 }}
-								className="flex size-[42px] sm:size-[54px] items-center justify-center rounded-full bg-white ring-1 ring-black/[0.07] shadow-[0_2px_10px_rgba(0,0,0,0.06)] text-gray-600 transition-all duration-300 hover:scale-105 hover:text-primary active:scale-95"
+								className="flex size-[42px] sm:size-[54px] items-center justify-center rounded-full bg-white ring-1 ring-black/[0.16] text-gray-600 transition-all duration-300 hover:scale-105 hover:text-primary active:scale-95"
 							>
 								<HugeiconsIcon icon={social.icon} size={18} className="sm:size-[22px]" />
-							</motion.a>
+							</m.a>
 						))}
-					</motion.div>
+					</m.div>
 				)}
 			</AnimatePresence>
 
@@ -94,10 +97,10 @@ export function SocialsMenu() {
 				onClick={() => setOpen((value) => !value)}
 				aria-label={open ? "Close social links" : "Open social links"}
 				aria-expanded={open}
-				className="flex items-center justify-center rounded-full bg-white ring-1 ring-black/[0.07] shadow-[0_2px_10px_rgba(0,0,0,0.06)] p-3 sm:p-4 text-gray-600 transition-all duration-300 hover:scale-105 hover:text-primary active:scale-95"
+				className="flex items-center justify-center rounded-full bg-white ring-1 ring-black/[0.16] p-3 sm:p-4 text-gray-600 transition-all duration-300 hover:scale-105 hover:text-primary active:scale-95"
 			>
 				<AnimatePresence mode="wait" initial={false}>
-					<motion.span
+					<m.span
 						key={open ? "close" : "open"}
 						initial={{ opacity: 0, rotate: -45, scale: 0.6 }}
 						animate={{ opacity: 1, rotate: 0, scale: 1 }}
@@ -106,9 +109,10 @@ export function SocialsMenu() {
 						className="flex items-center justify-center"
 					>
 						<HugeiconsIcon icon={open ? Cancel01Icon : Share08Icon} size={18} className="sm:size-[22px]" />
-					</motion.span>
+					</m.span>
 				</AnimatePresence>
 			</button>
 		</div>
+		</LazyMotion>
 	);
 }

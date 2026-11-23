@@ -1,7 +1,10 @@
-import { AnimatePresence } from "framer-motion";
-import { useState } from "react";
+import { AnimatePresence, LazyMotion } from "framer-motion";
+
+const loadMotion = () => import("@/utils/motion-features").then((mod) => mod.default);
+
+import { lazy, Suspense, useState } from "react";
 import { ChatLauncher } from "./chat-launcher";
-import { ChatPanel } from "./chat-panel";
+const ChatPanel = lazy(() => import("./chat-panel").then((m) => ({ default: m.ChatPanel })));
 import { useChat } from "./use-chat";
 
 type ChatWidgetProps = {
@@ -21,19 +24,23 @@ export function ChatWidget({ enabled = true }: ChatWidgetProps) {
 
     return (
         <div className="relative">
+            <LazyMotion features={loadMotion} strict>
             <AnimatePresence>
                 {isOpen && (
-                    <ChatPanel
-                        messages={messages}
-                        error={error}
-                        isOnline={enabled}
-                        isInputDisabled={isInputDisabled}
-                        inputPlaceholder={inputPlaceholder}
-                        isThinking={isSending}
-                        onSend={sendMessage}
-                    />
+                    <Suspense fallback={null}>
+                        <ChatPanel
+                            messages={messages}
+                            error={error}
+                            isOnline={enabled}
+                            isInputDisabled={isInputDisabled}
+                            inputPlaceholder={inputPlaceholder}
+                            isThinking={isSending}
+                            onSend={sendMessage}
+                        />
+                    </Suspense>
                 )}
             </AnimatePresence>
+            </LazyMotion>
 
             <ChatLauncher isOpen={isOpen} onToggle={() => setIsOpen((open) => !open)} />
         </div>

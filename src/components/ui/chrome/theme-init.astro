@@ -9,7 +9,7 @@
     var theme = "light";
     try {
       var saved = localStorage.getItem("theme");
-      theme = saved === "dark" || saved === "light" ? saved : matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+      if (saved === "dark") theme = "dark";
     } catch (e) {}
     root.setAttribute("data-theme", theme);
 

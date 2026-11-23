@@ -25,22 +25,40 @@ let audio: HTMLAudioElement | undefined;
 async function load() {
     const container = document.getElementById("now-playing");
     if (!container) return;
-    const res = await fetch("/api/spotify");
-    const song = (await res.json()) as NowPlayingResponse;
+    let song: NowPlayingResponse;
+    try {
+        const res = await fetch("/api/spotify");
+        if (!res.ok) throw new Error(String(res.status));
+        song = (await res.json()) as NowPlayingResponse;
+    } catch {
+        container.innerHTML = `<span class="text-sm text-secondary">nothing recently played</span>`;
+        return;
+    }
 
     if (!song.title) {
         container.innerHTML = `<span class="text-sm text-secondary">nothing recently played</span>`;
         return;
     }
 
+    // During the intro, keep the skeleton until this block's reveal has started
+    const t = parseFloat(container.parentElement?.style.getPropertyValue("--t") ?? "");
+    if (document.documentElement.classList.contains("intro") && !Number.isNaN(t)) {
+        const wait = (t + 0.5) * 1000 - performance.now();
+        if (wait > 0) await new Promise((r) => setTimeout(r, wait));
+    }
+
     container.innerHTML = `
     <div class="flex items-center gap-3">
       <img
+        style="--k:0"
         src="${song.albumArt}"
-        alt="${song.title}"
-        class="size-8 rounded-xs shrink-0"
+        alt=""
+        width="32"
+        height="32"
+        decoding="async"
+        class="np-item size-8 rounded-xs shrink-0"
       />
-      <div class="flex flex-col gap-1.5 min-w-0 flex-1">
+      <div style="--k:1" class="np-item flex flex-col gap-1.5 min-w-0 flex-1">
         <a
           href="${song.songUrl}"
           target="_blank"
@@ -50,8 +68,8 @@ async function load() {
         <span class="text-xs text-secondary leading-none truncate">${song.artist}</span>
       </div>
       ${song.previewUrl
-            ? `<button id="play-btn" class="shrink-0 text-secondary hover:text-black transition-colors">${PLAY}</button>`
-            : `<a href="${song.songUrl}" target="_blank" rel="noopener noreferrer" aria-label="Open in Spotify" class="shrink-0 text-secondary hover:text-black transition-colors">${ARROW_UP_RIGHT}</a>`
+            ? `<button id="play-btn" style="--k:2" type="button" aria-label="Play preview" class="np-item shrink-0 text-secondary hover:text-black transition-colors">${PLAY}</button>`
+            : `<a href="${song.songUrl}" target="_blank" rel="noopener noreferrer" aria-label="Open in Spotify" style="--k:2" class="np-item shrink-0 text-secondary hover:text-black transition-colors">${ARROW_UP_RIGHT}</a>`
         }
     </div>
   `;

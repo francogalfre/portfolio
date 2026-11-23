@@ -1,8 +1,22 @@
-@import url('https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Space+Grotesk:wght@300..700&display=swap');
-
 @import "tailwindcss";
 @import "tw-animate-css";
 @plugin "@tailwindcss/typography";
+
+@font-face {
+    font-family: "Geist";
+    font-style: normal;
+    font-weight: 100 900;
+    font-display: swap;
+    src: url("/fonts/geist-latin.woff2") format("woff2");
+}
+
+@font-face {
+    font-family: "Space Grotesk";
+    font-style: normal;
+    font-weight: 300 700;
+    font-display: swap;
+    src: url("/fonts/space-grotesk-latin.woff2") format("woff2");
+}
 
 
 @theme {
@@ -43,13 +57,11 @@
 @keyframes rise {
     from {
         opacity: 0;
-        filter: blur(6px);
         transform: translateY(10px);
     }
 
     to {
         opacity: 1;
-        filter: none;
         transform: none;
     }
 }
@@ -85,13 +97,11 @@
 @keyframes word-in {
     from {
         opacity: 0;
-        filter: blur(4px);
         transform: translateY(2px);
     }
 
     to {
         opacity: 1;
-        filter: blur(0);
         transform: translateY(0);
     }
 }
@@ -232,7 +242,10 @@
         border-radius: 50%;
         pointer-events: none;
         z-index: 9999;
-        transform: translate(-50%, -50%);
+        top: 0;
+        left: 0;
+        will-change: transform;
+        transform: translate3d(var(--x, -100px), var(--y, -100px), 0) translate(-50%, -50%);
         transition: width 300ms cubic-bezier(0.34, 1.56, 0.64, 1),
             height 300ms cubic-bezier(0.34, 1.56, 0.64, 1),
             background 200ms ease,
@@ -340,6 +353,10 @@ html[data-theme="dark"] [class*="bg-white/"] {
 
 html[data-theme="dark"] [class*="ring-black/"] {
     --tw-ring-color: rgb(255 255 255 / 0.08);
+}
+
+html[data-theme="dark"] [class*="ring-black/[0.16]"] {
+    --tw-ring-color: rgb(255 255 255 / 0.18);
 }
 
 html[data-theme="dark"] #cursor {

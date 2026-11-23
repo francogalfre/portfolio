@@ -4,11 +4,19 @@
   const cursor = document.getElementById("cursor");
   const interactive = "a, button, [role='button'], input, textarea, select, label";
 
+  let raf = 0;
+  let mx = 0;
+  let my = 0;
   document.addEventListener("mousemove", (e) => {
-    if (!cursor) return;
-    cursor.style.left = e.clientX + "px";
-    cursor.style.top = e.clientY + "px";
-  });
+    mx = e.clientX;
+    my = e.clientY;
+    if (raf || !cursor) return;
+    raf = requestAnimationFrame(() => {
+      raf = 0;
+      cursor.style.setProperty("--x", mx + "px");
+      cursor.style.setProperty("--y", my + "px");
+    });
+  }, { passive: true });
 
   document.addEventListener("mouseover", (e) => {
     if (!cursor) return;

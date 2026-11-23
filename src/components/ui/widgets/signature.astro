@@ -2,10 +2,11 @@
 interface Props {
 	width?: number;
 	total?: number;
+	start?: number; // seconds before the first stroke
 	class?: string;
 }
 
-const { width = 230, total = 2.7, class: className = "" } = Astro.props;
+const { width = 230, total = 2.7, start = 0, class: className = "" } = Astro.props;
 
 const strokes0: [string, string][] = [
 	[
@@ -81,7 +82,7 @@ const sum = lens.reduce((a, b) => a + b, 0);
 const gap = 0.03; // pen-lift pause between strokes
 const speed = (total - gap * strokes0.length) / sum;
 
-let t = 0;
+let t = start;
 const strokes = strokes0.map(([tr, d], i) => {
 	const dur = lens[i] * speed;
 	const s = { d, tr, delay: t, dur };

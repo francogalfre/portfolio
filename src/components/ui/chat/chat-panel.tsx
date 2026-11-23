@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { useState } from "react";
 import type { ChatMessage } from "@/types/chat";
 import { ChatHeader } from "./chat-header";
@@ -29,7 +29,7 @@ export function ChatPanel({
   const avatarState = isThinking ? "thinking" : isTyping ? "typing" : "idle";
 
   return (
-    <motion.div
+    <m.div
       initial={{ opacity: 0, y: 12, scale: 0.97 }}
       animate={{ opacity: 1, y: 0, scale: 1 }}
       exit={{ opacity: 0, y: 12, scale: 0.97 }}
@@ -54,6 +54,6 @@ export function ChatPanel({
         disabled={isInputDisabled}
         placeholder={inputPlaceholder}
       />
-    </motion.div>
+    </m.div>
   );
 }

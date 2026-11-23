@@ -11,6 +11,6 @@ const { name, logo, href = "/experience" } = Astro.props;
 ---
 
 <a href={href} class="inline-flex items-center text-gray-900 gap-1 bg-gray-200/60 my-0.5 sm:my-0 px-2 py-0.5 border border-transparent rounded-full select-none align-middle ml-0.5 hover:border hover:border-gray-300 transition-all duration-300" >
-    <img src={logo.src} alt={`${name} Logo`} class="w-4">
+    <img src={logo.src} alt={`${name} Logo`} width="16" height={Math.round((16 * logo.height) / logo.width)} decoding="async" class="w-4 h-auto">
     {name}
 </a>

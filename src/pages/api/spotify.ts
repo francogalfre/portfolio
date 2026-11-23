@@ -70,7 +70,7 @@ export const GET: APIRoute = async () => {
 		const response: NowPlayingResponse = {
 			title: track.name,
 			artist: track.artists.map((a: Artist) => a.name).join(", "),
-			albumArt: track.album.images[0]?.url ?? null,
+			albumArt: (track.album.images[2] ?? track.album.images[1] ?? track.album.images[0])?.url ?? null,
 			songUrl: track.external_urls.spotify,
 			trackId: track.id,
 			previewUrl: previewUrl,
